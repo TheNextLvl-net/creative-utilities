@@ -49,6 +49,7 @@ paper {
     apiVersion = "1.21"
     website = "https://thenextlvl.net"
     authors = listOf("Ktar5", "Arcaniax", "NonSwag")
+    foliaSupported = true
     permissions {
         register("builders.util.trapdoor") {
             default = BukkitPluginDescription.Permission.Default.TRUE
