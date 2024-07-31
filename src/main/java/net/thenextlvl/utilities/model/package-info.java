@@ -2,7 +2,7 @@
 @FieldsAreNotNullByDefault
 @MethodsReturnNotNullByDefault
 @ParametersAreNotNullByDefault
-package net.thenextlvl.utilities.api.controller;
+package net.thenextlvl.utilities.model;
 
 import core.annotation.FieldsAreNotNullByDefault;
 import core.annotation.MethodsReturnNotNullByDefault;

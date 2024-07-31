@@ -18,33 +18,15 @@
  */
 package net.thenextlvl.utilities.listener;
 
-import net.thenextlvl.utilities.Settings;
-import net.thenextlvl.utilities.util.LogManagerCompat;
-import org.apache.logging.log4j.Logger;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class TeleportListener implements Listener {
-
-    private static final Logger logger = LogManagerCompat.getLogger();
-
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onTeleport(PlayerTeleportEvent event) {
-        if (event.isCancelled()) {
-            return;
-        }
-        if (event.getCause().equals(PlayerTeleportEvent.TeleportCause.SPECTATE)) {
-            if (!event.getPlayer().hasPermission("builders.util.tpgm3")) {
-                event.setCancelled(true);
-                if (Settings.sendDebugMessages) {
-                    logger.info(
-                            "Spectate teleport was cancelled because {} lacks the permission builders.util.tpgm3",
-                            event.getPlayer()
-                    );
-                }
-            }
-        }
+        if (!event.getCause().equals(PlayerTeleportEvent.TeleportCause.SPECTATE)) return;
+        event.setCancelled(!event.getPlayer().hasPermission("builders.util.tpgm3"));
     }
-
 }
