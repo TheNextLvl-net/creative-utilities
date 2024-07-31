@@ -74,7 +74,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
 
     private final @Getter PluginConfig config = new GsonFile<>(
             IO.of(getDataFolder(), "config.json"),
-            new PluginConfig(true, false, true, true, true, true, true, true, false, true)
+            new PluginConfig(true, true, false, true, true, true, true, true, true, false, true)
     ).validate().save().getRoot();
 
     private final PluginVersionChecker versionChecker = new PluginVersionChecker(this);

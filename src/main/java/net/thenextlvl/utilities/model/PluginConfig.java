@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public record PluginConfig(
         @SerializedName("disable-explosions") boolean disableExplosions,
+        @SerializedName("disable-fading") boolean disableFading,
         @SerializedName("disable-gravity") boolean disableGravity,
         @SerializedName("disable-leaves-decay") boolean disableLeavesDecay,
         @SerializedName("disable-physics") boolean disablePhysics,
