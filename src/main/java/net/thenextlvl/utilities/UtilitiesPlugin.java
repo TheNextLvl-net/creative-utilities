@@ -28,6 +28,7 @@ import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.thenextlvl.utilities.command.*;
 import net.thenextlvl.utilities.command.UtilsCommand;
+import net.thenextlvl.utilities.command.aliases.ConvexSelectionAliasCommand;
 import net.thenextlvl.utilities.controller.SettingsController;
 import net.thenextlvl.utilities.gui.ColorMenuProvider;
 import net.thenextlvl.utilities.gui.UtilitiesMenuProvider;
@@ -127,6 +128,10 @@ public final class UtilitiesPlugin extends JavaPlugin {
         new NightVisionCommand(this).register();
         new NoClipCommand(this).register();
         new UtilsCommand(this).register();
+
+        if (!Bukkit.getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) return;
+
+        new ConvexSelectionAliasCommand(this).register();
     }
 
     @Deprecated(forRemoval = true)
