@@ -6,6 +6,9 @@ plugins {
     id("net.minecrell.plugin-yml.paper") version "0.6.0"
 }
 
+group = "net.thenextlvl.utilities"
+version = "1.0.0"
+
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 }
