@@ -18,24 +18,29 @@
  */
 package net.thenextlvl.utilities.command.aliases;
 
+import com.mojang.brigadier.Command;
+import io.papermc.paper.command.brigadier.Commands;
+import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
+import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import net.thenextlvl.utilities.Settings;
-import net.thenextlvl.utilities.command.system.ICommand;
-import org.bukkit.entity.Player;
+import org.bukkit.Bukkit;
 
-public class ConvexSelectionAliasCommand implements ICommand {
+import java.util.List;
 
-    @Override
-    public void execute(Player player, String[] args) {
-        if (!player.hasPermission("builders.util.aliases")) {
-            if (Settings.sendErrorMessages) {
-                player.sendMessage(UtilitiesPlugin.MSG_NO_PERMISSION + "builders.util.aliases");
-            }
-            return;
-        }
+@RequiredArgsConstructor
+@SuppressWarnings("UnstableApiUsage")
+public class ConvexSelectionAliasCommand {
+    private final UtilitiesPlugin plugin;
 
-        UtilitiesPlugin.getInstance().getServer().dispatchCommand(player, "/sel convex");
-
+    public void register() {
+        var command = Commands.literal("/convex")
+                .requires(source -> source.getSender().hasPermission("worldedit.analysis.sel"))
+                .executes(context -> {
+                    Bukkit.dispatchCommand(context.getSource().getSender(), "/sel convex");
+                    return Command.SINGLE_SUCCESS;
+                })
+                .build();
+        plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event ->
+                event.registrar().register(command, List.of("/con"))));
     }
-
 }
