@@ -1,4 +1,5 @@
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
+import net.minecrell.pluginyml.paper.PaperPluginDescription
 
 plugins {
     id("java")
@@ -52,6 +53,12 @@ paper {
     website = "https://thenextlvl.net"
     authors = listOf("Ktar5", "Arcaniax", "NonSwag")
     foliaSupported = true
+    serverDependencies {
+        register("FastAsyncWorldEdit") {
+            required = false
+            load = PaperPluginDescription.RelativeLoadOrder.BEFORE
+        }
+    }
     permissions {
         register("builders.util.trapdoor") {
             default = BukkitPluginDescription.Permission.Default.TRUE
