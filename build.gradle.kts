@@ -39,6 +39,7 @@ dependencies {
 }
 
 tasks.shadowJar {
+    relocate("org.bstats", "${rootProject.group}.metrics")
     archiveBaseName.set("creative-utilities")
     minimize()
 }
