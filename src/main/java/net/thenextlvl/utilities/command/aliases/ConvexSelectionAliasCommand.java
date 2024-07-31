@@ -16,14 +16,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package net.thenextlvl.utilities.command.aliase;
+package net.thenextlvl.utilities.command.aliases;
 
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.Settings;
 import net.thenextlvl.utilities.command.system.ICommand;
 import org.bukkit.entity.Player;
 
-public class CopyAliasCommand implements ICommand {
+public class ConvexSelectionAliasCommand implements ICommand {
 
     @Override
     public void execute(Player player, String[] args) {
@@ -34,14 +34,8 @@ public class CopyAliasCommand implements ICommand {
             return;
         }
 
-        StringBuilder builder = new StringBuilder();
-        if (args.length != 0) {
-            for (String arg : args) {
-                builder.append(arg).append(" ");
-            }
-        }
+        UtilitiesPlugin.getInstance().getServer().dispatchCommand(player, "/sel convex");
 
-        UtilitiesPlugin.getInstance().getServer().dispatchCommand(player, "/copy " + builder);
     }
 
 }

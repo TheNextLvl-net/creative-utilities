@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package net.thenextlvl.utilities.command.aliase;
+package net.thenextlvl.utilities.command.aliases;
 
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.Settings;
@@ -24,7 +24,7 @@ import net.thenextlvl.utilities.command.system.ICommand;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class TwistAliasCommand implements ICommand {
+public class DeformRotateAliasCommand implements ICommand {
 
     @Override
     public void execute(Player player, String[] args) {
@@ -36,7 +36,7 @@ public class TwistAliasCommand implements ICommand {
         }
 
         if (args.length != 2) {
-            player.sendMessage(UtilitiesPlugin.MSG_PREFIX + ChatColor.RED + "//twist [axis] [degrees]");
+            player.sendMessage(UtilitiesPlugin.MSG_PREFIX + ChatColor.RED + "//derot [axis] [degrees]");
             return;
         }
 
@@ -44,21 +44,24 @@ public class TwistAliasCommand implements ICommand {
         try {
             degrees = Integer.parseInt(args[1]);
         } catch (Exception e) {
-            player.sendMessage(UtilitiesPlugin.MSG_PREFIX + ChatColor.RED + "//twist [axis] [degrees]");
+            player.sendMessage(UtilitiesPlugin.MSG_PREFIX + ChatColor.RED + "//derot [axis] [degrees]");
             return;
         }
+//            Old:
+//            float radian = (float) (((float) degrees / (float) 360) * 2 * Math.PI);
 
+        //Use the degree to radian conversion number: "0.0174533" radians per degree
         float radiansPerDegree = 0.0174533f;
         float radian = degrees * radiansPerDegree;
 
         if (args[0].equalsIgnoreCase("x")) {
-            UtilitiesPlugin.getInstance().getServer().dispatchCommand(player, "/deform rotate(y,z," + radian / 2 + "*(x+1))");
+            UtilitiesPlugin.getInstance().getServer().dispatchCommand(player, "/deform rotate(y,z," + radian + ")");
         } else if (args[0].equalsIgnoreCase("y")) {
-            UtilitiesPlugin.getInstance().getServer().dispatchCommand(player, "/deform rotate(x,z," + radian / 2 + "*(y+1))");
+            UtilitiesPlugin.getInstance().getServer().dispatchCommand(player, "/deform rotate(x,z," + radian + ")");
         } else if (args[0].equalsIgnoreCase("z")) {
-            UtilitiesPlugin.getInstance().getServer().dispatchCommand(player, "/deform rotate(x,y," + radian / 2 + "*(z+1))");
+            UtilitiesPlugin.getInstance().getServer().dispatchCommand(player, "/deform rotate(x,y," + radian + ")");
         } else {
-            player.sendMessage(UtilitiesPlugin.MSG_PREFIX + ChatColor.RED + "//twist [axis] [degrees]");
+            player.sendMessage(UtilitiesPlugin.MSG_PREFIX + ChatColor.RED + "//derot [axis] [degrees]");
         }
     }
 

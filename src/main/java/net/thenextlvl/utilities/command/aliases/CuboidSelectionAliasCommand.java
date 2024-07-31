@@ -16,15 +16,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package net.thenextlvl.utilities.command.aliase;
+package net.thenextlvl.utilities.command.aliases;
 
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.Settings;
 import net.thenextlvl.utilities.command.system.ICommand;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class ScaleAliasCommand implements ICommand {
+public class CuboidSelectionAliasCommand implements ICommand {
 
     @Override
     public void execute(Player player, String[] args) {
@@ -35,20 +34,8 @@ public class ScaleAliasCommand implements ICommand {
             return;
         }
 
-        if (args.length != 1) {
-            player.sendMessage(UtilitiesPlugin.MSG_PREFIX + ChatColor.RED + "//scale [size]");
-            return;
-        }
+        UtilitiesPlugin.getInstance().getServer().dispatchCommand(player, "/sel cuboid");
 
-        double size;
-        try {
-            size = Double.parseDouble(args[0]);
-        } catch (Exception e) {
-            player.sendMessage(UtilitiesPlugin.MSG_PREFIX + ChatColor.RED + "//scale [size]");
-            return;
-        }
-
-        UtilitiesPlugin.getInstance().getServer().dispatchCommand(player, "/deform x/=" + size + ";y/=" + size + ";z/=" + size);
     }
 
 }
