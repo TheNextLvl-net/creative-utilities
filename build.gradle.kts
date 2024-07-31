@@ -71,5 +71,8 @@ paper {
         register("builders.util.advancedfly") {
             default = BukkitPluginDescription.Permission.Default.OP
         }
+        register("builders.util.tpgm3") {
+            default = BukkitPluginDescription.Permission.Default.OP
+        }
     }
 }
