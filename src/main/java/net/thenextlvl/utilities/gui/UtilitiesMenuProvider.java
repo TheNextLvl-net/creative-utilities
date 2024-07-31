@@ -18,11 +18,8 @@
  */
 package net.thenextlvl.utilities.gui;
 
-import net.thenextlvl.utilities.NoClipManager;
-import net.thenextlvl.utilities.listener.BlockBreakListener;
-import net.thenextlvl.utilities.listener.IronTrapdoorListener;
-import net.thenextlvl.utilities.listener.PlayerMoveListener;
-import net.thenextlvl.utilities.listener.TerracottaInteractListener;
+import lombok.RequiredArgsConstructor;
+import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.gui.inventory.ClickableItem;
 import net.thenextlvl.utilities.gui.inventory.content.InventoryContents;
 import net.thenextlvl.utilities.gui.inventory.content.InventoryProvider;
@@ -34,7 +31,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+@RequiredArgsConstructor
 public class UtilitiesMenuProvider implements InventoryProvider {
+    private final UtilitiesPlugin plugin;
 
     private static final ItemStack ENABLED = Items.create(Material.GREEN_STAINED_GLASS_PANE, "&c", "");
     private static final ItemStack DISABLED = Items.create(Material.RED_STAINED_GLASS_PANE, "&c", "");
@@ -45,7 +44,7 @@ public class UtilitiesMenuProvider implements InventoryProvider {
 
     private static final String IRON_TRAPDOOR_LORE = "__&c__&8&oActs like wooden trapdoors";
     private static final String SLAB_BREAKING_LORE = "__&c__&8&oHold any slab to break double slab blocks";
-    private static final String GLAZED_ROTATING_LORE = "__&c__&8&oShift right click with empty hand";
+    private static final String AIR_PLACING_LORE = "__&c__&8&oPlace blocks inside the air";
 
     private static final String NIGHT_VISION_LORE = "__&c__&8&oSee in the dark";
     private static final String NO_CLIP_LORE = "__&c__&8&oFly through blocks with ease";
@@ -55,7 +54,7 @@ public class UtilitiesMenuProvider implements InventoryProvider {
     public void init(Player player, InventoryContents contents) {
         setIronTrapdoorItem(player, contents);
         setSlabItem(player, contents);
-        setTerracottaItem(player, contents);
+        setAirPlacingItem(player, contents);
         setNightVisionItem(player, contents);
         setNoClipItem(player, contents);
         setFlyItem(player, contents);
@@ -69,14 +68,14 @@ public class UtilitiesMenuProvider implements InventoryProvider {
             return;
         }
 
-        if (!IronTrapdoorListener.ironTrapdoorIds.contains(player.getUniqueId())) {
+        if (plugin.settingsController().isHandOpenable(player)) {
             setEnabledGlassPanes(1, true, contents);
             contents.set(1, 1, ClickableItem.of(
                     Items.create(Material.IRON_TRAPDOOR,
                             "&6Iron Trapdoor Interaction", ENABLED_LORE + IRON_TRAPDOOR_LORE
                     ),
                     inventoryClickEvent -> {
-                        IronTrapdoorListener.ironTrapdoorIds.add(player.getUniqueId());
+                        plugin.settingsController().setHandOpenable(player, false);
                         setIronTrapdoorItem(player, contents);
                     }
             ));
@@ -87,7 +86,7 @@ public class UtilitiesMenuProvider implements InventoryProvider {
                             "&6Iron Trapdoor Interaction", DISABLED_LORE + IRON_TRAPDOOR_LORE
                     ),
                     inventoryClickEvent -> {
-                        IronTrapdoorListener.ironTrapdoorIds.remove(player.getUniqueId());
+                        plugin.settingsController().setHandOpenable(player, true);
                         setIronTrapdoorItem(player, contents);
                     }
             ));
@@ -102,14 +101,14 @@ public class UtilitiesMenuProvider implements InventoryProvider {
             return;
         }
 
-        if (!BlockBreakListener.slabIds.contains(player.getUniqueId())) {
+        if (plugin.settingsController().isSlabPartBreaking(player)) {
             setEnabledGlassPanes(2, true, contents);
             contents.set(1, 2, ClickableItem.of(
                     Items.create(Material.STONE_SLAB,
                             "&6Custom Slab Breaking", ENABLED_LORE + SLAB_BREAKING_LORE
                     ),
                     inventoryClickEvent -> {
-                        BlockBreakListener.slabIds.add(player.getUniqueId());
+                        plugin.settingsController().setSlabPartBreaking(player, false);
                         setSlabItem(player, contents);
                     }
             ));
@@ -120,41 +119,41 @@ public class UtilitiesMenuProvider implements InventoryProvider {
                             "&6Custom Slab Breaking", DISABLED_LORE + SLAB_BREAKING_LORE
                     ),
                     inventoryClickEvent -> {
-                        BlockBreakListener.slabIds.remove(player.getUniqueId());
+                        plugin.settingsController().setSlabPartBreaking(player, true);
                         setSlabItem(player, contents);
                     }
             ));
         }
     }
 
-    private void setTerracottaItem(Player player, InventoryContents contents) {
-        if (!player.hasPermission("builders.util.terracotta")) {
+    private void setAirPlacingItem(Player player, InventoryContents contents) {
+        if (!player.hasPermission("builders.util.air-placing")) {
             setNoPermission(3, contents);
             contents.set(1, 3, ClickableItem.empty(
-                    Items.create(Material.ORANGE_GLAZED_TERRACOTTA, "&6Glazed Terracotta Rotating", "&7&lNo Permission")));
+                    Items.create(Material.STRUCTURE_VOID, "&6Air Placing", "&7&lNo Permission")));
             return;
         }
 
-        if (!TerracottaInteractListener.terracottaIds.contains(player.getUniqueId())) {
+        if (plugin.settingsController().isAirPlacing(player)) {
             setEnabledGlassPanes(3, true, contents);
             contents.set(1, 3, ClickableItem.of(
-                    Items.create(Material.ORANGE_GLAZED_TERRACOTTA,
-                            "&6Glazed Terracotta Rotating", ENABLED_LORE + GLAZED_ROTATING_LORE
+                    Items.create(Material.STRUCTURE_VOID,
+                            "&6Air Placing", ENABLED_LORE + AIR_PLACING_LORE
                     ),
                     inventoryClickEvent -> {
-                        TerracottaInteractListener.terracottaIds.add(player.getUniqueId());
-                        setTerracottaItem(player, contents);
+                        plugin.settingsController().setAirPlacing(player, false);
+                        setAirPlacingItem(player, contents);
                     }
             ));
         } else {
             setEnabledGlassPanes(3, false, contents);
             contents.set(1, 3, ClickableItem.of(
-                    Items.create(Material.ORANGE_GLAZED_TERRACOTTA,
-                            "&6Glazed Terracotta Rotating", DISABLED_LORE + GLAZED_ROTATING_LORE
+                    Items.create(Material.STRUCTURE_VOID,
+                            "&6Air Placing", DISABLED_LORE + AIR_PLACING_LORE
                     ),
                     inventoryClickEvent -> {
-                        TerracottaInteractListener.terracottaIds.remove(player.getUniqueId());
-                        setTerracottaItem(player, contents);
+                        plugin.settingsController().setAirPlacing(player, true);
+                        setAirPlacingItem(player, contents);
                     }
             ));
         }
@@ -208,14 +207,14 @@ public class UtilitiesMenuProvider implements InventoryProvider {
             return;
         }
 
-        if (NoClipManager.noClipPlayerIds.contains(player.getUniqueId())) {
+        if (plugin.settingsController().isNoClip(player)) {
             setEnabledGlassPanes(6, true, contents);
             contents.set(1, 6, ClickableItem.of(
                     Items.create(Material.COMPASS,
                             "&6No Clip", ENABLED_LORE + NO_CLIP_LORE
                     ),
                     inventoryClickEvent -> {
-                        NoClipManager.noClipPlayerIds.remove(player.getUniqueId());
+                        plugin.settingsController().setNoClip(player, false);
                         if (player.getGameMode().equals(GameMode.SPECTATOR)) {
                             player.setGameMode(GameMode.CREATIVE);
                         }
@@ -229,7 +228,7 @@ public class UtilitiesMenuProvider implements InventoryProvider {
                             "&6No Clip", DISABLED_LORE + NO_CLIP_LORE
                     ),
                     inventoryClickEvent -> {
-                        NoClipManager.noClipPlayerIds.add(player.getUniqueId());
+                        plugin.settingsController().setNoClip(player, true);
                         setNoClipItem(player, contents);
                     }
             ));
@@ -244,14 +243,14 @@ public class UtilitiesMenuProvider implements InventoryProvider {
             return;
         }
 
-        if (PlayerMoveListener.enabledPlayers.contains(player.getUniqueId())) {
+        if (plugin.settingsController().isAdvancedFly(player)) {
             setEnabledGlassPanes(7, true, contents);
             contents.set(1, 7, ClickableItem.of(
                     Items.create(Material.FEATHER,
                             "&6Advanced Fly", ENABLED_LORE + ADVANCED_FLY_LORE
                     ),
                     inventoryClickEvent -> {
-                        PlayerMoveListener.enabledPlayers.remove(player.getUniqueId());
+                        plugin.settingsController().setAdvancedFly(player, false);
                         setFlyItem(player, contents);
                     }
             ));
@@ -262,21 +261,13 @@ public class UtilitiesMenuProvider implements InventoryProvider {
                             "&6Advanced Fly", DISABLED_LORE + ADVANCED_FLY_LORE
                     ),
                     inventoryClickEvent -> {
-                        PlayerMoveListener.enabledPlayers.add(player.getUniqueId());
+                        plugin.settingsController().setAdvancedFly(player, true);
                         setFlyItem(player, contents);
                     }
             ));
         }
     }
 
-    /**
-     * Sets the glass panes above and below the center row to
-     * show if a feature is enabled or disabled.
-     * https://i.imgur.com/ETI22Py.png
-     *
-     * @param col     the column to set the glass panes in
-     * @param enabled true if green panes, false if red panes
-     */
     private void setEnabledGlassPanes(int col, boolean enabled, InventoryContents contents) {
         contents.set(0, col, ClickableItem.empty(enabled ? ENABLED : DISABLED));
         contents.set(2, col, ClickableItem.empty(enabled ? ENABLED : DISABLED));
