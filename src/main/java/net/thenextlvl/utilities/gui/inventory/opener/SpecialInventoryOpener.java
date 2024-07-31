@@ -18,7 +18,6 @@
  */
 package net.thenextlvl.utilities.gui.inventory.opener;
 
-import com.google.common.collect.ImmutableList;
 import net.thenextlvl.utilities.gui.inventory.InventoryManager;
 import net.thenextlvl.utilities.gui.inventory.SmartInventory;
 import org.bukkit.Bukkit;
@@ -30,7 +29,7 @@ import java.util.List;
 
 public class SpecialInventoryOpener implements InventoryOpener {
 
-    private static final List<InventoryType> SUPPORTED = ImmutableList.of(
+    private static final List<InventoryType> SUPPORTED = List.of(
             InventoryType.FURNACE,
             InventoryType.WORKBENCH,
             InventoryType.DISPENSER,
