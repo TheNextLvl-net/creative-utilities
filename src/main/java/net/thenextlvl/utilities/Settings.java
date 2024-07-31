@@ -18,7 +18,7 @@
  */
 package net.thenextlvl.utilities;
 
-import net.thenextlvl.utilities.utils.CustomConfig;
+import net.thenextlvl.utilities.util.CustomConfig;
 
 public class Settings {
 
