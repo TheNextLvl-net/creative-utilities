@@ -113,13 +113,11 @@ public final class UtilitiesPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BlockBreakListener(this), this);
         getServer().getPluginManager().registerEvents(new BlockPhysicsListener(this), this);
         getServer().getPluginManager().registerEvents(new ConnectionListener(this), this);
-        getServer().getPluginManager().registerEvents(new ExplosionListener(this), this);
         getServer().getPluginManager().registerEvents(new OpenableListener(this), this);
-        getServer().getPluginManager().registerEvents(new LeafDecayListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerInteractListener(this), this);
         getServer().getPluginManager().registerEvents(new SlimeListener(this), this);
         getServer().getPluginManager().registerEvents(new TeleportListener(), this);
-        getServer().getPluginManager().registerEvents(new WeatherChangeListener(this), this);
+        getServer().getPluginManager().registerEvents(new WorldListener(this), this);
     }
 
     private void registerCommands() {
