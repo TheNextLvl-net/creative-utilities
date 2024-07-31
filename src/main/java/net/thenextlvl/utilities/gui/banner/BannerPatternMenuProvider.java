@@ -18,7 +18,8 @@
  */
 package net.thenextlvl.utilities.gui.banner;
 
-import net.thenextlvl.utilities.gui.Menus;
+import lombok.RequiredArgsConstructor;
+import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.gui.inventory.ClickableItem;
 import net.thenextlvl.utilities.gui.inventory.content.InventoryContents;
 import net.thenextlvl.utilities.gui.inventory.content.InventoryProvider;
@@ -35,7 +36,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class BannerPatternMenuProvider implements InventoryProvider {
+    private final UtilitiesPlugin plugin;
 
     private static final ItemStack grayPane = Items
             .create(Material.GRAY_STAINED_GLASS_PANE, (short) 0, 1, "&7", "");
@@ -101,18 +104,7 @@ public class BannerPatternMenuProvider implements InventoryProvider {
     }
 
     private void selectRandomPattern(Player player) {
-        ItemStack banner = BannerUtil.currentBanner.get(player.getUniqueId());
-
-
-        PatternType pattern = BannerUtil.getRandomPattern();
-        BannerUtil.currentBanner.put(player.getUniqueId(), BannerUtil.addPattern(
-                banner, new Pattern(BannerUtil.selectedColor.get(player.getUniqueId()), pattern)));
-        if (BannerUtil.getPatterns(banner).size() == 15) {
-            getBanner(player);
-        } else {
-            Menus.BANNER_MENU_COLOR.open(player);
-        }
-
+        selectPattern(player, BannerUtil.getRandomPattern());
     }
 
     private void selectPattern(Player player, PatternType patternType) {
@@ -123,7 +115,7 @@ public class BannerPatternMenuProvider implements InventoryProvider {
         if (BannerUtil.getPatterns(banner).size() == 15) {
             getBanner(player);
         } else {
-            Menus.BANNER_MENU_COLOR.open(player);
+            plugin.bannerColorMenu.open(player);
         }
     }
 

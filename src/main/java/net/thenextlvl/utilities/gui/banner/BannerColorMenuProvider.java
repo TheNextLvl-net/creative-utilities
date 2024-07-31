@@ -18,7 +18,8 @@
  */
 package net.thenextlvl.utilities.gui.banner;
 
-import net.thenextlvl.utilities.gui.Menus;
+import lombok.RequiredArgsConstructor;
+import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.gui.inventory.ClickableItem;
 import net.thenextlvl.utilities.gui.inventory.content.InventoryContents;
 import net.thenextlvl.utilities.gui.inventory.content.InventoryProvider;
@@ -33,8 +34,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 
+@RequiredArgsConstructor
 public class BannerColorMenuProvider implements InventoryProvider {
-
+    private final UtilitiesPlugin plugin;
 
     private static final ItemStack grayPane = Items
             .create(Material.GRAY_STAINED_GLASS_PANE, (short) 0, 1, "&7", "");
@@ -96,14 +98,12 @@ public class BannerColorMenuProvider implements InventoryProvider {
     }
 
     private void selectRandomColor(Player player) {
-        DyeColor dyeColor = BannerUtil.getRandomDye();
-        BannerUtil.selectedColor.put(player.getUniqueId(), dyeColor);
-        Menus.BANNER_MENU_PATTERN.open(player);
+        selectColor(player, BannerUtil.getRandomDye());
     }
 
     private void selectColor(Player player, DyeColor dyeColor) {
         BannerUtil.selectedColor.put(player.getUniqueId(), dyeColor);
-        Menus.BANNER_MENU_PATTERN.open(player);
+        plugin.bannerPatternMenu.open(player);
     }
 
     private void getBanner(Player player) {
@@ -116,5 +116,4 @@ public class BannerColorMenuProvider implements InventoryProvider {
         player.closeInventory();
         BannerUtil.currentBanner.remove(player.getUniqueId());
     }
-
 }

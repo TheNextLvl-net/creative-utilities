@@ -18,7 +18,8 @@
  */
 package net.thenextlvl.utilities.gui.banner;
 
-import net.thenextlvl.utilities.gui.Menus;
+import lombok.RequiredArgsConstructor;
+import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.gui.inventory.ClickableItem;
 import net.thenextlvl.utilities.gui.inventory.content.InventoryContents;
 import net.thenextlvl.utilities.gui.inventory.content.InventoryProvider;
@@ -30,7 +31,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+@RequiredArgsConstructor
 public class BannerMenuProvider implements InventoryProvider {
+    private final UtilitiesPlugin plugin;
 
     private static final ItemStack grayPane = Items
             .create(Material.GRAY_STAINED_GLASS_PANE, (short) 0, 1, "&7", "");
@@ -88,12 +91,7 @@ public class BannerMenuProvider implements InventoryProvider {
     }
 
     private void selectRandomColor(Player player) {
-        DyeColor dyeColor = BannerUtil.getRandomDye();
-        BannerUtil.currentBanner.put(
-                player.getUniqueId(),
-                BannerUtil.createBanner("&6Banner", dyeColor, "&7__&7Click to get banner")
-        );
-        Menus.BANNER_MENU_COLOR.open(player);
+        selectColor(player, BannerUtil.getRandomDye());
     }
 
     private void selectColor(Player player, DyeColor dyeColor) {
@@ -101,7 +99,7 @@ public class BannerMenuProvider implements InventoryProvider {
                 player.getUniqueId(),
                 BannerUtil.createBanner("&6Banner", dyeColor, "&7__&7Click to get banner")
         );
-        Menus.BANNER_MENU_COLOR.open(player);
+        plugin.bannerColorMenu.open(player);
     }
 
 }
