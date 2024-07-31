@@ -18,10 +18,10 @@
  */
 package net.thenextlvl.utilities.listener;
 
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
+import lombok.RequiredArgsConstructor;
+import net.thenextlvl.utilities.UtilitiesPlugin;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.type.Slab;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,64 +29,29 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import static org.bukkit.block.data.type.Slab.Type.BOTTOM;
+import static org.bukkit.block.data.type.Slab.Type.TOP;
 
+@RequiredArgsConstructor
 public class BlockBreakListener implements Listener {
+    private final UtilitiesPlugin plugin;
 
-    public static Set<UUID> slabIds;
-
-    public BlockBreakListener() {
-        slabIds = new HashSet<>();
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onSlabBreak(BlockBreakEvent event) {
+        if (!plugin.settingsController().isSlabPartBreaking(event.getPlayer())) return;
+        if (!(event.getBlock().getBlockData() instanceof Slab slab)) return;
+        if (!slab.getType().equals(Slab.Type.DOUBLE)) return;
+        slab.setType(isTopHalf(event.getPlayer()) ? BOTTOM : TOP);
+        event.getBlock().setBlockData(slab, false);
+        event.setCancelled(true);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onBlockBreak(BlockBreakEvent e) {
-        if (e.isCancelled()) {
-            return;
-        }
-        if (slabIds.contains(e.getPlayer().getUniqueId())) {
-            return;
-        }
-        if (!e.getPlayer().getGameMode().equals(GameMode.CREATIVE)) {
-            return;
-        }
-        if (!e.getPlayer().hasPermission("builders.util.slabs")) {
-            return;
-        }
-        Material type = e.getPlayer().getInventory().getItemInMainHand().getType();
-        if (type.toString().toLowerCase().contains("slab")) {
-            if (e.isCancelled()) {
-                return;
-            }
-            if (e.getBlock().getType().toString().toLowerCase().contains("slab")) {
-                if (isTop(e.getPlayer(), e.getBlock())) {
-                    Slab blockdata = (Slab) e.getBlock().getBlockData();
-                    if (blockdata.getType().equals(Slab.Type.DOUBLE)) {
-                        blockdata.setType(Slab.Type.BOTTOM);
-                        e.getBlock().setBlockData(blockdata, true);
-                        e.setCancelled(true);
-                    }
-                } else {
-                    Slab blockdata = (Slab) e.getBlock().getBlockData();
-                    if (blockdata.getType().equals(Slab.Type.DOUBLE)) {
-                        blockdata.setType(Slab.Type.TOP);
-                        e.getBlock().setBlockData(blockdata, true);
-                        e.setCancelled(true);
-                    }
-                }
-            }
-        }
+    private boolean isTopHalf(Player player) {
+        var range = player.getAttribute(Attribute.PLAYER_BLOCK_INTERACTION_RANGE);
+        var result = player.rayTraceBlocks(range != null ? range.getValue() : 6);
+        if (result == null || result.getHitBlockFace() == null) return false;
+        if (result.getHitBlockFace().equals(BlockFace.DOWN)) return false;
+        if (result.getHitBlockFace().equals(BlockFace.UP)) return true;
+        return Math.round(result.getHitPosition().getY()) > result.getHitPosition().getY();
     }
-
-    private boolean isTop(Player player, Block block) {
-        Location start = player.getEyeLocation().clone();
-        while ((!start.getBlock().equals(block)) && start.distance(player.getEyeLocation()) < 6) {
-            start.add(player.getLocation().getDirection().multiply(0.05));
-        }
-        final double y = start.getY();
-        return Math.round(y) > y;
-    }
-
 }
