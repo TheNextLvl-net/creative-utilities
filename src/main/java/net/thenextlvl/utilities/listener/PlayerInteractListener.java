@@ -18,60 +18,32 @@
  */
 package net.thenextlvl.utilities.listener;
 
-import net.thenextlvl.utilities.Settings;
-import net.thenextlvl.utilities.util.LogManagerCompat;
-import org.apache.logging.log4j.Logger;
+import lombok.RequiredArgsConstructor;
+import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+@RequiredArgsConstructor
 public class PlayerInteractListener implements Listener {
+    private final UtilitiesPlugin plugin;
 
-    private static final Logger logger = LogManagerCompat.getLogger();
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onDragonEggTP(PlayerInteractEvent event) {
-        if (event.isCancelled()) {
-            return;
-        }
-        if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
-            && event.getClickedBlock().getType().equals(Material.DRAGON_EGG)
-            && Settings.preventDragonEggTeleport
-            && !(event.getPlayer().isSneaking()
-                && (!event.getPlayer().getInventory().getItemInOffHand().getType().isAir()
-                || !event.getPlayer().getInventory().getItemInMainHand().getType().isAir()))
-        ) {
-            event.setCancelled(true);
-            if (Settings.sendDebugMessages) {
-                logger.info(
-                        "Dragon egg teleport was cancelled because prevent-dragon-egg-teleport: true");
-            }
-        }
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onDragonEggTeleport(BlockFromToEvent event) {
+        if (!plugin.config().preventDragonEggTeleport()) return;
+        if (!event.getBlock().getType().equals(Material.DRAGON_EGG)) return;
+        event.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (event.isCancelled()) {
-            return;
-        }
-        if (Settings.disableSoilTrample) {
-            if (event.getAction() == Action.PHYSICAL) {
-                Block block = event.getClickedBlock();
-                if (block != null && block.getType() == Material.FARMLAND) {
-                    event.setUseInteractedBlock(org.bukkit.event.Event.Result.DENY);
-                    event.setCancelled(true);
-                    if (Settings.sendDebugMessages) {
-                        logger.info(
-                                "Soil trampling was cancelled because disable-soil-trample: true");
-                    }
-                }
-            }
-        }
-
+        if (!plugin.config().disableSoilTrample()) return;
+        if (!event.getAction().equals(Action.PHYSICAL)) return;
+        var block = event.getClickedBlock();
+        event.setCancelled(block != null && block.getType().equals(Material.FARMLAND));
     }
-
 }
