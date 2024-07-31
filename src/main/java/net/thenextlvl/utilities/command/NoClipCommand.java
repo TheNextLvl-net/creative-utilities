@@ -18,35 +18,35 @@
  */
 package net.thenextlvl.utilities.command;
 
+import com.mojang.brigadier.Command;
+import io.papermc.paper.command.brigadier.Commands;
+import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
+import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import net.thenextlvl.utilities.NoClipManager;
-import net.thenextlvl.utilities.Settings;
-import net.thenextlvl.utilities.command.system.ICommand;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
-public class NoClipCommand implements ICommand {
+import java.util.List;
 
-    @Override
-    public void execute(Player player, String[] args) {
-        if (!player.hasPermission("builders.util.noclip")) {
-            if (Settings.sendErrorMessages) {
-                player.sendMessage(UtilitiesPlugin.MSG_NO_PERMISSION + "builders.util.noclip");
-            }
-            return;
-        }
+@RequiredArgsConstructor
+@SuppressWarnings("UnstableApiUsage")
+public class NoClipCommand {
+    private final UtilitiesPlugin plugin;
 
-        if (NoClipManager.noClipPlayerIds.contains(player.getUniqueId())) {
-            NoClipManager.noClipPlayerIds.remove(player.getUniqueId());
-            player.sendMessage(UtilitiesPlugin.MSG_PREFIX + "NoClip " + ChatColor.RED + "disabled");
-            if (player.getGameMode() == GameMode.SPECTATOR) {
-                player.setGameMode(GameMode.CREATIVE);
-            }
-        } else {
-            NoClipManager.noClipPlayerIds.add(player.getUniqueId());
-            player.sendMessage(UtilitiesPlugin.MSG_PREFIX + "NoClip " + ChatColor.GREEN + "enabled");
-        }
+    public void register() {
+        var command = Commands.literal("noclip")
+                .requires(stack -> stack.getSender().hasPermission("additions.command.no-clip")
+                                   && stack.getSender() instanceof Player)
+                .executes(context -> {
+                    var player = (Player) context.getSource().getSender();
+                    var message = plugin.settingsController().toggleNoClip(player)
+                            ? "command.no-clip.enabled"
+                            : "command.no-clip.disabled";
+                    plugin.bundle().sendMessage(player, message);
+                    return Command.SINGLE_SUCCESS;
+                })
+                .build();
+        plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event ->
+                event.registrar().register(command, List.of("nc"))));
     }
 
 }

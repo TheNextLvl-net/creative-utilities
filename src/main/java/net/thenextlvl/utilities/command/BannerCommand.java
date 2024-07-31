@@ -18,24 +18,31 @@
  */
 package net.thenextlvl.utilities.command;
 
+import com.mojang.brigadier.Command;
+import io.papermc.paper.command.brigadier.Commands;
+import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
+import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import net.thenextlvl.utilities.Settings;
-import net.thenextlvl.utilities.command.system.ICommand;
-import net.thenextlvl.utilities.gui.Menus;
 import org.bukkit.entity.Player;
 
-public class BannerCommand implements ICommand {
+import java.util.List;
 
-    @Override
-    public void execute(Player player, String[] args) {
-        if (!player.hasPermission("builders.util.banner")) {
-            if (Settings.sendErrorMessages) {
-                player.sendMessage(UtilitiesPlugin.MSG_NO_PERMISSION + "builders.util.banner");
-            }
-            return;
-        }
+@RequiredArgsConstructor
+@SuppressWarnings("UnstableApiUsage")
+public class BannerCommand {
+    private final UtilitiesPlugin plugin;
 
-        Menus.BANNER_MENU.open(player);
+    public void register() {
+        var command = Commands.literal("banner")
+                .requires(stack -> stack.getSender().hasPermission("builders.util.banner")
+                                   && stack.getSender() instanceof Player)
+                .executes(context -> {
+                    var player = (Player) context.getSource().getSender();
+                    plugin.bannerMenu.open(player);
+                    return Command.SINGLE_SUCCESS;
+                })
+                .build();
+        plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event ->
+                event.registrar().register(command, List.of("bm"))));
     }
-
 }

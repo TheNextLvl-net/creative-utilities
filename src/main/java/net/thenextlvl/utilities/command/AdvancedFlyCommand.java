@@ -18,29 +18,34 @@
  */
 package net.thenextlvl.utilities.command;
 
+import com.mojang.brigadier.Command;
+import io.papermc.paper.command.brigadier.Commands;
+import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
+import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import net.thenextlvl.utilities.Settings;
-import net.thenextlvl.utilities.command.system.ICommand;
-import net.thenextlvl.utilities.listener.PlayerMoveListener;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class AdvancedFlyCommand implements ICommand {
+import java.util.List;
 
-    @Override
-    public void execute(Player player, String[] args) {
-        if (!player.hasPermission("builders.util.advancedfly")) {
-            if (Settings.sendErrorMessages) {
-                player.sendMessage(UtilitiesPlugin.MSG_NO_PERMISSION + "builders.util.advancedfly");
-            }
-            return;
-        }
+@RequiredArgsConstructor
+@SuppressWarnings("UnstableApiUsage")
+public class AdvancedFlyCommand {
+    private final UtilitiesPlugin plugin;
 
-        if (PlayerMoveListener.togglePlayer(player)) {
-            player.sendMessage(UtilitiesPlugin.MSG_PREFIX + "Advanced Fly " + ChatColor.GREEN + "enabled");
-        } else {
-            player.sendMessage(UtilitiesPlugin.MSG_PREFIX + "Advanced Fly " + ChatColor.RED + "disabled");
-        }
+    public void register() {
+        var command = Commands.literal("advancedfly")
+                .requires(stack -> stack.getSender().hasPermission("builders.util.advancedfly")
+                                   && stack.getSender() instanceof Player)
+                .executes(context -> {
+                    var player = (Player) context.getSource().getSender();
+                    var message = plugin.settingsController().toggleAdvancedFly(player)
+                            ? "command.advanced-fly.enabled"
+                            : "command.advanced-fly.disabled";
+                    plugin.bundle().sendMessage(player, message);
+                    return Command.SINGLE_SUCCESS;
+                })
+                .build();
+        plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event ->
+                event.registrar().register(command, List.of("advfly", "af"))));
     }
-
 }

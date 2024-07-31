@@ -29,20 +29,20 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @SuppressWarnings("UnstableApiUsage")
-public class ColorCommand {
+public class UtilsCommand {
     private final UtilitiesPlugin plugin;
 
     public void register() {
-        var command = Commands.literal("armorcolor")
-                .requires(stack -> stack.getSender().hasPermission("builders.util.color")
+        var command = Commands.literal("utils")
+                .requires(stack -> stack.getSender().hasPermission("builders.util.gui")
                                    && stack.getSender() instanceof Player)
                 .executes(context -> {
                     var player = (Player) context.getSource().getSender();
-                    plugin.colorMenu.open(player);
+                    plugin.toggleMenu.open(player);
                     return Command.SINGLE_SUCCESS;
                 })
                 .build();
         plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event ->
-                event.registrar().register(command, List.of("color"))));
+                event.registrar().register(command, List.of("butil", "bu"))));
     }
 }
