@@ -45,7 +45,7 @@ tasks.shadowJar {
 
 paper {
     name = "CreativeUtilities"
-    main = "net.thenextlvl.additions.UtilitiesPlugin"
+    main = "net.thenextlvl.utilities.UtilitiesPlugin"
     apiVersion = "1.21"
     website = "https://thenextlvl.net"
     authors = listOf("Ktar5", "Arcaniax", "NonSwag")
