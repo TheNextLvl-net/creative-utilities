@@ -34,7 +34,7 @@ public class Items {
     public static ItemStack create(String materialName, String name, String lore) {
         Material mat = Material.getMaterial(materialName);
 
-        if(mat == null) {
+        if (mat == null) {
             return null;
         }
 
@@ -75,20 +75,21 @@ public class Items {
 
 
     public static ItemStack createHead(String data, int amount, String name, String lore) {
-        var item = new ItemBuilder(Material.PLAYER_HEAD, amount).headValue(data);
-        ItemMeta meta = item.getItemMeta();
-        if (!lore.isEmpty()) {
-            String[] loreListArray = lore.split("__");
-            List<String> loreList = new ArrayList<>();
-            for (String s : loreListArray) {
-                loreList.add(s.replace('&', ChatColor.COLOR_CHAR));
-            }
-            meta.setLore(loreList);
-        }
-        if (!name.isEmpty()) {
-            meta.setDisplayName(name.replace('&', ChatColor.COLOR_CHAR));
-        }
-        return item;
+        return new ItemBuilder(Material.PLAYER_HEAD, amount)
+                .headValue(data)
+                .modify(meta -> {
+                    if (!lore.isEmpty()) {
+                        String[] loreListArray = lore.split("__");
+                        List<String> loreList = new ArrayList<>();
+                        for (String s : loreListArray) {
+                            loreList.add(s.replace('&', ChatColor.COLOR_CHAR));
+                        }
+                        meta.setLore(loreList);
+                    }
+                    if (!name.isEmpty()) {
+                        meta.setDisplayName(name.replace('&', ChatColor.COLOR_CHAR));
+                    }
+                });
     }
 
 }
