@@ -18,38 +18,36 @@
  */
 package net.thenextlvl.utilities.listener;
 
-import net.thenextlvl.utilities.NoClipManager;
-import net.thenextlvl.utilities.Settings;
+import lombok.RequiredArgsConstructor;
+import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class PlayerQuitAndJoinListener implements Listener {
+import java.util.Optional;
 
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event) {
-        Player player = event.getPlayer();
-        NoClipManager.noClipPlayerIds.remove(player.getUniqueId());
-    }
+@RequiredArgsConstructor
+public class ConnectionListener implements Listener {
+    private final UtilitiesPlugin plugin;
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerJoin(PlayerJoinEvent event) {
-        AttributeInstance attribute = event.getPlayer().getAttribute(Attribute.GENERIC_ATTACK_SPEED);
-        if (attribute == null) {
-            return;
-        }
-
-        if (Settings.fixAttackSpeed) {
-            attribute.setBaseValue(1024.0D);
-        } else if (attribute.getBaseValue() == 1024.0D) {
-            attribute.setBaseValue(4.0D);
-        }
-        event.getPlayer().saveData();
-
+        plugin.settingsController().setHandOpenable(event.getPlayer(), true);
+        plugin.settingsController().setSlabPartBreaking(event.getPlayer(), true);
+        Optional.ofNullable(event.getPlayer().getAttribute(Attribute.GENERIC_ATTACK_SPEED)).ifPresent(attribute -> {
+            var value = plugin.config().fixAttackSpeed() ? 1024 : attribute.getDefaultValue();
+            attribute.setBaseValue(value);
+        });
     }
 
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        AdvancedFlyListener.lastVelocity.remove(event.getPlayer());
+        AdvancedFlyListener.slower1.remove(event.getPlayer());
+        AdvancedFlyListener.slower2.remove(event.getPlayer());
+        plugin.settingsController().purge(event.getPlayer());
+    }
 }
