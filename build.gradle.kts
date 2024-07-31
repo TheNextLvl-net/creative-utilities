@@ -61,7 +61,7 @@ paper {
         register("builders.util.slabs") {
             default = BukkitPluginDescription.Permission.Default.TRUE
         }
-        register("builders.util.terracotta") {
+        register("builders.util.air-placing") {
             default = BukkitPluginDescription.Permission.Default.TRUE
         }
         register("builders.util.nightvision") {
