@@ -1,6 +1,9 @@
+import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
+
 plugins {
     id("java")
     id("io.github.goooler.shadow") version "8.1.7"
+    id("net.minecrell.plugin-yml.paper") version "0.6.0"
 }
 
 java {
@@ -35,4 +38,32 @@ dependencies {
 tasks.shadowJar {
     archiveBaseName.set("creative-utilities")
     minimize()
+}
+
+paper {
+    name = "CreativeUtilities"
+    main = "net.thenextlvl.additions.UtilitiesPlugin"
+    apiVersion = "1.21"
+    website = "https://thenextlvl.net"
+    authors = listOf("Ktar5", "Arcaniax", "NonSwag")
+    permissions {
+        register("builders.util.trapdoor") {
+            default = BukkitPluginDescription.Permission.Default.TRUE
+        }
+        register("builders.util.slabs") {
+            default = BukkitPluginDescription.Permission.Default.TRUE
+        }
+        register("builders.util.terracotta") {
+            default = BukkitPluginDescription.Permission.Default.TRUE
+        }
+        register("builders.util.nightvision") {
+            default = BukkitPluginDescription.Permission.Default.OP
+        }
+        register("builders.util.noclip") {
+            default = BukkitPluginDescription.Permission.Default.OP
+        }
+        register("builders.util.advancedfly") {
+            default = BukkitPluginDescription.Permission.Default.OP
+        }
+    }
 }
