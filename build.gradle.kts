@@ -48,6 +48,7 @@ paper {
     name = "CreativeUtilities"
     main = "net.thenextlvl.utilities.UtilitiesPlugin"
     apiVersion = "1.21"
+    provides = listOf("Builders-Utilities")
     website = "https://thenextlvl.net"
     authors = listOf("Ktar5", "Arcaniax", "NonSwag")
     foliaSupported = true
