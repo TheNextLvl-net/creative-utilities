@@ -29,7 +29,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @SuppressWarnings("UnstableApiUsage")
-public class ConvexSelectionAliasCommand {
+public class ConvexSelectionAlias {
     private final UtilitiesPlugin plugin;
 
     public void register() {
