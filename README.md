@@ -4,10 +4,21 @@
 
 Creative Utilities is a modern and maintained drop-in replacement for Builder's Utilities.
 This plugin is a collection of a lot of tiny features that help with building.
+We aim to be always up-to-date and use new technology instead of hanging on to old and dead code.
 
 <a href="https://bstats.org/plugin/bukkit/TheNextLvl%20CreativeUtilities/22858" title="CreativeUtilities on bStats">
     <img src="https://bstats.org/signatures/bukkit/CreativeUtilities.svg"  alt="metrics"/>
 </a>
+
+## Major Changes
+
+- **100%** customizable messages
+- **Piston Sliming**
+- **Air Placing**
+- Brigadier commands
+- Improved configuration file
+- No legacy code or dependencies
+- Hangar auto deployment
 
 ## Links
 
