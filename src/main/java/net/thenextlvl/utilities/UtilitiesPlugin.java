@@ -27,10 +27,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.thenextlvl.utilities.command.*;
-import net.thenextlvl.utilities.command.aliases.ConvexSelectionAlias;
-import net.thenextlvl.utilities.command.aliases.CuboidSelectionAlias;
-import net.thenextlvl.utilities.command.aliases.DeformRotateAlias;
-import net.thenextlvl.utilities.command.aliases.ScaleAlias;
+import net.thenextlvl.utilities.command.aliases.*;
 import net.thenextlvl.utilities.controller.SettingsController;
 import net.thenextlvl.utilities.gui.ColorMenuProvider;
 import net.thenextlvl.utilities.gui.UtilitiesMenuProvider;
@@ -139,6 +136,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
         new CuboidSelectionAlias(this).register();
         new DeformRotateAlias(this).register();
         new ScaleAlias(this).register();
+        new TwistAlias(this).register();
     }
 
     @Deprecated(forRemoval = true)
