@@ -20,16 +20,12 @@ package net.thenextlvl.utilities.command.aliases;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.mojang.brigadier.arguments.StringArgumentType;
-import core.paper.command.WrappedArgumentType;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Axis;
 import org.bukkit.Bukkit;
-
-import java.util.Arrays;
 
 @RequiredArgsConstructor
 @SuppressWarnings("UnstableApiUsage")
@@ -40,7 +36,7 @@ public class DeformRotateAlias {
         var command = Commands.literal("/derot")
                 .requires(source -> source.getSender().hasPermission("worldedit.region.deform"))
                 .then(Commands.argument("axis", new AxisArgumentType())
-                        .then(Commands.argument("degrees", IntegerArgumentType.integer(1, 359))
+                        .then(Commands.argument("degrees", IntegerArgumentType.integer())
                                 .executes(context -> {
                                     var axis = context.getArgument("axis", Axis.class);
                                     var degrees = context.getArgument("degrees", int.class);
@@ -63,14 +59,5 @@ public class DeformRotateAlias {
                 .build();
         plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event ->
                 event.registrar().register(command)));
-    }
-
-    private static class AxisArgumentType extends WrappedArgumentType<String, Axis> {
-        public AxisArgumentType() {
-            super(StringArgumentType.word(), (reader, type) -> Axis.valueOf(type), (context, builder) -> {
-                Arrays.stream(Axis.values()).map(Axis::name).forEach(builder::suggest);
-                return builder.buildFuture();
-            });
-        }
     }
 }
