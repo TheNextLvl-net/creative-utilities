@@ -48,6 +48,7 @@ public class ConnectionListener implements Listener {
         AdvancedFlyListener.lastVelocity.remove(event.getPlayer());
         AdvancedFlyListener.slower1.remove(event.getPlayer());
         AdvancedFlyListener.slower2.remove(event.getPlayer());
+        AirPlacingListener.targetBlocks.remove(event.getPlayer());
         plugin.settingsController().purge(event.getPlayer());
     }
 }
