@@ -1,1 +1,2 @@
-rootProject.name = "Builders-Utilities"
+rootProject.name = "creative-utilities"
+include("api")
