@@ -1,30 +1,26 @@
-<p align="center">
-    <img src="https://i.imgur.com/rFBzoq0.png">
-</p>
+![](https://github.com/TheNextLvl-net/creative-utilities/blob/master/images/buildersutilities-banner.png?raw=true)
 
 ---
 
 Creative Utilities is a modern and maintained drop-in replacement for Builder's Utilities.
 This plugin is a collection of a lot of tiny features that help with building.
 
-<p align="center">
-    <a href="https://bstats.org/plugin/bukkit/BuildersUtilities/5168" title="Builders-Utilities on bStats">
-        <img src="https://bstats.org/signatures/bukkit/BuildersUtilities.svg" />
-    </a>
-</p>
+<a href="https://bstats.org/plugin/bukkit/TheNextLvl%20CreativeUtilities/22858" title="CreativeUtilities on bStats">
+    <img src="https://bstats.org/signatures/bukkit/CreativeUtilities.svg"  alt="metrics"/>
+</a>
 
 ## Links
 
-* [Download](https://www.spigotmc.org/resources/builders-utilities.42361/)
-* [Development Builds](https://ci.athion.net/job/Builders-Utilities/)
-* [Discord](https://discord.gg/jpRVrjd)
-* [Issues](https://github.com/Arcaniax-Development/Builders-Utilities/issues)
+* [Download](https://hangar.papermc.io/TheNextLvl/goPaintAdvanced)
+* [Discord](https://thenextlvl.net/discord)
+* [Issues](https://github.com/TheNextLvl-net/creative-utilities/issues)
 
 # Building
-Gradle is the recommended way to build the project. Use `./gradlew build` in the main project directory to build the project.
 
-# Contributing
-See [here](https://github.com/Brennian/Builders-Utilities/blob/master/CONTRIBUTING.md)
+Gradle is the recommended way to build the project. Use `./gradlew build` in the main project directory to build the
+project.
 
 ## Suggestions
-Suggestions are welcome! We have a separate issue form for suggestions, which can be found [here](https://github.com/Arcaniax-Development/Builders-Utilities/issues).
+
+Suggestions are welcome! We have a separate issue form for suggestions, which can be
+found [here](https://github.com/TheNextLvl-net/creative-utilities/issues/new?projects=&template=feature_request.yml).
