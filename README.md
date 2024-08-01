@@ -4,8 +4,7 @@
 
 ---
 
-Builders-Utilities was a requested plugin by Alex_deGrote,
-who won the plugin giveaway at my panel from McBcon.
+Creative Utilities is a modern and maintained drop-in replacement for Builder's Utilities.
 This plugin is a collection of a lot of tiny features that help with building.
 
 <p align="center">
