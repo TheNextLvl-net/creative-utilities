@@ -28,6 +28,7 @@ import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.thenextlvl.utilities.command.*;
 import net.thenextlvl.utilities.command.aliases.ConvexSelectionAlias;
+import net.thenextlvl.utilities.command.aliases.CuboidSelectionAlias;
 import net.thenextlvl.utilities.controller.SettingsController;
 import net.thenextlvl.utilities.gui.ColorMenuProvider;
 import net.thenextlvl.utilities.gui.UtilitiesMenuProvider;
@@ -133,6 +134,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
     private void registerAliases() {
         if (!Bukkit.getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) return;
         new ConvexSelectionAlias(this).register();
+        new CuboidSelectionAlias(this).register();
     }
 
     @Deprecated(forRemoval = true)
