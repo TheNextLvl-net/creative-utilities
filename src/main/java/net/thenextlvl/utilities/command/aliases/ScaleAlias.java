@@ -19,7 +19,7 @@
 package net.thenextlvl.utilities.command.aliases;
 
 import com.mojang.brigadier.Command;
-import com.mojang.brigadier.arguments.DoubleArgumentType;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import lombok.RequiredArgsConstructor;
@@ -36,9 +36,9 @@ public class ScaleAlias {
     public void register() {
         var command = Commands.literal("/scale")
                 .requires(source -> source.getSender().hasPermission("worldedit.region.deform"))
-                .then(Commands.argument("size", DoubleArgumentType.doubleArg())
+                .then(Commands.argument("size", IntegerArgumentType.integer())
                         .executes(context -> {
-                            var size = context.getArgument("size", double.class);
+                            var size = context.getArgument("size", int.class);
                             var line = "/deform x/=%s;y/=%s;z/=%s".formatted(size, size, size);
                             Bukkit.dispatchCommand(context.getSource().getSender(), line);
                             return Command.SINGLE_SUCCESS;
