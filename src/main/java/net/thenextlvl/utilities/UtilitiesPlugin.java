@@ -78,7 +78,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
     ).validate().save().getRoot();
 
     private final PluginVersionChecker versionChecker = new PluginVersionChecker(this);
-    private final Metrics metrics = new Metrics(this, 5168);
+    private final Metrics metrics = new Metrics(this, 22858);
 
     @Override
     public void onLoad() {
