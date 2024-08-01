@@ -1,9 +1,11 @@
+import io.papermc.hangarpublishplugin.model.Platforms
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 import net.minecrell.pluginyml.paper.PaperPluginDescription
 
 plugins {
     id("java")
     id("io.github.goooler.shadow") version "8.1.7"
+    id("io.papermc.hangar-publish-plugin") version "0.1.2"
     id("net.minecrell.plugin-yml.paper") version "0.6.0"
 }
 
@@ -80,6 +82,26 @@ paper {
         }
         register("builders.util.tpgm3") {
             default = BukkitPluginDescription.Permission.Default.OP
+        }
+    }
+}
+
+val versionString: String = project.version as String
+val isRelease: Boolean = !versionString.contains("-pre")
+
+val versions: List<String> = (property("game.versions") as String)
+    .split(",")
+    .map { it.trim() }
+
+hangarPublish { // docs - https://docs.papermc.io/misc/hangar-publishing
+    publications.register("paper") {
+        id.set("CreativeUtilities")
+        version.set(versionString)
+        channel.set(if (isRelease) "Release" else "Snapshot")
+        apiKey.set(System.getenv("HANGAR_API_TOKEN"))
+        platforms.register(Platforms.PAPER) {
+            jar.set(tasks.shadowJar.flatMap { it.archiveFile })
+            platformVersions.set(versions)
         }
     }
 }

@@ -1,4 +1,4 @@
-![](https://github.com/TheNextLvl-net/creative-utilities/blob/master/images/buildersutilities-banner.png?raw=true)
+**![](https://github.com/TheNextLvl-net/creative-utilities/blob/master/images/buildersutilities-banner.png?raw=true)
 
 ---
 
@@ -23,4 +23,4 @@ project.
 ## Suggestions
 
 Suggestions are welcome! We have a separate issue form for suggestions, which can be
-found [here](https://github.com/TheNextLvl-net/creative-utilities/issues/new?projects=&template=feature_request.yml).
+found [here](https://github.com/TheNextLvl-net/creative-utilities/issues/new?projects=&template=feature_request.yml).**
