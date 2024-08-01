@@ -111,6 +111,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
 
     private void registerListeners() {
         getServer().getPluginManager().registerEvents(new AdvancedFlyListener(this), this);
+        getServer().getPluginManager().registerEvents(new AirPlacingListener(this), this);
         getServer().getPluginManager().registerEvents(new BlockBreakListener(this), this);
         getServer().getPluginManager().registerEvents(new BlockPhysicsListener(this), this);
         getServer().getPluginManager().registerEvents(new ConnectionListener(this), this);
