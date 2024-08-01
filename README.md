@@ -1,4 +1,4 @@
-**![](https://github.com/TheNextLvl-net/creative-utilities/blob/master/images/buildersutilities-banner.png?raw=true)
+![](https://github.com/TheNextLvl-net/creative-utilities/blob/master/images/buildersutilities-banner.png?raw=true)
 
 ---
 
