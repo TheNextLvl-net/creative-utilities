@@ -26,9 +26,10 @@ import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Axis;
 import org.bukkit.Bukkit;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @RequiredArgsConstructor
-@SuppressWarnings("UnstableApiUsage")
 public class TwistAlias {
     private final UtilitiesPlugin plugin;
 

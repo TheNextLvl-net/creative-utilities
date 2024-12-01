@@ -25,9 +25,11 @@ import net.thenextlvl.utilities.util.Items;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+@NullMarked
 public class ColorMenuProvider implements InventoryProvider {
 
     private static final float MULTIPLIER = 255f / 20f;

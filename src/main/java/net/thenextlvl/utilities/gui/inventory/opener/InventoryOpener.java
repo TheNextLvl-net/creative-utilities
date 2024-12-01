@@ -24,7 +24,9 @@ import net.thenextlvl.utilities.gui.inventory.content.InventoryContents;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public interface InventoryOpener {
 
     Inventory open(SmartInventory inv, Player player);

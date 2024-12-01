@@ -20,9 +20,11 @@ package net.thenextlvl.utilities.gui.inventory;
 
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.function.Consumer;
 
+@NullMarked
 public class ClickableItem {
 
     private final ItemStack item;

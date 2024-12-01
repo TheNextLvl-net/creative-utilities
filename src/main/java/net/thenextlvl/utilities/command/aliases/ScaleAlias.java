@@ -25,11 +25,12 @@ import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Bukkit;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
 
+@NullMarked
 @RequiredArgsConstructor
-@SuppressWarnings("UnstableApiUsage")
 public class ScaleAlias {
     private final UtilitiesPlugin plugin;
 

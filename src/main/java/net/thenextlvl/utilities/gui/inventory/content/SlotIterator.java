@@ -20,11 +20,13 @@ package net.thenextlvl.utilities.gui.inventory.content;
 
 import net.thenextlvl.utilities.gui.inventory.ClickableItem;
 import net.thenextlvl.utilities.gui.inventory.SmartInventory;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+@NullMarked
 public interface SlotIterator {
 
     Optional<ClickableItem> get();

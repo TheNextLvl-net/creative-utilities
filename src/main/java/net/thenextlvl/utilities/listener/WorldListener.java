@@ -9,7 +9,9 @@ import org.bukkit.event.block.BlockFadeEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @RequiredArgsConstructor
 public class WorldListener implements Listener {
     private final UtilitiesPlugin plugin;

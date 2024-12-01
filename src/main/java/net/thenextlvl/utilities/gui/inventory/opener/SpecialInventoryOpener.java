@@ -24,9 +24,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
 
+@NullMarked
 public class SpecialInventoryOpener implements InventoryOpener {
 
     private static final List<InventoryType> SUPPORTED = List.of(

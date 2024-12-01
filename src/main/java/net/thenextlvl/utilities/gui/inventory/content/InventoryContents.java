@@ -23,11 +23,13 @@ import net.thenextlvl.utilities.gui.inventory.SmartInventory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@NullMarked
 public interface InventoryContents {
 
     SmartInventory inventory();

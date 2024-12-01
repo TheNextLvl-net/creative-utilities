@@ -19,7 +19,9 @@
 package net.thenextlvl.utilities.gui.inventory.content;
 
 import org.bukkit.entity.Player;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public interface InventoryProvider {
 
     void init(Player player, InventoryContents contents);

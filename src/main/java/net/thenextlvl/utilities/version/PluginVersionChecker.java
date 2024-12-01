@@ -5,17 +5,13 @@ import core.version.SemanticVersion;
 import lombok.Getter;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Objects;
+import org.jspecify.annotations.NullMarked;
 
 @Getter
-@SuppressWarnings("UnstableApiUsage")
+@NullMarked
 public class PluginVersionChecker extends PaperHangarVersionChecker<SemanticVersion> {
-    private final SemanticVersion versionRunning;
-
     public PluginVersionChecker(Plugin plugin) {
-        super("CreativeUtilities");
-        this.versionRunning = Objects.requireNonNull(parseVersion(plugin.getPluginMeta().getVersion()));
+        super(plugin, "TheNextLvl", "CreativeUtilities");
     }
 
     @Override

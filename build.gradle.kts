@@ -4,7 +4,7 @@ import net.minecrell.pluginyml.paper.PaperPluginDescription
 
 plugins {
     id("java")
-    id("io.github.goooler.shadow") version "8.1.7"
+    id("com.gradleup.shadow") version "8.3.5"
     id("io.papermc.hangar-publish-plugin") version "0.1.2"
     id("net.minecrell.plugin-yml.paper") version "0.6.0"
 }
@@ -29,14 +29,13 @@ repositories {
 
 dependencies {
     compileOnly("org.projectlombok:lombok:1.18.34")
-    compileOnly("net.thenextlvl.core:annotations:2.0.1")
-    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.3-R0.1-SNAPSHOT")
 
     implementation("org.bstats:bstats-bukkit:3.1.0")
-    implementation("net.thenextlvl.core:adapters:1.0.9")
-    implementation("net.thenextlvl.core:paper:1.4.1")
+    implementation("net.thenextlvl.core:adapters:2.0.1")
+    implementation("net.thenextlvl.core:paper:1.5.3")
     implementation("net.thenextlvl.core:files:2.0.0")
-    implementation("net.thenextlvl.core:i18n:1.0.18")
+    implementation("net.thenextlvl.core:i18n:1.0.20")
 
     annotationProcessor("org.projectlombok:lombok:1.18.34")
 }

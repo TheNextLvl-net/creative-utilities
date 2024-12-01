@@ -1,7 +1,9 @@
 package net.thenextlvl.utilities.model;
 
 import com.google.gson.annotations.SerializedName;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public record PluginConfig(
         @SerializedName("disable-explosions") boolean disableExplosions,
         @SerializedName("disable-fading") boolean disableFading,
