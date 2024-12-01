@@ -38,7 +38,6 @@ import net.thenextlvl.utilities.command.aliases.DeformRotateAlias;
 import net.thenextlvl.utilities.command.aliases.ScaleAlias;
 import net.thenextlvl.utilities.command.aliases.TwistAlias;
 import net.thenextlvl.utilities.controller.SettingsController;
-import net.thenextlvl.utilities.gui.ColorMenuProvider;
 import net.thenextlvl.utilities.gui.UtilitiesMenuProvider;
 import net.thenextlvl.utilities.gui.banner.BannerColorMenuProvider;
 import net.thenextlvl.utilities.gui.banner.BannerMenuProvider;
@@ -181,17 +180,6 @@ public final class UtilitiesPlugin extends JavaPlugin {
             .size(6, 9)
             .listener(removeGhostItemsListener)
             .title(ChatColor.BLUE + "Select a pattern")
-            .closeable(true)
-            .build();
-
-    @Deprecated(forRemoval = true)
-    public final SmartInventory colorMenu = SmartInventory.builder()
-            .manager(getInventoryManager())
-            .id("buildersutilscolor")
-            .provider(new ColorMenuProvider())
-            .size(6, 9)
-            .listener(removeGhostItemsListener)
-            .title(ChatColor.BLUE + "Armor Color Creator")
             .closeable(true)
             .build();
 

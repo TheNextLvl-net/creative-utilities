@@ -20,11 +20,9 @@ package net.thenextlvl.utilities.util;
 
 import core.paper.item.ItemBuilder;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.ArrayList;
@@ -32,17 +30,6 @@ import java.util.List;
 
 @NullMarked
 public class Items {
-
-    public static ItemStack create(String materialName, String name, String lore) {
-        Material mat = Material.getMaterial(materialName);
-
-        if (mat == null) {
-            return null;
-        }
-
-        return Items.create(mat, (short) 0, 1, name, lore);
-    }
-
     public static ItemStack create(Material mat, String name, String lore) {
         return Items.create(mat, (short) 0, 1, name, lore);
     }
@@ -67,31 +54,26 @@ public class Items {
         return is;
     }
 
-    public static ItemStack color(ItemStack is, int r, int g, int b) {
-        LeatherArmorMeta lam = (LeatherArmorMeta) is.getItemMeta();
-        Color c = Color.fromRGB(r, g, b);
-        lam.setColor(c);
-        is.setItemMeta(lam);
-        return is;
-    }
-
-
     public static ItemStack createHead(String data, int amount, String name, String lore) {
         return new ItemBuilder(Material.PLAYER_HEAD, amount)
                 .headValue(data)
                 .modify(meta -> {
-                    if (!lore.isEmpty()) {
-                        String[] loreListArray = lore.split("__");
-                        List<String> loreList = new ArrayList<>();
-                        for (String s : loreListArray) {
-                            loreList.add(s.replace('&', ChatColor.COLOR_CHAR));
-                        }
-                        meta.setLore(loreList);
-                    }
+                    lore(lore, meta);
                     if (!name.isEmpty()) {
                         meta.setDisplayName(name.replace('&', ChatColor.COLOR_CHAR));
                     }
                 });
+    }
+
+    static void lore(String lore, ItemMeta meta) {
+        if (!lore.isEmpty()) {
+            String[] loreListArray = lore.split("__");
+            List<String> loreList = new ArrayList<>();
+            for (String s : loreListArray) {
+                loreList.add(s.replace('&', ChatColor.COLOR_CHAR));
+            }
+            meta.setLore(loreList);
+        }
     }
 
 }
