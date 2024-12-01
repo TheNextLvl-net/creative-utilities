@@ -19,9 +19,11 @@
 package net.thenextlvl.utilities.gui.inventory.content;
 
 import net.thenextlvl.utilities.gui.inventory.ClickableItem;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Arrays;
 
+@NullMarked
 public interface Pagination {
 
     ClickableItem[] getPageItems();

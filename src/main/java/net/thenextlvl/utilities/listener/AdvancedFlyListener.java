@@ -25,9 +25,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.*;
 
+@NullMarked
 @RequiredArgsConstructor
 public class AdvancedFlyListener implements Listener {
     private final UtilitiesPlugin plugin;

@@ -24,21 +24,10 @@ import net.thenextlvl.utilities.gui.inventory.opener.InventoryOpener;
 import net.thenextlvl.utilities.gui.inventory.opener.SpecialInventoryOpener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryAction;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@NullMarked
 public class InventoryManager {
 
     private final JavaPlugin plugin;
@@ -71,12 +61,6 @@ public class InventoryManager {
         );
 
         this.openers = new ArrayList<>();
-    }
-
-    public void init() {
-        pluginManager.registerEvents(new InvListener(), plugin);
-
-        new InvTask().runTaskTimer(plugin, 1, 1);
     }
 
     public Optional<InventoryOpener> findOpener(InventoryType type) {
@@ -109,6 +93,15 @@ public class InventoryManager {
         return list;
     }
 
+    public boolean hasInventory(Player player) {
+        return inventories.containsKey(player);
+    }
+
+    public void removeInventory(Player player) {
+        inventories.remove(player);
+        contents.remove(player);
+    }
+
     public Optional<SmartInventory> getInventory(Player p) {
         return Optional.ofNullable(this.inventories.get(p));
     }
@@ -132,162 +125,4 @@ public class InventoryManager {
             this.contents.put(p, contents);
         }
     }
-
-    @SuppressWarnings("unchecked")
-    class InvListener implements Listener {
-
-        @EventHandler(priority = EventPriority.LOW)
-        public void onInventoryClick(InventoryClickEvent e) {
-            Player p = (Player) e.getWhoClicked();
-
-            if (!inventories.containsKey(p)) {
-                return;
-            }
-
-            if (e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
-                e.setCancelled(true);
-            }
-
-            if (e.getAction() == InventoryAction.COLLECT_TO_CURSOR) {
-                e.setCancelled(true);
-                return;
-            }
-
-            if (e.getAction() == InventoryAction.NOTHING && e.getClick() != ClickType.MIDDLE) {
-                e.setCancelled(true);
-            }
-
-            if (e.getClickedInventory() == p.getOpenInventory().getTopInventory()) {
-                e.setCancelled(true);
-
-                int row = e.getSlot() / 9;
-                int column = e.getSlot() % 9;
-
-                if (row < 0 || column < 0) {
-                    return;
-                }
-
-                SmartInventory inv = inventories.get(p);
-
-                if (row >= inv.getRows() || column >= inv.getColumns()) {
-                    return;
-                }
-
-                inv.getListeners().stream()
-                        .filter(listener -> listener.getType() == InventoryClickEvent.class)
-                        .forEach(listener -> ((InventoryListener<InventoryClickEvent>) listener).accept(e));
-
-                contents.get(p).get(row, column).ifPresent(item -> item.run(e));
-
-                p.updateInventory();
-            }
-        }
-
-        @EventHandler(priority = EventPriority.LOW)
-        public void onInventoryDrag(InventoryDragEvent e) {
-            Player p = (Player) e.getWhoClicked();
-
-            if (!inventories.containsKey(p)) {
-                return;
-            }
-
-            SmartInventory inv = inventories.get(p);
-
-            for (int slot : e.getRawSlots()) {
-                if (slot >= p.getOpenInventory().getTopInventory().getSize()) {
-                    continue;
-                }
-
-                e.setCancelled(true);
-                break;
-            }
-
-            inv.getListeners().stream()
-                    .filter(listener -> listener.getType() == InventoryDragEvent.class)
-                    .forEach(listener -> ((InventoryListener<InventoryDragEvent>) listener).accept(e));
-        }
-
-        @EventHandler(priority = EventPriority.LOW)
-        public void onInventoryOpen(InventoryOpenEvent e) {
-            Player p = (Player) e.getPlayer();
-
-            if (!inventories.containsKey(p)) {
-                return;
-            }
-
-            SmartInventory inv = inventories.get(p);
-
-            inv.getListeners().stream()
-                    .filter(listener -> listener.getType() == InventoryOpenEvent.class)
-                    .forEach(listener -> ((InventoryListener<InventoryOpenEvent>) listener).accept(e));
-        }
-
-        @EventHandler(priority = EventPriority.LOW)
-        public void onInventoryClose(InventoryCloseEvent e) {
-            Player p = (Player) e.getPlayer();
-
-            if (!inventories.containsKey(p)) {
-                return;
-            }
-
-            SmartInventory inv = inventories.get(p);
-
-            inv.getListeners().stream()
-                    .filter(listener -> listener.getType() == InventoryCloseEvent.class)
-                    .forEach(listener -> ((InventoryListener<InventoryCloseEvent>) listener).accept(e));
-
-            if (inv.isCloseable()) {
-                e.getInventory().clear();
-
-                inventories.remove(p);
-                contents.remove(p);
-            } else {
-                Bukkit.getScheduler().runTask(plugin, () -> p.openInventory(e.getInventory()));
-            }
-        }
-
-        @EventHandler(priority = EventPriority.LOW)
-        public void onPlayerQuit(PlayerQuitEvent e) {
-            Player p = e.getPlayer();
-
-            if (!inventories.containsKey(p)) {
-                return;
-            }
-
-            SmartInventory inv = inventories.get(p);
-
-            inv.getListeners().stream()
-                    .filter(listener -> listener.getType() == PlayerQuitEvent.class)
-                    .forEach(listener -> ((InventoryListener<PlayerQuitEvent>) listener).accept(e));
-
-            inventories.remove(p);
-            contents.remove(p);
-        }
-
-        @EventHandler(priority = EventPriority.LOW)
-        public void onPluginDisable(PluginDisableEvent e) {
-            new HashMap<>(inventories).forEach((player, inv) -> {
-                inv.getListeners().stream()
-                        .filter(listener -> listener.getType() == PluginDisableEvent.class)
-                        .forEach(listener -> ((InventoryListener<PluginDisableEvent>) listener).accept(e));
-
-                inv.close(player);
-            });
-
-            inventories.clear();
-            contents.clear();
-        }
-
-    }
-
-    class InvTask extends BukkitRunnable {
-
-        @Override
-        public void run() {
-            new HashMap<>(inventories)
-                    .forEach((player, inv) -> inv.getProvider().update(player, contents.get(player)));
-        }
-
-    }
-
 }

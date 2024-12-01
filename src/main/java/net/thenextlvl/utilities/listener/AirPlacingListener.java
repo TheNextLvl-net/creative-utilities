@@ -13,10 +13,12 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Map;
 import java.util.WeakHashMap;
 
+@NullMarked
 @RequiredArgsConstructor
 public class AirPlacingListener implements Listener {
     static final Map<Player, Location> targetBlocks = new WeakHashMap<>();
@@ -45,7 +47,7 @@ public class AirPlacingListener implements Listener {
             return;
         }
 
-        var range = player.getAttribute(Attribute.PLAYER_BLOCK_INTERACTION_RANGE);
+        var range = player.getAttribute(Attribute.BLOCK_INTERACTION_RANGE);
         if (range == null || player.getTargetBlockExact((int) range.getValue()) != null) {
             hideBlock(player);
             return;

@@ -28,10 +28,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.jspecify.annotations.NullMarked;
 
 import static org.bukkit.block.data.type.Slab.Type.BOTTOM;
 import static org.bukkit.block.data.type.Slab.Type.TOP;
 
+@NullMarked
 @RequiredArgsConstructor
 public class BlockBreakListener implements Listener {
     private final UtilitiesPlugin plugin;
@@ -47,7 +49,7 @@ public class BlockBreakListener implements Listener {
     }
 
     private boolean isTopHalf(Player player) {
-        var range = player.getAttribute(Attribute.PLAYER_BLOCK_INTERACTION_RANGE);
+        var range = player.getAttribute(Attribute.BLOCK_INTERACTION_RANGE);
         var result = player.rayTraceBlocks(range != null ? range.getValue() : 6);
         if (result == null || result.getHitBlockFace() == null) return false;
         if (result.getHitBlockFace().equals(BlockFace.DOWN)) return false;

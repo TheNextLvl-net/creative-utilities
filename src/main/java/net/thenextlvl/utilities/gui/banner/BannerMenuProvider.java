@@ -30,7 +30,9 @@ import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @RequiredArgsConstructor
 public class BannerMenuProvider implements InventoryProvider {
     private final UtilitiesPlugin plugin;

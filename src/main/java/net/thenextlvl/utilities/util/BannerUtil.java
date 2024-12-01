@@ -26,9 +26,11 @@ import org.bukkit.block.banner.PatternType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.*;
 
+@NullMarked
 public class BannerUtil {
 
     public static final HashMap<UUID, ItemStack> currentBanner = new HashMap<>();
@@ -43,7 +45,7 @@ public class BannerUtil {
 
     public static ItemStack createBanner(String name, DyeColor base, String lore, List<Pattern> patterns) {
         ItemStack item = Items.create(
-                Material.matchMaterial(base.toString() + "_BANNER"),
+                Material.matchMaterial(base + "_BANNER"),
                 (short) 0,
                 1,
                 name,
@@ -52,14 +54,7 @@ public class BannerUtil {
         BannerMeta meta = (BannerMeta) item.getItemMeta();
 
         meta.setPatterns(patterns);
-        if (!lore.isEmpty()) {
-            String[] loreListArray = lore.split("__");
-            List<String> loreList = new ArrayList<>();
-            for (String s : loreListArray) {
-                loreList.add(s.replace('&', ChatColor.COLOR_CHAR));
-            }
-            meta.setLore(loreList);
-        }
+        Items.lore(lore, meta);
         item.setItemMeta(meta);
         return item;
     }
@@ -94,14 +89,7 @@ public class BannerUtil {
                 ""
         );
         BannerMeta meta = (BannerMeta) item.getItemMeta();
-        if (!lore.isEmpty()) {
-            String[] loreListArray = lore.split("__");
-            List<String> loreList = new ArrayList<>();
-            for (String s : loreListArray) {
-                loreList.add(s.replace('&', ChatColor.COLOR_CHAR));
-            }
-            meta.setLore(loreList);
-        }
+        Items.lore(lore, meta);
         item.setItemMeta(meta);
         return item;
     }
@@ -116,14 +104,7 @@ public class BannerUtil {
         );
         BannerMeta meta = (BannerMeta) item.getItemMeta();
         meta.addPattern(pat);
-        if (!lore.isEmpty()) {
-            String[] loreListArray = lore.split("__");
-            List<String> loreList = new ArrayList<>();
-            for (String s : loreListArray) {
-                loreList.add(s.replace('&', ChatColor.COLOR_CHAR));
-            }
-            meta.setLore(loreList);
-        }
+        Items.lore(lore, meta);
         item.setItemMeta(meta);
         return item;
     }

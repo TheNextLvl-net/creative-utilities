@@ -26,9 +26,11 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Optional;
 
+@NullMarked
 @RequiredArgsConstructor
 public class ConnectionListener implements Listener {
     private final UtilitiesPlugin plugin;
@@ -37,7 +39,7 @@ public class ConnectionListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         plugin.settingsController().setHandOpenable(event.getPlayer(), true);
         plugin.settingsController().setSlabPartBreaking(event.getPlayer(), true);
-        Optional.ofNullable(event.getPlayer().getAttribute(Attribute.GENERIC_ATTACK_SPEED)).ifPresent(attribute -> {
+        Optional.ofNullable(event.getPlayer().getAttribute(Attribute.ATTACK_SPEED)).ifPresent(attribute -> {
             var value = plugin.config().fixAttackSpeed() ? 1024 : attribute.getDefaultValue();
             attribute.setBaseValue(value);
         });

@@ -23,7 +23,9 @@ import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @RequiredArgsConstructor
 public class NoClipManager {
     private final UtilitiesPlugin plugin;

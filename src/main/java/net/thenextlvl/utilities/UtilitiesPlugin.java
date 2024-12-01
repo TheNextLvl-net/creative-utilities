@@ -26,15 +26,22 @@ import lombok.experimental.Accessors;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
-import net.thenextlvl.utilities.command.*;
-import net.thenextlvl.utilities.command.aliases.*;
+import net.thenextlvl.utilities.command.AdvancedFlyCommand;
+import net.thenextlvl.utilities.command.BannerCommand;
+import net.thenextlvl.utilities.command.ColorCommand;
+import net.thenextlvl.utilities.command.NightVisionCommand;
+import net.thenextlvl.utilities.command.NoClipCommand;
+import net.thenextlvl.utilities.command.UtilsCommand;
+import net.thenextlvl.utilities.command.aliases.ConvexSelectionAlias;
+import net.thenextlvl.utilities.command.aliases.CuboidSelectionAlias;
+import net.thenextlvl.utilities.command.aliases.DeformRotateAlias;
+import net.thenextlvl.utilities.command.aliases.ScaleAlias;
+import net.thenextlvl.utilities.command.aliases.TwistAlias;
 import net.thenextlvl.utilities.controller.SettingsController;
-import net.thenextlvl.utilities.gui.ColorMenuProvider;
 import net.thenextlvl.utilities.gui.UtilitiesMenuProvider;
 import net.thenextlvl.utilities.gui.banner.BannerColorMenuProvider;
 import net.thenextlvl.utilities.gui.banner.BannerMenuProvider;
 import net.thenextlvl.utilities.gui.banner.BannerPatternMenuProvider;
-import net.thenextlvl.utilities.gui.inventory.InventoryListener;
 import net.thenextlvl.utilities.gui.inventory.InventoryManager;
 import net.thenextlvl.utilities.gui.inventory.SmartInventory;
 import net.thenextlvl.utilities.listener.*;
@@ -47,11 +54,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jspecify.annotations.NullMarked;
 
 import java.io.File;
 import java.util.Locale;
-import java.util.Objects;
 
+@NullMarked
 @Accessors(fluent = true)
 public final class UtilitiesPlugin extends JavaPlugin {
     private final File translations = new File(getDataFolder(), "translations");
@@ -82,22 +90,11 @@ public final class UtilitiesPlugin extends JavaPlugin {
 
     @Override
     public void onLoad() {
-        versionChecker.retrieveLatestSupportedVersion(latest -> latest.ifPresentOrElse(version -> {
-            if (version.equals(versionChecker.getVersionRunning())) {
-                getComponentLogger().info("You are running the latest version of CreativeUtilities");
-            } else if (version.compareTo(Objects.requireNonNull(versionChecker.getVersionRunning())) > 0) {
-                getComponentLogger().warn("An update for CreativeUtilities is available");
-                getComponentLogger().warn("You are running version {}, the latest supported version is {}", versionChecker.getVersionRunning(), version);
-                getComponentLogger().warn("Update at https://hangar.papermc.io/TheNextLvl/CreativeUtilities");
-            } else {
-                getComponentLogger().warn("You are running a snapshot version of CreativeUtilities");
-            }
-        }, () -> getComponentLogger().error("Version check failed")));
+        versionChecker.checkVersion();
     }
 
     @Override
     public void onEnable() {
-        getInventoryManager().init();
         noClipManager().start();
         registerListeners();
         registerCommands();
@@ -115,6 +112,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BlockBreakListener(this), this);
         getServer().getPluginManager().registerEvents(new BlockPhysicsListener(this), this);
         getServer().getPluginManager().registerEvents(new ConnectionListener(this), this);
+        getServer().getPluginManager().registerEvents(new InventoryListener(this), this);
         getServer().getPluginManager().registerEvents(new OpenableListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerInteractListener(this), this);
         getServer().getPluginManager().registerEvents(new SlimeListener(this), this);
@@ -145,8 +143,8 @@ public final class UtilitiesPlugin extends JavaPlugin {
         return JavaPlugin.getPlugin(UtilitiesPlugin.class);
     }
 
-    private final InventoryListener<InventoryCloseEvent> removeGhostItemsListener =
-            new InventoryListener<>(InventoryCloseEvent.class, inventoryCloseEvent -> {
+    private final net.thenextlvl.utilities.gui.inventory.InventoryListener<InventoryCloseEvent> removeGhostItemsListener =
+            new net.thenextlvl.utilities.gui.inventory.InventoryListener<>(InventoryCloseEvent.class, inventoryCloseEvent -> {
                 Bukkit.getScheduler().runTaskLater(this, () -> {
                     ((Player) inventoryCloseEvent.getPlayer()).updateInventory();
                 }, 1L);
@@ -182,17 +180,6 @@ public final class UtilitiesPlugin extends JavaPlugin {
             .size(6, 9)
             .listener(removeGhostItemsListener)
             .title(ChatColor.BLUE + "Select a pattern")
-            .closeable(true)
-            .build();
-
-    @Deprecated(forRemoval = true)
-    public final SmartInventory colorMenu = SmartInventory.builder()
-            .manager(getInventoryManager())
-            .id("buildersutilscolor")
-            .provider(new ColorMenuProvider())
-            .size(6, 9)
-            .listener(removeGhostItemsListener)
-            .title(ChatColor.BLUE + "Armor Color Creator")
             .closeable(true)
             .build();
 

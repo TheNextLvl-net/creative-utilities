@@ -32,10 +32,12 @@ import org.bukkit.block.banner.PatternType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@NullMarked
 @RequiredArgsConstructor
 public class BannerPatternMenuProvider implements InventoryProvider {
     private final UtilitiesPlugin plugin;

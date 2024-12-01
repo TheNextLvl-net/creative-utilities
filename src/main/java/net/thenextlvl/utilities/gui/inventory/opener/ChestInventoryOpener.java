@@ -25,7 +25,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class ChestInventoryOpener implements InventoryOpener {
 
     @Override

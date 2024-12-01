@@ -23,12 +23,14 @@ import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
+import net.thenextlvl.utilities.gui.ArmorCreatorGUI;
 import org.bukkit.entity.Player;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
 
+@NullMarked
 @RequiredArgsConstructor
-@SuppressWarnings("UnstableApiUsage")
 public class ColorCommand {
     private final UtilitiesPlugin plugin;
 
@@ -38,7 +40,7 @@ public class ColorCommand {
                                    && stack.getSender() instanceof Player)
                 .executes(context -> {
                     var player = (Player) context.getSource().getSender();
-                    plugin.colorMenu.open(player);
+                    new ArmorCreatorGUI(plugin, player).open();
                     return Command.SINGLE_SUCCESS;
                 })
                 .build();

@@ -18,6 +18,9 @@
  */
 package net.thenextlvl.utilities.gui.inventory.content;
 
+import org.jspecify.annotations.NullMarked;
+
+@NullMarked
 public class SlotPos {
 
     private final int row;

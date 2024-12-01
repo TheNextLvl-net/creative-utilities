@@ -26,11 +26,12 @@ import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
 
+@NullMarked
 @RequiredArgsConstructor
-@SuppressWarnings("UnstableApiUsage")
 public class NightVisionCommand {
     private final PotionEffect nightVision = new PotionEffect(
             PotionEffectType.NIGHT_VISION,

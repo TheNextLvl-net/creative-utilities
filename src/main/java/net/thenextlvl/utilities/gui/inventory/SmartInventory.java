@@ -26,11 +26,13 @@ import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@NullMarked
 @SuppressWarnings("unchecked")
 public class SmartInventory {
 
@@ -137,7 +139,7 @@ public class SmartInventory {
         return manager;
     }
 
-    List<InventoryListener<? extends Event>> getListeners() {
+    public List<InventoryListener<? extends Event>> getListeners() {
         return listeners;
     }
 
