@@ -32,7 +32,7 @@ dependencies {
     compileOnly("net.thenextlvl.core:annotations:2.0.1")
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
 
-    implementation("org.bstats:bstats-bukkit:3.0.2")
+    implementation("org.bstats:bstats-bukkit:3.1.0")
     implementation("net.thenextlvl.core:adapters:1.0.9")
     implementation("net.thenextlvl.core:paper:1.4.1")
     implementation("net.thenextlvl.core:files:2.0.0")
