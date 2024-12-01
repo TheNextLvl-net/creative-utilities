@@ -12,7 +12,6 @@ import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 @RequiredArgsConstructor
@@ -53,10 +52,6 @@ public class InventoryListener implements Listener {
                 return;
             }
 
-            inventory.getListeners().stream()
-                    .filter(listener -> listener.getType() == InventoryClickEvent.class)
-                    .forEach(listener -> ((net.thenextlvl.utilities.gui.inventory.InventoryListener<InventoryClickEvent>) listener).accept(event));
-
             plugin.getInventoryManager().getContents(player)
                     .flatMap(inventoryContents -> inventoryContents.get(row, column))
                     .ifPresent(item -> item.run(event));
@@ -80,22 +75,6 @@ public class InventoryListener implements Listener {
             event.setCancelled(true);
             break;
         }
-
-        inventory.getListeners().stream()
-                .filter(listener -> listener.getType() == InventoryDragEvent.class)
-                .forEach(listener -> ((net.thenextlvl.utilities.gui.inventory.InventoryListener<InventoryDragEvent>) listener).accept(event));
-    }
-
-    @EventHandler(priority = EventPriority.LOW)
-    public void onInventoryOpen(InventoryOpenEvent event) {
-        Player player = (Player) event.getPlayer();
-
-        var inventory = plugin.getInventoryManager().getInventory(player).orElse(null);
-        if (inventory == null) return;
-
-        inventory.getListeners().stream()
-                .filter(listener -> listener.getType() == InventoryOpenEvent.class)
-                .forEach(listener -> ((net.thenextlvl.utilities.gui.inventory.InventoryListener<InventoryOpenEvent>) listener).accept(event));
     }
 
     @EventHandler(priority = EventPriority.LOW)
@@ -104,10 +83,6 @@ public class InventoryListener implements Listener {
 
         var inventory = plugin.getInventoryManager().getInventory(player).orElse(null);
         if (inventory == null) return;
-
-        inventory.getListeners().stream()
-                .filter(listener -> listener.getType() == InventoryCloseEvent.class)
-                .forEach(listener -> ((net.thenextlvl.utilities.gui.inventory.InventoryListener<InventoryCloseEvent>) listener).accept(event));
 
         if (inventory.isCloseable()) {
             event.getInventory().clear();
@@ -124,10 +99,6 @@ public class InventoryListener implements Listener {
 
         var inventory = plugin.getInventoryManager().getInventory(player).orElse(null);
         if (inventory == null) return;
-
-        inventory.getListeners().stream()
-                .filter(listener -> listener.getType() == PlayerQuitEvent.class)
-                .forEach(listener -> ((net.thenextlvl.utilities.gui.inventory.InventoryListener<PlayerQuitEvent>) listener).accept(event));
 
         plugin.getInventoryManager().removeInventory(player);
     }

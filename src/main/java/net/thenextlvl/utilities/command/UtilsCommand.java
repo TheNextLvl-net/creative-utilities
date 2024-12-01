@@ -23,6 +23,7 @@ import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
+import net.thenextlvl.utilities.gui.UtilitiesGUI;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;
 
@@ -39,7 +40,7 @@ public class UtilsCommand {
                                    && stack.getSender() instanceof Player)
                 .executes(context -> {
                     var player = (Player) context.getSource().getSender();
-                    plugin.toggleMenu.open(player);
+                    new UtilitiesGUI(plugin, player).open();
                     return Command.SINGLE_SUCCESS;
                 })
                 .build();

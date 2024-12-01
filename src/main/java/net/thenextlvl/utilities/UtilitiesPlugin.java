@@ -38,7 +38,6 @@ import net.thenextlvl.utilities.command.aliases.DeformRotateAlias;
 import net.thenextlvl.utilities.command.aliases.ScaleAlias;
 import net.thenextlvl.utilities.command.aliases.TwistAlias;
 import net.thenextlvl.utilities.controller.SettingsController;
-import net.thenextlvl.utilities.gui.UtilitiesMenuProvider;
 import net.thenextlvl.utilities.gui.banner.BannerColorMenuProvider;
 import net.thenextlvl.utilities.gui.banner.BannerMenuProvider;
 import net.thenextlvl.utilities.gui.banner.BannerPatternMenuProvider;
@@ -52,7 +51,6 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jspecify.annotations.NullMarked;
 
@@ -78,7 +76,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
 
     @Accessors(fluent = false)
     @Deprecated(forRemoval = true)
-    private final @Getter InventoryManager inventoryManager = new InventoryManager(this);
+    private final @Getter InventoryManager inventoryManager = new InventoryManager();
 
     private final @Getter PluginConfig config = new GsonFile<>(
             IO.of(getDataFolder(), "config.json"),
@@ -143,54 +141,24 @@ public final class UtilitiesPlugin extends JavaPlugin {
         return JavaPlugin.getPlugin(UtilitiesPlugin.class);
     }
 
-    private final net.thenextlvl.utilities.gui.inventory.InventoryListener<InventoryCloseEvent> removeGhostItemsListener =
-            new net.thenextlvl.utilities.gui.inventory.InventoryListener<>(InventoryCloseEvent.class, inventoryCloseEvent -> {
-                Bukkit.getScheduler().runTaskLater(this, () -> {
-                    ((Player) inventoryCloseEvent.getPlayer()).updateInventory();
-                }, 1L);
-            });
-
     @Deprecated(forRemoval = true)
-    public final SmartInventory bannerMenu = SmartInventory.builder()
-            .manager(getInventoryManager())
-            .id("buildersutilsbanner")
-            .provider(new BannerMenuProvider(this))
+    public final SmartInventory bannerMenu = SmartInventory.builder(getInventoryManager(), new BannerMenuProvider(this))
             .size(6, 9)
-            .listener(removeGhostItemsListener)
             .title(ChatColor.BLUE + "Select a base color")
             .closeable(true)
             .build();
 
     @Deprecated(forRemoval = true)
-    public final SmartInventory bannerColorMenu = SmartInventory.builder()
-            .manager(getInventoryManager())
-            .id("buildersutilsbannercolor")
-            .provider(new BannerColorMenuProvider(this))
+    public final SmartInventory bannerColorMenu = SmartInventory.builder(getInventoryManager(), new BannerColorMenuProvider(this))
             .size(6, 9)
-            .listener(removeGhostItemsListener)
             .title(ChatColor.BLUE + "Select a color")
             .closeable(true)
             .build();
 
     @Deprecated(forRemoval = true)
-    public final SmartInventory bannerPatternMenu = SmartInventory.builder()
-            .manager(getInventoryManager())
-            .id("buildersutilsbannerpattern")
-            .provider(new BannerPatternMenuProvider(this))
+    public final SmartInventory bannerPatternMenu = SmartInventory.builder(getInventoryManager(), new BannerPatternMenuProvider(this))
             .size(6, 9)
-            .listener(removeGhostItemsListener)
             .title(ChatColor.BLUE + "Select a pattern")
-            .closeable(true)
-            .build();
-
-    @Deprecated(forRemoval = true)
-    public final SmartInventory toggleMenu = SmartInventory.builder()
-            .manager(getInventoryManager())
-            .id("buildersutilstoggle")
-            .provider(new UtilitiesMenuProvider(this))
-            .size(3, 9)
-            .listener(removeGhostItemsListener)
-            .title(ChatColor.BLUE + "Builder's Utilities")
             .closeable(true)
             .build();
 }
