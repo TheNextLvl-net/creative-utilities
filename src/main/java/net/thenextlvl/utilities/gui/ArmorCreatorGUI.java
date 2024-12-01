@@ -8,6 +8,7 @@ import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.Random;
@@ -47,7 +48,7 @@ public class ArmorCreatorGUI extends GUI<UtilitiesPlugin> {
                 .itemName(plugin.bundle().component(owner, name))
                 .headValue(head)
                 .withAction((type, player) -> {
-                    if (!type.isMouseClick()) return;
+                    if (type.equals(ClickType.DOUBLE_CLICK)) return;
                     randomization.run();
                     updateSelector();
                     updateArmor();
@@ -67,7 +68,6 @@ public class ArmorCreatorGUI extends GUI<UtilitiesPlugin> {
                 .itemName(plugin.bundle().component(owner, name))
                 .lore(plugin.bundle().components(owner, "gui.item.color.info"))
                 .withAction((type, player) -> {
-                    if (!type.isMouseClick()) return;
                     var newAmount = Math.clamp(amount + switch (type) {
                         case LEFT -> 1;
                         case RIGHT -> -1;

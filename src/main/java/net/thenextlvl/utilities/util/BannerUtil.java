@@ -94,21 +94,6 @@ public class BannerUtil {
         return item;
     }
 
-    public static ItemStack createBanner(String name, int amount, DyeColor base, String lore, Pattern pat) {
-        ItemStack item = Items.create(
-                Material.matchMaterial(base.toString() + "_BANNER"),
-                (short) 0,
-                1,
-                name,
-                ""
-        );
-        BannerMeta meta = (BannerMeta) item.getItemMeta();
-        meta.addPattern(pat);
-        Items.lore(lore, meta);
-        item.setItemMeta(meta);
-        return item;
-    }
-
     public static ItemStack addPattern(ItemStack i, Pattern pat) {
         return i.editMeta(BannerMeta.class, meta -> meta.addPattern(pat)) ? i : null;
     }

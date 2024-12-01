@@ -22,12 +22,10 @@ import net.thenextlvl.utilities.gui.inventory.content.InventoryContents;
 import net.thenextlvl.utilities.gui.inventory.opener.ChestInventoryOpener;
 import net.thenextlvl.utilities.gui.inventory.opener.InventoryOpener;
 import net.thenextlvl.utilities.gui.inventory.opener.SpecialInventoryOpener;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,19 +37,13 @@ import java.util.Optional;
 @NullMarked
 public class InventoryManager {
 
-    private final JavaPlugin plugin;
-    private final PluginManager pluginManager;
-
     private final Map<Player, SmartInventory> inventories;
     private final Map<Player, InventoryContents> contents;
 
     private final List<InventoryOpener> defaultOpeners;
     private final List<InventoryOpener> openers;
 
-    public InventoryManager(JavaPlugin plugin) {
-        this.plugin = plugin;
-        this.pluginManager = Bukkit.getPluginManager();
-
+    public InventoryManager() {
         this.inventories = new HashMap<>();
         this.contents = new HashMap<>();
 
@@ -77,10 +69,6 @@ public class InventoryManager {
         return opInv;
     }
 
-    public void registerOpeners(InventoryOpener... openers) {
-        this.openers.addAll(Arrays.asList(openers));
-    }
-
     public List<Player> getOpenedPlayers(SmartInventory inv) {
         List<Player> list = new ArrayList<>();
 
@@ -93,10 +81,6 @@ public class InventoryManager {
         return list;
     }
 
-    public boolean hasInventory(Player player) {
-        return inventories.containsKey(player);
-    }
-
     public void removeInventory(Player player) {
         inventories.remove(player);
         contents.remove(player);
@@ -106,7 +90,7 @@ public class InventoryManager {
         return Optional.ofNullable(this.inventories.get(p));
     }
 
-    protected void setInventory(Player p, SmartInventory inv) {
+    protected void setInventory(Player p, @Nullable SmartInventory inv) {
         if (inv == null) {
             this.inventories.remove(p);
         } else {
@@ -118,7 +102,7 @@ public class InventoryManager {
         return Optional.ofNullable(this.contents.get(p));
     }
 
-    protected void setContents(Player p, InventoryContents contents) {
+    protected void setContents(Player p, @Nullable InventoryContents contents) {
         if (contents == null) {
             this.contents.remove(p);
         } else {
