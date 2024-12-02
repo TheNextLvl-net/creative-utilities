@@ -136,11 +136,6 @@ public final class UtilitiesPlugin extends JavaPlugin {
     }
 
     @Deprecated(forRemoval = true)
-    public static UtilitiesPlugin getInstance() {
-        return JavaPlugin.getPlugin(UtilitiesPlugin.class);
-    }
-
-    @Deprecated(forRemoval = true)
     public final SmartInventory bannerMenu = SmartInventory.builder(getInventoryManager(), new BannerMenuProvider(this))
             .size(6, 9)
             .title(ChatColor.BLUE + "Select a base color")
