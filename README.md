@@ -15,6 +15,7 @@ We aim to be always up-to-date and use new technology instead of hanging on to o
 - **100%** customizable messages
 - **Piston Sliming**
 - **Air Placing**
+- **Pottery Designer**
 - Brigadier commands
 - Improved configuration file
 - No legacy code or dependencies
