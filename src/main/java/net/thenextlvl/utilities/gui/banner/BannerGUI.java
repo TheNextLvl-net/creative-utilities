@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
 
 @NullMarked
 public class BannerGUI extends GUI<UtilitiesPlugin> {
-    static final String DICE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzk3OTU1NDYyZTRlNTc2NjY0NDk5YWM0YTFjNTcyZjYxNDNmMTlhZDJkNjE5NDc3NjE5OGY4ZDEzNmZkYjIifX19";
+    public static final String DICE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzk3OTU1NDYyZTRlNTc2NjY0NDk5YWM0YTFjNTcyZjYxNDNmMTlhZDJkNjE5NDc3NjE5OGY4ZDEzNmZkYjIifX19";
 
     private static final List<Item> items = List.of(
             new Item(19, Material.WHITE_BANNER, "gui.item.banner.color.white"),
@@ -38,7 +38,7 @@ public class BannerGUI extends GUI<UtilitiesPlugin> {
     public BannerGUI(UtilitiesPlugin plugin, Player owner) {
         super(plugin, owner, plugin.bundle().component(owner, "gui.title.banner.base"), 6);
         setSlot(1, new ItemBuilder(Material.PLAYER_HEAD)
-                .itemName(plugin.bundle().component(owner, "gui.item.banner.randomize"))
+                .itemName(plugin.bundle().component(owner, "gui.item.randomize"))
                 .headValue(DICE)
                 .withAction(player -> {
                     var item = items.get(ThreadLocalRandom.current().nextInt(0, items.size()));
