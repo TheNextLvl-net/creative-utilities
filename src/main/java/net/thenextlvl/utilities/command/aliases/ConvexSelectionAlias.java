@@ -23,7 +23,6 @@ import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import org.bukkit.Bukkit;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
@@ -37,7 +36,7 @@ public class ConvexSelectionAlias {
         var command = Commands.literal("/convex")
                 .requires(source -> source.getSender().hasPermission("worldedit.analysis.sel"))
                 .executes(context -> {
-                    Bukkit.dispatchCommand(context.getSource().getSender(), "/sel convex");
+                    plugin.getServer().dispatchCommand(context.getSource().getSender(), "/sel convex");
                     return Command.SINGLE_SUCCESS;
                 })
                 .build();

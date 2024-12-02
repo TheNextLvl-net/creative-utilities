@@ -48,7 +48,6 @@ import net.thenextlvl.utilities.model.NoClipManager;
 import net.thenextlvl.utilities.model.PluginConfig;
 import net.thenextlvl.utilities.version.PluginVersionChecker;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -128,7 +127,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
     }
 
     private void registerAliases() {
-        if (!Bukkit.getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) return;
+        if (!getServer().getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) return;
         new ConvexSelectionAlias(this).register();
         new CuboidSelectionAlias(this).register();
         new DeformRotateAlias(this).register();

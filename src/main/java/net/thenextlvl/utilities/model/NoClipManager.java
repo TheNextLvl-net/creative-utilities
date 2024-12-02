@@ -20,7 +20,6 @@ package net.thenextlvl.utilities.model;
 
 import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;
@@ -31,7 +30,7 @@ public class NoClipManager {
     private final UtilitiesPlugin plugin;
 
     public void start() {
-        Bukkit.getGlobalRegionScheduler().runAtFixedRate(plugin, task -> plugin.settingsController()
+        plugin.getServer().getGlobalRegionScheduler().runAtFixedRate(plugin, task -> plugin.settingsController()
                 .getNoClip().forEach(this::updateNoClip), 1, 1);
     }
 

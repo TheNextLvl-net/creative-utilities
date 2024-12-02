@@ -24,7 +24,6 @@ import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import org.bukkit.Bukkit;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
@@ -41,11 +40,11 @@ public class ScaleAlias {
                         .executes(context -> {
                             var size = context.getArgument("size", int.class);
                             var line = "/deform x/=%s;y/=%s;z/=%s".formatted(size, size, size);
-                            Bukkit.dispatchCommand(context.getSource().getSender(), line);
+                            plugin.getServer().dispatchCommand(context.getSource().getSender(), line);
                             return Command.SINGLE_SUCCESS;
                         }))
                 .executes(context -> {
-                    Bukkit.dispatchCommand(context.getSource().getSender(), "/deform");
+                    plugin.getServer().dispatchCommand(context.getSource().getSender(), "/deform");
                     return Command.SINGLE_SUCCESS;
                 })
                 .build();

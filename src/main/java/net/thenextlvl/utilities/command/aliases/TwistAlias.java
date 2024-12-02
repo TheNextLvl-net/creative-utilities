@@ -25,7 +25,6 @@ import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Axis;
-import org.bukkit.Bukkit;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
@@ -46,15 +45,15 @@ public class TwistAlias {
                                         case Y -> "x,z";
                                         case Z -> "x,y";
                                     }, degrees * 0.0174533f / 2, axis.name().toLowerCase());
-                                    Bukkit.dispatchCommand(context.getSource().getSender(), line);
+                                    plugin.getServer().dispatchCommand(context.getSource().getSender(), line);
                                     return Command.SINGLE_SUCCESS;
                                 }))
                         .executes(context -> {
-                            Bukkit.dispatchCommand(context.getSource().getSender(), "/deform");
+                            plugin.getServer().dispatchCommand(context.getSource().getSender(), "/deform");
                             return Command.SINGLE_SUCCESS;
                         }))
                 .executes(context -> {
-                    Bukkit.dispatchCommand(context.getSource().getSender(), "/deform");
+                    plugin.getServer().dispatchCommand(context.getSource().getSender(), "/deform");
                     return Command.SINGLE_SUCCESS;
                 })
                 .build();
