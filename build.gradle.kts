@@ -92,6 +92,11 @@ hangarPublish { // docs - https://docs.papermc.io/misc/hangar-publishing
         platforms.register(Platforms.PAPER) {
             jar.set(tasks.shadowJar.flatMap { it.archiveFile })
             platformVersions.set(versions)
+            dependencies {
+                hangar("FastAsyncWorldEdit") {
+                    required.set(false)
+                }
+            }
         }
     }
 }
