@@ -40,7 +40,7 @@ public class ColorGUI extends GUI<UtilitiesPlugin> {
     public ColorGUI(UtilitiesPlugin plugin, Player owner, ItemStack banner) {
         super(plugin, owner, plugin.bundle().component(owner, "gui.title.banner.color"), 6);
         setSlot(1, new ItemBuilder(Material.PLAYER_HEAD)
-                .itemName(plugin.bundle().component(owner, "gui.item.banner.randomize"))
+                .itemName(plugin.bundle().component(owner, "gui.item.randomize"))
                 .headValue(BannerGUI.DICE)
                 .withAction(player -> {
                     player.playSound(player, Sound.UI_LOOM_SELECT_PATTERN, SoundCategory.BLOCKS, 1, 1);

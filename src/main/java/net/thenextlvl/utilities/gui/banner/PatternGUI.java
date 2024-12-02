@@ -54,7 +54,7 @@ public class PatternGUI extends PagedGUI<UtilitiesPlugin, PatternType> {
     @Override
     public void pageLoaded() {
         setSlot(1, new ItemBuilder(Material.PLAYER_HEAD)
-                .itemName(plugin.bundle().component(owner, "gui.item.banner.randomize"))
+                .itemName(plugin.bundle().component(owner, "gui.item.randomize"))
                 .headValue(BannerGUI.DICE)
                 .withAction(player -> player.getScheduler().execute(plugin, () -> {
                     var pattern = patterns.get(ThreadLocalRandom.current().nextInt(0, patterns.size()));

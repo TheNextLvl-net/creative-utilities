@@ -13,6 +13,7 @@ import net.thenextlvl.utilities.command.BannerCommand;
 import net.thenextlvl.utilities.command.ColorCommand;
 import net.thenextlvl.utilities.command.NightVisionCommand;
 import net.thenextlvl.utilities.command.NoClipCommand;
+import net.thenextlvl.utilities.command.PotteryCommand;
 import net.thenextlvl.utilities.command.UtilsCommand;
 import net.thenextlvl.utilities.command.aliases.ConvexSelectionAlias;
 import net.thenextlvl.utilities.command.aliases.CuboidSelectionAlias;
@@ -93,6 +94,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
         new ColorCommand(this).register();
         new NightVisionCommand(this).register();
         new NoClipCommand(this).register();
+        new PotteryCommand(this).register();
         new UtilsCommand(this).register();
     }
 
