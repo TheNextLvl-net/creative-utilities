@@ -38,17 +38,11 @@ import net.thenextlvl.utilities.command.aliases.DeformRotateAlias;
 import net.thenextlvl.utilities.command.aliases.ScaleAlias;
 import net.thenextlvl.utilities.command.aliases.TwistAlias;
 import net.thenextlvl.utilities.controller.SettingsController;
-import net.thenextlvl.utilities.gui.banner.BannerColorMenuProvider;
-import net.thenextlvl.utilities.gui.banner.BannerMenuProvider;
-import net.thenextlvl.utilities.gui.banner.BannerPatternMenuProvider;
-import net.thenextlvl.utilities.gui.inventory.InventoryManager;
-import net.thenextlvl.utilities.gui.inventory.SmartInventory;
 import net.thenextlvl.utilities.listener.*;
 import net.thenextlvl.utilities.model.NoClipManager;
 import net.thenextlvl.utilities.model.PluginConfig;
 import net.thenextlvl.utilities.version.PluginVersionChecker;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jspecify.annotations.NullMarked;
@@ -70,12 +64,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
             )).build());
 
     private final @Getter SettingsController settingsController = new SettingsController();
-
     private final @Getter NoClipManager noClipManager = new NoClipManager(this);
-
-    @Accessors(fluent = false)
-    @Deprecated(forRemoval = true)
-    private final @Getter InventoryManager inventoryManager = new InventoryManager();
 
     private final @Getter PluginConfig config = new GsonFile<>(
             IO.of(getDataFolder(), "config.json"),
@@ -109,7 +98,6 @@ public final class UtilitiesPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BlockBreakListener(this), this);
         getServer().getPluginManager().registerEvents(new BlockPhysicsListener(this), this);
         getServer().getPluginManager().registerEvents(new ConnectionListener(this), this);
-        getServer().getPluginManager().registerEvents(new InventoryListener(this), this);
         getServer().getPluginManager().registerEvents(new OpenableListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerInteractListener(this), this);
         getServer().getPluginManager().registerEvents(new SlimeListener(this), this);
@@ -134,30 +122,4 @@ public final class UtilitiesPlugin extends JavaPlugin {
         new ScaleAlias(this).register();
         new TwistAlias(this).register();
     }
-
-    @Deprecated(forRemoval = true)
-    public static UtilitiesPlugin getInstance() {
-        return JavaPlugin.getPlugin(UtilitiesPlugin.class);
-    }
-
-    @Deprecated(forRemoval = true)
-    public final SmartInventory bannerMenu = SmartInventory.builder(getInventoryManager(), new BannerMenuProvider(this))
-            .size(6, 9)
-            .title(ChatColor.BLUE + "Select a base color")
-            .closeable(true)
-            .build();
-
-    @Deprecated(forRemoval = true)
-    public final SmartInventory bannerColorMenu = SmartInventory.builder(getInventoryManager(), new BannerColorMenuProvider(this))
-            .size(6, 9)
-            .title(ChatColor.BLUE + "Select a color")
-            .closeable(true)
-            .build();
-
-    @Deprecated(forRemoval = true)
-    public final SmartInventory bannerPatternMenu = SmartInventory.builder(getInventoryManager(), new BannerPatternMenuProvider(this))
-            .size(6, 9)
-            .title(ChatColor.BLUE + "Select a pattern")
-            .closeable(true)
-            .build();
 }
