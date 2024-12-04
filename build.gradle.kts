@@ -29,7 +29,7 @@ repositories {
 
 dependencies {
     compileOnly("org.projectlombok:lombok:1.18.36")
-    compileOnly("io.papermc.paper:paper-api:1.21.3-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
 
     implementation("org.bstats:bstats-bukkit:3.1.0")
     implementation("net.thenextlvl.core:adapters:2.0.1")
