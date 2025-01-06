@@ -1,6 +1,6 @@
 package net.thenextlvl.utilities.gui.banner;
 
-import core.paper.gui.PagedGUI;
+import core.paper.gui.PaginatedGUI;
 import core.paper.item.ActionItem;
 import core.paper.item.ItemBuilder;
 import io.papermc.paper.datacomponent.DataComponentTypes;
@@ -25,7 +25,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 @NullMarked
-public class PatternGUI extends PagedGUI<UtilitiesPlugin, PatternType> {
+public class PatternGUI extends PaginatedGUI<UtilitiesPlugin, PatternType> {
     /**
      * Represents the maximum number of patterns that can be applied to a banner.
      * <a href="https://minecraft.wiki/w/Banner#Trivia">Wiki</a>
@@ -36,7 +36,7 @@ public class PatternGUI extends PagedGUI<UtilitiesPlugin, PatternType> {
             .getRegistry(RegistryKey.BANNER_PATTERN).stream()
             .filter(patternType -> !patternType.equals(PatternType.BASE))
             .toList();
-    private final Options options;
+    private final Pagination pagination;
     private final ItemStack banner;
     private final DyeColor color;
 
@@ -44,7 +44,7 @@ public class PatternGUI extends PagedGUI<UtilitiesPlugin, PatternType> {
         super(plugin, owner, plugin.bundle().component(owner, "gui.title.banner.pattern"), 6);
 
         var slots = IntStream.of(19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 43);
-        this.options = new Options(slots.toArray(), 3, 5);
+        this.pagination = new Pagination(slots.toArray(), 3, 5);
         this.banner = banner;
         this.color = color;
 
@@ -53,21 +53,21 @@ public class PatternGUI extends PagedGUI<UtilitiesPlugin, PatternType> {
 
     @Override
     public void pageLoaded() {
-        setSlot(1, new ItemBuilder(Material.PLAYER_HEAD)
+        setSlot(1, ItemBuilder.of(Material.PLAYER_HEAD)
                 .itemName(plugin.bundle().component(owner, "gui.item.randomize"))
-                .headValue(BannerGUI.DICE)
+                .profileValue(BannerGUI.DICE)
                 .withAction(player -> player.getScheduler().execute(plugin, () -> {
                     var pattern = patterns.get(ThreadLocalRandom.current().nextInt(0, patterns.size()));
                     giveOrContinue(applyPattern(banner, pattern, color));
                 }, null, 1)));
-        setSlot(4, new ItemBuilder(banner)
+        setSlot(4, ItemBuilder.of(banner)
                 .itemName(plugin.bundle().component(owner, "gui.item.banner"))
                 .lore(plugin.bundle().components(owner, "gui.item.banner.get"))
                 .withAction(player -> {
                     player.playSound(player, Sound.UI_LOOM_TAKE_RESULT, SoundCategory.BLOCKS, 1, 1);
                     player.getInventory().addItem(banner);
                 }));
-        setSlot(7, new ItemBuilder(Material.BARRIER)
+        setSlot(7, ItemBuilder.of(Material.BARRIER)
                 .itemName(plugin.bundle().component(owner, "gui.item.back"))
                 .withAction(player -> new ColorGUI(plugin, player, banner).open()));
         super.pageLoaded();
@@ -80,7 +80,7 @@ public class PatternGUI extends PagedGUI<UtilitiesPlugin, PatternType> {
                 .getKey(element);
         var title = key != null ? "gui.item.banner.pattern." + key.value() : "gui.item.banner.pattern.unknown";
         var item = applyPattern(banner.clone(), element, color);
-        return new ItemBuilder(item)
+        return ItemBuilder.of(item)
                 .itemName(plugin.bundle().component(owner, title))
                 .lore(plugin.bundle().components(owner, "gui.item.banner.color.info"))
                 .withAction(player -> player.getScheduler().execute(plugin, () -> giveOrContinue(item), null, 1));
@@ -112,7 +112,7 @@ public class PatternGUI extends PagedGUI<UtilitiesPlugin, PatternType> {
 
     @Override
     protected void formatDefault() {
-        var placeholder = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).hideTooltip(true);
+        var placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).hideTooltip();
         IntStream.range(0, getSize()).forEach(slot -> setSlotIfAbsent(slot, placeholder));
     }
 
@@ -127,7 +127,7 @@ public class PatternGUI extends PagedGUI<UtilitiesPlugin, PatternType> {
     }
 
     @Override
-    public Options getOptions() {
-        return this.options;
+    public Pagination getPagination() {
+        return pagination;
     }
 }

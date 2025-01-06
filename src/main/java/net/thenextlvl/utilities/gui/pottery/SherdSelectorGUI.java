@@ -1,6 +1,6 @@
 package net.thenextlvl.utilities.gui.pottery;
 
-import core.paper.gui.PagedGUI;
+import core.paper.gui.PaginatedGUI;
 import core.paper.item.ActionItem;
 import core.paper.item.ItemBuilder;
 import io.papermc.paper.datacomponent.DataComponentTypes;
@@ -22,7 +22,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 @NullMarked
-public class SherdSelectorGUI extends PagedGUI<UtilitiesPlugin, Material> {
+public class SherdSelectorGUI extends PaginatedGUI<UtilitiesPlugin, Material> {
     private static final List<Material> sherds = List.of(
             Material.ANGLER_POTTERY_SHERD,
             Material.ARCHER_POTTERY_SHERD,
@@ -48,14 +48,14 @@ public class SherdSelectorGUI extends PagedGUI<UtilitiesPlugin, Material> {
             Material.SKULL_POTTERY_SHERD,
             Material.SNORT_POTTERY_SHERD
     );
-    private final Options options;
+    private final Pagination pagination;
     private final ItemStack pot;
     private final PotteryDesignerGUI.Side side;
 
     public SherdSelectorGUI(UtilitiesPlugin plugin, Player owner, ItemStack pot, PotteryDesignerGUI.Side side) {
         super(plugin, owner, plugin.bundle().component(owner, "gui.title.pottery.sherd"), 5);
         var slots = IntStream.of(19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34);
-        this.options = new Options(slots.toArray(), 3, 5);
+        this.pagination = new Pagination(slots.toArray(), 3, 5);
         this.pot = pot;
         this.side = side;
         loadPage(getCurrentPage());
@@ -63,9 +63,9 @@ public class SherdSelectorGUI extends PagedGUI<UtilitiesPlugin, Material> {
 
     @Override
     public void pageLoaded() {
-        setSlot(1, new ItemBuilder(Material.PLAYER_HEAD)
+        setSlot(1, ItemBuilder.of(Material.PLAYER_HEAD)
                 .itemName(plugin.bundle().component(owner, "gui.item.randomize"))
-                .headValue(BannerGUI.DICE)
+                .profileValue(BannerGUI.DICE)
                 .withAction(player -> {
                     var data = pot.getData(DataComponentTypes.POT_DECORATIONS);
                     if (data != null) pot.setData(
@@ -74,11 +74,11 @@ public class SherdSelectorGUI extends PagedGUI<UtilitiesPlugin, Material> {
                     );
                     new PotteryDesignerGUI(plugin, owner, pot).open();
                 }));
-        setSlot(4, new ItemBuilder(pot)
+        setSlot(4, ItemBuilder.of(pot)
                 .itemName(plugin.bundle().component(owner, "gui.item.pottery"))
                 .lore(plugin.bundle().components(owner, "gui.item.pottery.get"))
                 .withAction(player -> player.getInventory().addItem(pot)));
-        setSlot(7, new ItemBuilder(Material.BARRIER)
+        setSlot(7, ItemBuilder.of(Material.BARRIER)
                 .itemName(plugin.bundle().component(owner, "gui.item.back"))
                 .withAction(player -> new PotteryDesignerGUI(plugin, owner, pot).open()));
         super.pageLoaded();
@@ -86,7 +86,7 @@ public class SherdSelectorGUI extends PagedGUI<UtilitiesPlugin, Material> {
 
     @Override
     public ActionItem constructItem(Material sherd) {
-        return new ItemBuilder(sherd)
+        return ItemBuilder.of(sherd)
                 .itemName(Component.translatable(sherd.translationKey(), NamedTextColor.GOLD))
                 .withAction(player -> {
                     var data = pot.getData(DataComponentTypes.POT_DECORATIONS);
@@ -109,7 +109,7 @@ public class SherdSelectorGUI extends PagedGUI<UtilitiesPlugin, Material> {
 
     @Override
     protected void formatDefault() {
-        var placeholder = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).hideTooltip(true);
+        var placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).hideTooltip();
         IntStream.range(0, getSize()).forEach(slot -> setSlotIfAbsent(slot, placeholder));
     }
 
@@ -124,8 +124,8 @@ public class SherdSelectorGUI extends PagedGUI<UtilitiesPlugin, Material> {
     }
 
     @Override
-    public Options getOptions() {
-        return this.options;
+    public Pagination getPagination() {
+        return pagination;
     }
 
     static PotDecorations getRandom() {

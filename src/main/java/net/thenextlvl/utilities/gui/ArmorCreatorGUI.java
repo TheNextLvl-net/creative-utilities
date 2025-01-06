@@ -44,9 +44,9 @@ public class ArmorCreatorGUI extends GUI<UtilitiesPlugin> {
     }
 
     private void updateDice(int slot, String head, String name, Runnable randomization) {
-        setSlot(slot, new ItemBuilder(Material.PLAYER_HEAD)
+        setSlot(slot, ItemBuilder.of(Material.PLAYER_HEAD)
                 .itemName(plugin.bundle().component(owner, name))
-                .headValue(head)
+                .profileValue(head)
                 .withAction((type, player) -> {
                     if (type.equals(ClickType.DOUBLE_CLICK)) return;
                     randomization.run();
@@ -62,8 +62,8 @@ public class ArmorCreatorGUI extends GUI<UtilitiesPlugin> {
     }
 
     private void updateSelector(int slot, int amount, Material fallback, String head, String name, Consumer<Integer> setter) {
-        var item = amount == 0 ? new ItemBuilder(fallback) : new ItemBuilder(Material.PLAYER_HEAD)
-                .headValue(head).amount(amount);
+        var item = amount == 0 ? ItemBuilder.of(fallback) : ItemBuilder.of(Material.PLAYER_HEAD)
+                .profileValue(head).amount(amount);
         setSlot(slot, item
                 .itemName(plugin.bundle().component(owner, name))
                 .lore(plugin.bundle().components(owner, "gui.item.color.info"))
@@ -90,12 +90,11 @@ public class ArmorCreatorGUI extends GUI<UtilitiesPlugin> {
     }
 
     private void updateArmor(int slot, Material material) {
-        var builder = new ItemBuilder(material);
+        var builder = ItemBuilder.of(material);
         var color = Color.fromRGB(red * 255 / 20, green * 255 / 20, blue * 255 / 20);
         var dye = DyedItemColor.dyedItemColor().color(color).build();
-        builder.setData(DataComponentTypes.DYED_COLOR, dye);
-        setSlot(slot, builder.withAction(player ->
-                player.getInventory().addItem(builder)));
+        setSlot(slot, builder.data(DataComponentTypes.DYED_COLOR, dye)
+                .withAction(player -> player.getInventory().addItem(builder.item())));
     }
 
     @Override

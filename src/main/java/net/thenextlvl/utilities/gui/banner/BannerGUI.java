@@ -37,19 +37,19 @@ public class BannerGUI extends GUI<UtilitiesPlugin> {
 
     public BannerGUI(UtilitiesPlugin plugin, Player owner) {
         super(plugin, owner, plugin.bundle().component(owner, "gui.title.banner.base"), 6);
-        setSlot(1, new ItemBuilder(Material.PLAYER_HEAD)
+        setSlot(1, ItemBuilder.of(Material.PLAYER_HEAD)
                 .itemName(plugin.bundle().component(owner, "gui.item.randomize"))
-                .headValue(DICE)
+                .profileValue(DICE)
                 .withAction(player -> {
                     var item = items.get(ThreadLocalRandom.current().nextInt(0, items.size()));
                     new ColorGUI(plugin, player, ItemStack.of(item.type())).open();
                 }));
-        setSlot(4, new ItemBuilder(Material.WHITE_BANNER)
+        setSlot(4, ItemBuilder.of(Material.WHITE_BANNER)
                 .itemName(plugin.bundle().component(owner, "gui.item.banner")));
-        setSlot(7, new ItemBuilder(Material.BARRIER)
+        setSlot(7, ItemBuilder.of(Material.BARRIER)
                 .itemName(plugin.bundle().component(owner, "gui.item.close"))
                 .withAction(player -> player.getScheduler().execute(plugin, player::closeInventory, null, 1)));
-        items.forEach(item -> setSlot(item.slot(), new ItemBuilder(item.type())
+        items.forEach(item -> setSlot(item.slot(), ItemBuilder.of(item.type())
                 .itemName(plugin.bundle().component(owner, item.name()))
                 .lore(plugin.bundle().components(owner, "gui.item.banner.color.info"))
                 .withAction(player -> new ColorGUI(plugin, player, ItemStack.of(item.type())).open())));
@@ -57,7 +57,7 @@ public class BannerGUI extends GUI<UtilitiesPlugin> {
 
     @Override
     protected void formatDefault() {
-        var placeholder = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).hideTooltip(true);
+        var placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).hideTooltip();
         IntStream.range(0, getSize()).forEach(slot -> setSlotIfAbsent(slot, placeholder));
     }
 
