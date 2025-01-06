@@ -21,21 +21,21 @@ public class PotteryDesignerGUI extends GUI<UtilitiesPlugin> {
 
     public PotteryDesignerGUI(UtilitiesPlugin plugin, Player owner, ItemStack pot) {
         super(plugin, owner, plugin.bundle().component(owner, "gui.title.pottery"), 5);
-        setSlot(10, new ItemBuilder(Material.PLAYER_HEAD)
+        setSlot(10, ItemBuilder.of(Material.PLAYER_HEAD)
                 .itemName(plugin.bundle().component(owner, "gui.item.randomize"))
-                .headValue(BannerGUI.DICE)
+                .profileValue(BannerGUI.DICE)
                 .withAction(player -> {
                     pot.setData(DataComponentTypes.POT_DECORATIONS, SherdSelectorGUI.getRandom());
                     updatePot(pot);
                 }));
-        setSlot(16, new ItemBuilder(Material.BARRIER)
+        setSlot(16, ItemBuilder.of(Material.BARRIER)
                 .itemName(plugin.bundle().component(owner, "gui.item.close"))
                 .withAction(player -> player.getScheduler().execute(plugin, player::closeInventory, null, 1)));
         updatePot(pot);
     }
 
     private void updatePot(ItemStack pot) {
-        setSlot(22, new ItemBuilder(pot)
+        setSlot(22, ItemBuilder.of(pot)
                 .itemName(plugin.bundle().component(owner, "gui.item.pottery"))
                 .lore(plugin.bundle().components(owner, "gui.item.pottery.get"))
                 .withAction(player -> player.getInventory().addItem(pot)));
@@ -48,7 +48,7 @@ public class PotteryDesignerGUI extends GUI<UtilitiesPlugin> {
 
     private void updateSlot(int slot, Side side, ItemStack pot, @Nullable PotDecorations data) {
         var item = getItem(side, data);
-        setSlot(slot, new ItemBuilder(item != null ? item : ItemStack.of(Material.BRICK))
+        setSlot(slot, ItemBuilder.of(item != null ? item : ItemStack.of(Material.BRICK))
                 .itemName(item == null ? plugin.bundle().component(owner, side.name)
                         : Component.translatable(item.translationKey(), NamedTextColor.GOLD))
                 .lore(plugin.bundle().components(owner, "gui.item.pottery.info"))
@@ -74,7 +74,7 @@ public class PotteryDesignerGUI extends GUI<UtilitiesPlugin> {
 
     @Override
     protected void formatDefault() {
-        var placeholder = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).hideTooltip(true);
+        var placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).hideTooltip();
         IntStream.range(0, getSize()).forEach(slot -> setSlotIfAbsent(slot, placeholder));
     }
 

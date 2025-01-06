@@ -39,25 +39,25 @@ public class ColorGUI extends GUI<UtilitiesPlugin> {
 
     public ColorGUI(UtilitiesPlugin plugin, Player owner, ItemStack banner) {
         super(plugin, owner, plugin.bundle().component(owner, "gui.title.banner.color"), 6);
-        setSlot(1, new ItemBuilder(Material.PLAYER_HEAD)
+        setSlot(1, ItemBuilder.of(Material.PLAYER_HEAD)
                 .itemName(plugin.bundle().component(owner, "gui.item.randomize"))
-                .headValue(BannerGUI.DICE)
+                .profileValue(BannerGUI.DICE)
                 .withAction(player -> {
                     player.playSound(player, Sound.UI_LOOM_SELECT_PATTERN, SoundCategory.BLOCKS, 1, 1);
                     var item = items.get(ThreadLocalRandom.current().nextInt(0, items.size()));
                     new PatternGUI(plugin, player, banner, item.color()).open();
                 }));
-        setSlot(4, new ItemBuilder(banner)
+        setSlot(4, ItemBuilder.of(banner)
                 .itemName(plugin.bundle().component(owner, "gui.item.banner"))
                 .lore(plugin.bundle().components(owner, "gui.item.banner.get"))
                 .withAction(player -> {
                     player.playSound(player, Sound.UI_LOOM_TAKE_RESULT, SoundCategory.BLOCKS, 1, 1);
                     player.getInventory().addItem(banner);
                 }));
-        setSlot(7, new ItemBuilder(Material.BARRIER)
+        setSlot(7, ItemBuilder.of(Material.BARRIER)
                 .itemName(plugin.bundle().component(owner, "gui.item.back"))
                 .withAction(player -> new BannerGUI(plugin, player).open()));
-        items.forEach(item -> setSlot(item.slot(), new ItemBuilder(item.type())
+        items.forEach(item -> setSlot(item.slot(), ItemBuilder.of(item.type())
                 .itemName(plugin.bundle().component(owner, item.name()))
                 .lore(plugin.bundle().components(owner, "gui.item.banner.color.info"))
                 .withAction(player -> {
@@ -68,7 +68,7 @@ public class ColorGUI extends GUI<UtilitiesPlugin> {
 
     @Override
     protected void formatDefault() {
-        var placeholder = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).hideTooltip(true);
+        var placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).hideTooltip();
         IntStream.range(0, getSize()).forEach(slot -> setSlotIfAbsent(slot, placeholder));
     }
 

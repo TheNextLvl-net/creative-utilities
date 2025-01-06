@@ -97,7 +97,7 @@ public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
     }
 
     private void updateFeature(int slot, Material icon, String title, String lore, String permission, boolean enabled, Consumer<Boolean> setter) {
-        var item = new ItemBuilder(icon).itemName(plugin.bundle().component(owner, title));
+        var item = ItemBuilder.of(icon).itemName(plugin.bundle().component(owner, title));
 
         if (!owner.hasPermission(permission)) {
             setSlot(slot, item.lore(plugin.bundle().components(owner, "gui.item.permission")));
