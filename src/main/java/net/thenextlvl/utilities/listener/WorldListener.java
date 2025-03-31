@@ -1,6 +1,5 @@
 package net.thenextlvl.utilities.listener;
 
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -12,9 +11,12 @@ import org.bukkit.event.weather.WeatherChangeEvent;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-@RequiredArgsConstructor
 public class WorldListener implements Listener {
     private final UtilitiesPlugin plugin;
+
+    public WorldListener(UtilitiesPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockFade(BlockFadeEvent event) {

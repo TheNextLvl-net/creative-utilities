@@ -1,6 +1,5 @@
 package net.thenextlvl.utilities.listener;
 
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,12 +14,15 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 @NullMarked
-@RequiredArgsConstructor
 public class AdvancedFlyListener implements Listener {
     static final Map<Player, Double> lastVelocity = new WeakHashMap<>();
     static final Set<Player> slower1 = Collections.newSetFromMap(new WeakHashMap<>());
     static final Set<Player> slower2 = Collections.newSetFromMap(new WeakHashMap<>());
     private final UtilitiesPlugin plugin;
+
+    public AdvancedFlyListener(UtilitiesPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerMove(PlayerMoveEvent event) {

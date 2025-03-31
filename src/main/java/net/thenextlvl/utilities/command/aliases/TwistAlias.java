@@ -4,15 +4,17 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Axis;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-@RequiredArgsConstructor
 public class TwistAlias {
     private final UtilitiesPlugin plugin;
+
+    public TwistAlias(UtilitiesPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     public void register() {
         var command = Commands.literal("/twist")

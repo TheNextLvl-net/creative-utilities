@@ -3,7 +3,6 @@ package net.thenextlvl.utilities.command;
 import com.mojang.brigadier.Command;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -13,7 +12,6 @@ import org.jspecify.annotations.NullMarked;
 import java.util.List;
 
 @NullMarked
-@RequiredArgsConstructor
 public class NightVisionCommand {
     private final PotionEffect nightVision = new PotionEffect(
             PotionEffectType.NIGHT_VISION,
@@ -21,6 +19,10 @@ public class NightVisionCommand {
             0, true, false
     );
     private final UtilitiesPlugin plugin;
+
+    public NightVisionCommand(UtilitiesPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     public void register() {
         var command = Commands.literal("nightvision")

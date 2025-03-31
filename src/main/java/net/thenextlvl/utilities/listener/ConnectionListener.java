@@ -1,6 +1,5 @@
 package net.thenextlvl.utilities.listener;
 
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.event.EventHandler;
@@ -13,9 +12,12 @@ import org.jspecify.annotations.NullMarked;
 import java.util.Optional;
 
 @NullMarked
-@RequiredArgsConstructor
 public class ConnectionListener implements Listener {
     private final UtilitiesPlugin plugin;
+
+    public ConnectionListener(UtilitiesPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerJoin(PlayerJoinEvent event) {

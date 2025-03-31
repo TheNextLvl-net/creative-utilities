@@ -1,6 +1,5 @@
 package net.thenextlvl.utilities.listener;
 
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
@@ -10,9 +9,12 @@ import org.bukkit.event.block.BlockPhysicsEvent;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-@RequiredArgsConstructor
 public class BlockPhysicsListener implements Listener {
     private final UtilitiesPlugin plugin;
+
+    public BlockPhysicsListener(UtilitiesPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
     public void onPhysics(BlockPhysicsEvent event) {

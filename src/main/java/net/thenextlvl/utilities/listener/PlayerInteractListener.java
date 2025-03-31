@@ -1,6 +1,5 @@
 package net.thenextlvl.utilities.listener;
 
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -12,9 +11,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-@RequiredArgsConstructor
 public class PlayerInteractListener implements Listener {
     private final UtilitiesPlugin plugin;
+
+    public PlayerInteractListener(UtilitiesPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onDragonEggTeleport(BlockFromToEvent event) {
