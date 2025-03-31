@@ -4,16 +4,18 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
 
 @NullMarked
-@RequiredArgsConstructor
 public class ScaleAlias {
     private final UtilitiesPlugin plugin;
+
+    public ScaleAlias(UtilitiesPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     public void register() {
         var command = Commands.literal("/scale")

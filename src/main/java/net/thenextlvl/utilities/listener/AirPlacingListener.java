@@ -1,6 +1,5 @@
 package net.thenextlvl.utilities.listener;
 
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -19,13 +18,16 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 @NullMarked
-@RequiredArgsConstructor
 public class AirPlacingListener implements Listener {
     static final Map<Player, Location> targetBlocks = new WeakHashMap<>();
     private final BlockData blockData = Material.BARRIER.createBlockData();
     private final BlockData waterlogged = Material.BARRIER.createBlockData(data ->
             ((Waterlogged) data).setWaterlogged(true));
     private final UtilitiesPlugin plugin;
+
+    public AirPlacingListener(UtilitiesPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerQuit(PlayerQuitEvent event) {

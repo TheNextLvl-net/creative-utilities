@@ -1,6 +1,5 @@
 package net.thenextlvl.utilities.listener;
 
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.BlockFace;
@@ -16,9 +15,12 @@ import static org.bukkit.block.data.type.Slab.Type.BOTTOM;
 import static org.bukkit.block.data.type.Slab.Type.TOP;
 
 @NullMarked
-@RequiredArgsConstructor
 public class BlockBreakListener implements Listener {
     private final UtilitiesPlugin plugin;
+
+    public BlockBreakListener(UtilitiesPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onSlabBreak(BlockBreakEvent event) {

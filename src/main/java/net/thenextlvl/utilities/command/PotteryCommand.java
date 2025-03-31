@@ -3,7 +3,6 @@ package net.thenextlvl.utilities.command;
 import com.mojang.brigadier.Command;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.gui.pottery.PotteryDesignerGUI;
 import org.bukkit.Material;
@@ -12,9 +11,12 @@ import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-@RequiredArgsConstructor
 public class PotteryCommand {
     private final UtilitiesPlugin plugin;
+
+    public PotteryCommand(UtilitiesPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     public void register() {
         var command = Commands.literal("pottery")

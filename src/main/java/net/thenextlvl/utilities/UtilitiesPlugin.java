@@ -3,8 +3,6 @@ package net.thenextlvl.utilities;
 import core.file.format.GsonFile;
 import core.i18n.file.ComponentBundle;
 import core.io.IO;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
@@ -21,7 +19,16 @@ import net.thenextlvl.utilities.command.aliases.DeformRotateAlias;
 import net.thenextlvl.utilities.command.aliases.ScaleAlias;
 import net.thenextlvl.utilities.command.aliases.TwistAlias;
 import net.thenextlvl.utilities.controller.SettingsController;
-import net.thenextlvl.utilities.listener.*;
+import net.thenextlvl.utilities.listener.AdvancedFlyListener;
+import net.thenextlvl.utilities.listener.AirPlacingListener;
+import net.thenextlvl.utilities.listener.BlockBreakListener;
+import net.thenextlvl.utilities.listener.BlockPhysicsListener;
+import net.thenextlvl.utilities.listener.ConnectionListener;
+import net.thenextlvl.utilities.listener.OpenableListener;
+import net.thenextlvl.utilities.listener.PlayerInteractListener;
+import net.thenextlvl.utilities.listener.SlimeListener;
+import net.thenextlvl.utilities.listener.TeleportListener;
+import net.thenextlvl.utilities.listener.WorldListener;
 import net.thenextlvl.utilities.model.NoClipManager;
 import net.thenextlvl.utilities.model.PluginConfig;
 import net.thenextlvl.utilities.version.PluginVersionChecker;
@@ -34,10 +41,9 @@ import java.io.File;
 import java.util.Locale;
 
 @NullMarked
-@Accessors(fluent = true)
 public final class UtilitiesPlugin extends JavaPlugin {
     private final File translations = new File(getDataFolder(), "translations");
-    private final @Getter ComponentBundle bundle = new ComponentBundle(translations, audience ->
+    private final ComponentBundle bundle = new ComponentBundle(translations, audience ->
             audience instanceof Player player ? player.locale() : Locale.US)
             .register("messages", Locale.US)
             .register("messages_german", Locale.GERMANY)
@@ -46,10 +52,10 @@ public final class UtilitiesPlugin extends JavaPlugin {
                     Placeholder.component("prefix", bundle.component(Locale.US, "prefix"))
             )).build());
 
-    private final @Getter SettingsController settingsController = new SettingsController();
-    private final @Getter NoClipManager noClipManager = new NoClipManager(this);
+    private final SettingsController settingsController = new SettingsController();
+    private final NoClipManager noClipManager = new NoClipManager(this);
 
-    private final @Getter PluginConfig config = new GsonFile<>(
+    private final PluginConfig config = new GsonFile<>(
             IO.of(getDataFolder(), "config.json"),
             new PluginConfig(true, true, false, true, true, true, true, true, true, false, true)
     ).validate().save().getRoot();
@@ -105,5 +111,21 @@ public final class UtilitiesPlugin extends JavaPlugin {
         new DeformRotateAlias(this).register();
         new ScaleAlias(this).register();
         new TwistAlias(this).register();
+    }
+
+    public ComponentBundle bundle() {
+        return bundle;
+    }
+
+    public SettingsController settingsController() {
+        return settingsController;
+    }
+
+    public NoClipManager noClipManager() {
+        return noClipManager;
+    }
+
+    public PluginConfig config() {
+        return config;
     }
 }

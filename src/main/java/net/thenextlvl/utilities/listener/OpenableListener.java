@@ -1,6 +1,5 @@
 package net.thenextlvl.utilities.listener;
 
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -15,9 +14,12 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-@RequiredArgsConstructor
 public class OpenableListener implements Listener {
     private final UtilitiesPlugin plugin;
+
+    public OpenableListener(UtilitiesPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {

@@ -1,15 +1,17 @@
 package net.thenextlvl.utilities.model;
 
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-@RequiredArgsConstructor
 public class NoClipManager {
     private final UtilitiesPlugin plugin;
+
+    public NoClipManager(UtilitiesPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     public void start() {
         plugin.getServer().getGlobalRegionScheduler().runAtFixedRate(plugin, task -> plugin.settingsController()

@@ -1,6 +1,5 @@
 package net.thenextlvl.utilities.listener;
 
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -18,9 +17,12 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-@RequiredArgsConstructor
 public class SlimeListener implements Listener {
     private final UtilitiesPlugin plugin;
+
+    public SlimeListener(UtilitiesPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerSlimePiston(PlayerInteractEvent event) {

@@ -1,6 +1,5 @@
 package net.thenextlvl.utilities.controller;
 
-import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;
 
@@ -8,7 +7,6 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-@Getter
 @NullMarked
 @SuppressWarnings({"UnusedReturnValue", "BooleanMethodIsAlwaysInverted"})
 public class SettingsController {
@@ -84,5 +82,9 @@ public class SettingsController {
         noClip.remove(player);
         openable.remove(player);
         slabPartBreaking.remove(player);
+    }
+
+    public Set<Player> getNoClip() {
+        return noClip;
     }
 }
