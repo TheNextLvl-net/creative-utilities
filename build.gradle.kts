@@ -4,7 +4,7 @@ import net.minecrell.pluginyml.paper.PaperPluginDescription
 
 plugins {
     id("java")
-    id("com.gradleup.shadow") version "8.3.6"
+    id("com.gradleup.shadow") version "9.0.0-beta9"
     id("io.papermc.hangar-publish-plugin") version "0.1.3"
     id("net.minecrell.plugin-yml.paper") version "0.6.0"
 }
