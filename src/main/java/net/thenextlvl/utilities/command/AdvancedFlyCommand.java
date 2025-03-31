@@ -1,24 +1,17 @@
 package net.thenextlvl.utilities.command;
 
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.tree.LiteralCommandNode;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
-import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;
 
-import java.util.List;
-
 @NullMarked
 public class AdvancedFlyCommand {
-    private final UtilitiesPlugin plugin;
-
-    public AdvancedFlyCommand(UtilitiesPlugin plugin) {
-        this.plugin = plugin;
-    }
-
-    public void register() {
-        var command = Commands.literal("advancedfly")
+    public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
+        return Commands.literal("advancedfly")
                 .requires(stack -> stack.getSender().hasPermission("builders.util.advancedfly")
                                    && stack.getSender() instanceof Player)
                 .executes(context -> {
@@ -30,7 +23,5 @@ public class AdvancedFlyCommand {
                     return Command.SINGLE_SUCCESS;
                 })
                 .build();
-        plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event ->
-                event.registrar().register(command, List.of("advfly", "af"))));
     }
 }

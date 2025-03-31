@@ -3,6 +3,8 @@ package net.thenextlvl.utilities;
 import core.file.format.GsonFile;
 import core.i18n.file.ComponentBundle;
 import core.io.IO;
+import io.papermc.paper.command.brigadier.Commands;
+import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
@@ -38,6 +40,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jspecify.annotations.NullMarked;
 
 import java.io.File;
+import java.util.List;
 import java.util.Locale;
 
 @NullMarked
@@ -73,7 +76,6 @@ public final class UtilitiesPlugin extends JavaPlugin {
         noClipManager().start();
         registerListeners();
         registerCommands();
-        registerAliases();
     }
 
     @Override
@@ -95,22 +97,25 @@ public final class UtilitiesPlugin extends JavaPlugin {
     }
 
     private void registerCommands() {
-        new AdvancedFlyCommand(this).register();
-        new BannerCommand(this).register();
-        new ColorCommand(this).register();
-        new NightVisionCommand(this).register();
-        new NoClipCommand(this).register();
-        new PotteryCommand(this).register();
-        new UtilsCommand(this).register();
+        getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event -> {
+            event.registrar().register(AdvancedFlyCommand.create(this), List.of("advfly", "fly"));
+            event.registrar().register(BannerCommand.create(this), List.of("bm"));
+            event.registrar().register(ColorCommand.create(this), List.of("color"));
+            event.registrar().register(NightVisionCommand.create(this), List.of("nv", "n"));
+            event.registrar().register(NoClipCommand.create(this), List.of("nc"));
+            event.registrar().register(PotteryCommand.create(this));
+            event.registrar().register(UtilsCommand.create(this), List.of("butil", "bu"));
+            registerAliases(event.registrar());
+        }));
     }
 
-    private void registerAliases() {
+    private void registerAliases(Commands commands) {
         if (!getServer().getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) return;
-        new ConvexSelectionAlias(this).register();
-        new CuboidSelectionAlias(this).register();
-        new DeformRotateAlias(this).register();
-        new ScaleAlias(this).register();
-        new TwistAlias(this).register();
+        commands.register(ConvexSelectionAlias.create(this), List.of("/con"));
+        commands.register(CuboidSelectionAlias.create(this), List.of("/cub"));
+        commands.register(DeformRotateAlias.create(this));
+        commands.register(ScaleAlias.create(this));
+        commands.register(TwistAlias.create(this));
     }
 
     public ComponentBundle bundle() {

@@ -1,8 +1,9 @@
 package net.thenextlvl.utilities.command;
 
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.tree.LiteralCommandNode;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
-import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.gui.pottery.PotteryDesignerGUI;
 import org.bukkit.Material;
@@ -12,14 +13,8 @@ import org.jspecify.annotations.NullMarked;
 
 @NullMarked
 public class PotteryCommand {
-    private final UtilitiesPlugin plugin;
-
-    public PotteryCommand(UtilitiesPlugin plugin) {
-        this.plugin = plugin;
-    }
-
-    public void register() {
-        var command = Commands.literal("pottery")
+    public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
+        return Commands.literal("pottery")
                 .requires(stack -> stack.getSender().hasPermission("builders.util.pottery-designer")
                                    && stack.getSender() instanceof Player)
                 .executes(context -> {
@@ -28,7 +23,5 @@ public class PotteryCommand {
                     return Command.SINGLE_SUCCESS;
                 })
                 .build();
-        plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event ->
-                event.registrar().register(command)));
     }
 }
