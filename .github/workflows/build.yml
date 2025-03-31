@@ -2,6 +2,9 @@ name: Build
 on: [ pull_request, push ]
 jobs:
   build:
+    permissions:
+      contents: read
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources

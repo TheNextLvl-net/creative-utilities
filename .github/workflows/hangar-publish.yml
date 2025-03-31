@@ -4,6 +4,9 @@ on:
     types: [ prereleased, released ]
 jobs:
   build:
+    permissions:
+      contents: read
+      pull-requests: write
     env:
       REPOSITORY_USER: ${{ secrets.REPOSITORY_USER }}
       REPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
