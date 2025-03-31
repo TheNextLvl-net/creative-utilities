@@ -1,25 +1,18 @@
 package net.thenextlvl.utilities.command;
 
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.tree.LiteralCommandNode;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
-import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.gui.banner.BannerGUI;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;
 
-import java.util.List;
-
 @NullMarked
 public class BannerCommand {
-    private final UtilitiesPlugin plugin;
-
-    public BannerCommand(UtilitiesPlugin plugin) {
-        this.plugin = plugin;
-    }
-
-    public void register() {
-        var command = Commands.literal("banner")
+    public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
+        return Commands.literal("banner")
                 .requires(stack -> stack.getSender().hasPermission("builders.util.banner")
                                    && stack.getSender() instanceof Player)
                 .executes(context -> {
@@ -28,7 +21,5 @@ public class BannerCommand {
                     return Command.SINGLE_SUCCESS;
                 })
                 .build();
-        plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event ->
-                event.registrar().register(command, List.of("bm"))));
     }
 }

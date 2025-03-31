@@ -1,25 +1,18 @@
 package net.thenextlvl.utilities.command;
 
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.tree.LiteralCommandNode;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
-import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.gui.UtilitiesGUI;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;
 
-import java.util.List;
-
 @NullMarked
 public class UtilsCommand {
-    private final UtilitiesPlugin plugin;
-
-    public UtilsCommand(UtilitiesPlugin plugin) {
-        this.plugin = plugin;
-    }
-
-    public void register() {
-        var command = Commands.literal("utils")
+    public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
+        return Commands.literal("utils")
                 .requires(stack -> stack.getSender().hasPermission("builders.util.gui")
                                    && stack.getSender() instanceof Player)
                 .executes(context -> {
@@ -28,7 +21,5 @@ public class UtilsCommand {
                     return Command.SINGLE_SUCCESS;
                 })
                 .build();
-        plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event ->
-                event.registrar().register(command, List.of("butil", "bu"))));
     }
 }

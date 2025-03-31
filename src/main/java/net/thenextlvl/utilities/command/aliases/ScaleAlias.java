@@ -2,23 +2,16 @@ package net.thenextlvl.utilities.command.aliases;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.tree.LiteralCommandNode;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
-import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.jspecify.annotations.NullMarked;
 
-import java.util.List;
-
 @NullMarked
 public class ScaleAlias {
-    private final UtilitiesPlugin plugin;
-
-    public ScaleAlias(UtilitiesPlugin plugin) {
-        this.plugin = plugin;
-    }
-
-    public void register() {
-        var command = Commands.literal("/scale")
+    public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
+        return Commands.literal("/scale")
                 .requires(source -> source.getSender().hasPermission("worldedit.region.deform"))
                 .then(Commands.argument("size", IntegerArgumentType.integer())
                         .executes(context -> {
@@ -32,7 +25,5 @@ public class ScaleAlias {
                     return Command.SINGLE_SUCCESS;
                 })
                 .build();
-        plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event ->
-                event.registrar().register(command, List.of("/cub"))));
     }
 }

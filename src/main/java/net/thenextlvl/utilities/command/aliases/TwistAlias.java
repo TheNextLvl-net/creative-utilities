@@ -2,22 +2,17 @@ package net.thenextlvl.utilities.command.aliases;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.tree.LiteralCommandNode;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
-import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Axis;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
 public class TwistAlias {
-    private final UtilitiesPlugin plugin;
-
-    public TwistAlias(UtilitiesPlugin plugin) {
-        this.plugin = plugin;
-    }
-
-    public void register() {
-        var command = Commands.literal("/twist")
+    public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
+        return Commands.literal("/twist")
                 .requires(source -> source.getSender().hasPermission("worldedit.region.deform"))
                 .then(Commands.argument("axis", new AxisArgumentType())
                         .then(Commands.argument("degrees", IntegerArgumentType.integer())
@@ -41,8 +36,6 @@ public class TwistAlias {
                     return Command.SINGLE_SUCCESS;
                 })
                 .build();
-        plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event ->
-                event.registrar().register(command)));
     }
 
 }
