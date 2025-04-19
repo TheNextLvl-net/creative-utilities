@@ -1,15 +1,11 @@
-name: Maven Publish
+name: Hangar Publish
 on:
   release:
     types: [ prereleased, released ]
 jobs:
   build:
-    permissions:
-      contents: read
-      pull-requests: write
     env:
-      REPOSITORY_USER: ${{ secrets.REPOSITORY_USER }}
-      REPOSITORY_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
+      HANGAR_API_TOKEN: ${{ secrets.HANGAR_API_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
@@ -21,5 +17,5 @@ jobs:
           java-version: 21
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
-      - name: Publish with Gradle to Repository
-        run: ./gradlew publish
+      - name: Publish with Gradle to Hangar
+        run: ./gradlew publishAllPublicationsToHangar
