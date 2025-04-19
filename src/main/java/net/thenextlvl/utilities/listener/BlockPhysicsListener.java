@@ -18,7 +18,7 @@ public class BlockPhysicsListener implements Listener {
 
     @EventHandler
     public void onPhysics(BlockPhysicsEvent event) {
-        if (event.getSourceBlock().isEmpty() && event.getChangedType().isEmpty()) {
+        if (event.getSourceBlock().isEmpty() && event.getChangedType().isAir()) {
             if (event.getBlock().getRelative(BlockFace.DOWN).getType().equals(Material.GRASS_BLOCK)) {
                 return;
             }

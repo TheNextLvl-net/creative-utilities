@@ -3,6 +3,7 @@ package net.thenextlvl.utilities.gui;
 import core.paper.gui.GUI;
 import core.paper.item.ItemBuilder;
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.TooltipDisplay;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Material;
@@ -119,7 +120,7 @@ public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
     private void updateState(int slot, @Nullable Boolean state) {
         var item = ItemStack.of(state == null ? Material.ORANGE_STAINED_GLASS_PANE
                 : state ? Material.GREEN_STAINED_GLASS_PANE : Material.RED_STAINED_GLASS_PANE);
-        item.setData(DataComponentTypes.HIDE_TOOLTIP);
+        item.setData(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplay.tooltipDisplay().hideTooltip(true).build());
         setSlot(slot - 9, item);
         setSlot(slot + 9, item);
     }
