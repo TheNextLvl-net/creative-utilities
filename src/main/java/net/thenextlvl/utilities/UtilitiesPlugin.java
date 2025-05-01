@@ -5,9 +5,7 @@ import core.i18n.file.ComponentBundle;
 import core.io.IO;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
-import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
-import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+import net.kyori.adventure.key.Key;
 import net.thenextlvl.utilities.command.AdvancedFlyCommand;
 import net.thenextlvl.utilities.command.BannerCommand;
 import net.thenextlvl.utilities.command.ColorCommand;
@@ -35,25 +33,22 @@ import net.thenextlvl.utilities.model.NoClipManager;
 import net.thenextlvl.utilities.model.PluginConfig;
 import net.thenextlvl.utilities.version.PluginVersionChecker;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jspecify.annotations.NullMarked;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Locale;
 
 @NullMarked
 public final class UtilitiesPlugin extends JavaPlugin {
-    private final File translations = new File(getDataFolder(), "translations");
-    private final ComponentBundle bundle = new ComponentBundle(translations, audience ->
-            audience instanceof Player player ? player.locale() : Locale.US)
-            .register("messages", Locale.US)
-            .register("messages_german", Locale.GERMANY)
-            .miniMessage(bundle -> MiniMessage.builder().tags(TagResolver.resolver(
-                    TagResolver.standard(),
-                    Placeholder.component("prefix", bundle.component(Locale.US, "prefix"))
-            )).build());
+    private final Key key = Key.key("utilities", "translations");
+    private final Path translations = getDataPath().resolve("translations");
+    private final ComponentBundle bundle = ComponentBundle.builder(key, translations)
+            .placeholder("prefix", "prefix")
+            .resource("messages.properties", Locale.US)
+            .resource("messages_german.properties", Locale.GERMANY)
+            .build();
 
     private final SettingsController settingsController = new SettingsController();
     private final NoClipManager noClipManager = new NoClipManager(this);

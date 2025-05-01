@@ -53,7 +53,7 @@ public class SherdSelectorGUI extends PaginatedGUI<UtilitiesPlugin, Material> {
     private final PotteryDesignerGUI.Side side;
 
     public SherdSelectorGUI(UtilitiesPlugin plugin, Player owner, ItemStack pot, PotteryDesignerGUI.Side side) {
-        super(plugin, owner, plugin.bundle().component(owner, "gui.title.pottery.sherd"), 5);
+        super(plugin, owner, plugin.bundle().component("gui.title.pottery.sherd", owner), 5);
         var slots = IntStream.of(19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34);
         this.pagination = new Pagination(slots.toArray(), 3, 5);
         this.pot = pot;
@@ -64,7 +64,7 @@ public class SherdSelectorGUI extends PaginatedGUI<UtilitiesPlugin, Material> {
     @Override
     public void pageLoaded() {
         setSlot(1, ItemBuilder.of(Material.PLAYER_HEAD)
-                .itemName(plugin.bundle().component(owner, "gui.item.randomize"))
+                .itemName(plugin.bundle().component("gui.item.randomize", owner))
                 .profileValue(BannerGUI.DICE)
                 .withAction(player -> {
                     var data = pot.getData(DataComponentTypes.POT_DECORATIONS);
@@ -75,11 +75,11 @@ public class SherdSelectorGUI extends PaginatedGUI<UtilitiesPlugin, Material> {
                     new PotteryDesignerGUI(plugin, owner, pot).open();
                 }));
         setSlot(4, ItemBuilder.of(pot)
-                .itemName(plugin.bundle().component(owner, "gui.item.pottery"))
-                .lore(plugin.bundle().components(owner, "gui.item.pottery.get"))
+                .itemName(plugin.bundle().component("gui.item.pottery", owner))
+                .lore(Component.empty(), plugin.bundle().component("gui.item.pottery.get", owner))
                 .withAction(player -> player.getInventory().addItem(pot)));
         setSlot(7, ItemBuilder.of(Material.BARRIER)
-                .itemName(plugin.bundle().component(owner, "gui.item.back"))
+                .itemName(plugin.bundle().component("gui.item.back", owner))
                 .withAction(player -> new PotteryDesignerGUI(plugin, owner, pot).open()));
         super.pageLoaded();
     }
@@ -115,7 +115,8 @@ public class SherdSelectorGUI extends PaginatedGUI<UtilitiesPlugin, Material> {
 
     @Override
     public Component getPageFormat(int page) {
-        return plugin.bundle().component(owner, getCurrentPage() < page ? "gui.page.next" : "gui.page.previous");
+        var message = getCurrentPage() < page ? "gui.page.next" : "gui.page.previous";
+        return plugin.bundle().component(message, owner);
     }
 
     @Override

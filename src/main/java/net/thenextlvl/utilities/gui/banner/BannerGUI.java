@@ -2,6 +2,7 @@ package net.thenextlvl.utilities.gui.banner;
 
 import core.paper.gui.GUI;
 import core.paper.item.ItemBuilder;
+import net.kyori.adventure.text.Component;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -36,22 +37,22 @@ public class BannerGUI extends GUI<UtilitiesPlugin> {
     );
 
     public BannerGUI(UtilitiesPlugin plugin, Player owner) {
-        super(plugin, owner, plugin.bundle().component(owner, "gui.title.banner.base"), 6);
+        super(plugin, owner, plugin.bundle().component("gui.title.banner.base", owner), 6);
         setSlot(1, ItemBuilder.of(Material.PLAYER_HEAD)
-                .itemName(plugin.bundle().component(owner, "gui.item.randomize"))
+                .itemName(plugin.bundle().component("gui.item.randomize", owner))
                 .profileValue(DICE)
                 .withAction(player -> {
                     var item = items.get(ThreadLocalRandom.current().nextInt(0, items.size()));
                     new ColorGUI(plugin, player, ItemStack.of(item.type())).open();
                 }));
         setSlot(4, ItemBuilder.of(Material.WHITE_BANNER)
-                .itemName(plugin.bundle().component(owner, "gui.item.banner")));
+                .itemName(plugin.bundle().component("gui.item.banner", owner)));
         setSlot(7, ItemBuilder.of(Material.BARRIER)
-                .itemName(plugin.bundle().component(owner, "gui.item.close"))
+                .itemName(plugin.bundle().component("gui.item.close", owner))
                 .withAction(player -> player.getScheduler().execute(plugin, player::closeInventory, null, 1)));
         items.forEach(item -> setSlot(item.slot(), ItemBuilder.of(item.type())
-                .itemName(plugin.bundle().component(owner, item.name()))
-                .lore(plugin.bundle().components(owner, "gui.item.banner.color.info"))
+                .itemName(plugin.bundle().component(item.name(), owner))
+                .lore(Component.empty(), plugin.bundle().component("gui.item.banner.color.click", owner))
                 .withAction(player -> new ColorGUI(plugin, player, ItemStack.of(item.type())).open())));
     }
 
