@@ -41,7 +41,7 @@ public class PatternGUI extends PaginatedGUI<UtilitiesPlugin, PatternType> {
     private final DyeColor color;
 
     public PatternGUI(UtilitiesPlugin plugin, Player owner, ItemStack banner, DyeColor color) {
-        super(plugin, owner, plugin.bundle().component(owner, "gui.title.banner.pattern"), 6);
+        super(plugin, owner, plugin.bundle().component("gui.title.banner.pattern", owner), 6);
 
         var slots = IntStream.of(19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 43);
         this.pagination = new Pagination(slots.toArray(), 3, 5);
@@ -54,21 +54,21 @@ public class PatternGUI extends PaginatedGUI<UtilitiesPlugin, PatternType> {
     @Override
     public void pageLoaded() {
         setSlot(1, ItemBuilder.of(Material.PLAYER_HEAD)
-                .itemName(plugin.bundle().component(owner, "gui.item.randomize"))
+                .itemName(plugin.bundle().component("gui.item.randomize", owner))
                 .profileValue(BannerGUI.DICE)
                 .withAction(player -> player.getScheduler().execute(plugin, () -> {
                     var pattern = patterns.get(ThreadLocalRandom.current().nextInt(0, patterns.size()));
-                    giveOrContinue(applyPattern(banner, pattern, color));
+                    giveOrContinue(applyPattern(banner.clone(), pattern, color));
                 }, null, 1)));
-        setSlot(4, ItemBuilder.of(banner)
-                .itemName(plugin.bundle().component(owner, "gui.item.banner"))
-                .lore(plugin.bundle().components(owner, "gui.item.banner.get"))
+        setSlot(4, ItemBuilder.of(banner.clone())
+                .itemName(plugin.bundle().component("gui.item.banner", owner))
+                .lore(Component.empty(), plugin.bundle().component("gui.item.banner.click", owner))
                 .withAction(player -> {
                     player.playSound(player, Sound.UI_LOOM_TAKE_RESULT, SoundCategory.BLOCKS, 1, 1);
                     player.getInventory().addItem(banner);
                 }));
         setSlot(7, ItemBuilder.of(Material.BARRIER)
-                .itemName(plugin.bundle().component(owner, "gui.item.back"))
+                .itemName(plugin.bundle().component("gui.item.back", owner))
                 .withAction(player -> new ColorGUI(plugin, player, banner).open()));
         super.pageLoaded();
     }
@@ -80,9 +80,9 @@ public class PatternGUI extends PaginatedGUI<UtilitiesPlugin, PatternType> {
                 .getKey(element);
         var title = key != null ? "gui.item.banner.pattern." + key.value() : "gui.item.banner.pattern.unknown";
         var item = applyPattern(banner.clone(), element, color);
-        return ItemBuilder.of(item)
-                .itemName(plugin.bundle().component(owner, title))
-                .lore(plugin.bundle().components(owner, "gui.item.banner.color.info"))
+        return ItemBuilder.of(item.clone())
+                .itemName(plugin.bundle().component(title, owner))
+                .lore(Component.empty(), plugin.bundle().component("gui.item.banner.color.click", owner))
                 .withAction(player -> player.getScheduler().execute(plugin, () -> giveOrContinue(item), null, 1));
     }
 
@@ -118,7 +118,8 @@ public class PatternGUI extends PaginatedGUI<UtilitiesPlugin, PatternType> {
 
     @Override
     public Component getPageFormat(int page) {
-        return plugin.bundle().component(owner, getCurrentPage() < page ? "gui.page.next" : "gui.page.previous");
+        var message = getCurrentPage() < page ? "gui.page.next" : "gui.page.previous";
+        return plugin.bundle().component(message, owner);
     }
 
     @Override

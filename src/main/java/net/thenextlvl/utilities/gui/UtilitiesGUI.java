@@ -4,7 +4,10 @@ import core.paper.gui.GUI;
 import core.paper.item.ItemBuilder;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.TooltipDisplay;
-import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.minimessage.tag.resolver.Formatter;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -26,7 +29,7 @@ public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
     );
 
     public UtilitiesGUI(UtilitiesPlugin plugin, Player owner) {
-        super(plugin, owner, plugin.bundle().component(owner, "gui.title.utilities"), 3);
+        super(plugin, owner, plugin.bundle().component("gui.title.utilities", owner), 3);
         updateIronInteraction();
         updateCustomSlabBreaking();
         updateAirPlacing();
@@ -38,7 +41,7 @@ public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
     private void updateIronInteraction() {
         updateFeature(10, Material.IRON_TRAPDOOR,
                 "gui.item.iron-trapdoor-interaction",
-                "gui.item.iron-trapdoor-interaction.info",
+                "gui.item.iron-trapdoor-interaction.description",
                 "builders.util.trapdoor",
                 plugin.settingsController().isHandOpenable(owner),
                 state -> plugin.settingsController().setHandOpenable(owner, state)
@@ -48,7 +51,7 @@ public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
     private void updateCustomSlabBreaking() {
         updateFeature(11, Material.STONE_SLAB,
                 "gui.item.custom-slab-breaking",
-                "gui.item.custom-slab-breaking.info",
+                "gui.item.custom-slab-breaking.description",
                 "builders.util.slabs",
                 plugin.settingsController().isSlabPartBreaking(owner),
                 state -> plugin.settingsController().setSlabPartBreaking(owner, state)
@@ -58,7 +61,7 @@ public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
     private void updateAirPlacing() {
         updateFeature(12, Material.STRUCTURE_VOID,
                 "gui.item.air-placing",
-                "gui.item.air-placing.info",
+                "gui.item.air-placing.description",
                 "builders.util.air-placing",
                 plugin.settingsController().isAirPlacing(owner),
                 state -> plugin.settingsController().setAirPlacing(owner, state)
@@ -68,7 +71,7 @@ public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
     private void updateNightVision() {
         updateFeature(14, Material.ENDER_EYE,
                 "gui.item.nightvision",
-                "gui.item.nightvision.info",
+                "gui.item.nightvision.description",
                 "builders.util.nightvision",
                 owner.hasPotionEffect(PotionEffectType.NIGHT_VISION), state -> {
                     if (state) owner.addPotionEffect(nightVision);
@@ -80,7 +83,7 @@ public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
     private void updateNoClip() {
         updateFeature(15, Material.COMPASS,
                 "gui.item.noclip",
-                "gui.item.noclip.info",
+                "gui.item.noclip.description",
                 "builders.util.noclip",
                 plugin.settingsController().isNoClip(owner),
                 state -> plugin.settingsController().setNoClip(owner, state)
@@ -90,30 +93,34 @@ public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
     private void updateAdvancedFly() {
         updateFeature(16, Material.FEATHER,
                 "gui.item.advancedfly",
-                "gui.item.advancedfly.info",
+                "gui.item.advancedfly.description",
                 "builders.util.advancedfly",
                 plugin.settingsController().isAdvancedFly(owner),
                 state -> plugin.settingsController().setAdvancedFly(owner, state)
         );
     }
 
-    private void updateFeature(int slot, Material icon, String title, String lore, String permission, boolean enabled, Consumer<Boolean> setter) {
-        var item = ItemBuilder.of(icon).itemName(plugin.bundle().component(owner, title));
+    private void updateFeature(int slot, Material icon, String title, String description, String permission, boolean enabled, Consumer<Boolean> setter) {
+        var item = ItemBuilder.of(icon).itemName(plugin.bundle().component(title, owner));
 
         if (!owner.hasPermission(permission)) {
-            setSlot(slot, item.lore(plugin.bundle().components(owner, "gui.item.permission")));
+            setSlot(slot, item.lore(plugin.bundle().component("gui.item.permission", owner)));
             updateState(slot, null);
             return;
         }
 
-        var message = enabled ? "gui.state.enabled" : "gui.state.disabled";
-        setSlot(slot, item.lore(plugin.bundle().components(owner, lore,
-                        Placeholder.component("state", plugin.bundle().component(owner, message))))
-                .withAction((type, player) -> {
-                    if (type.equals(ClickType.DOUBLE_CLICK)) return;
-                    setter.accept(!enabled);
-                    updateFeature(slot, icon, title, lore, permission, !enabled, setter);
-                }));
+        setSlot(slot, item.lore(
+                plugin.bundle().component("gui.state", owner, Formatter.booleanChoice("state", enabled)),
+                Component.empty(),
+                plugin.bundle().component("gui.toggle.click", owner), Component.empty(),
+                plugin.bundle().component(description, owner)
+                        .applyFallbackStyle(TextDecoration.ITALIC.withState(false))
+                        .colorIfAbsent(NamedTextColor.DARK_GRAY)
+        ).withAction((type, player) -> {
+            if (type.equals(ClickType.DOUBLE_CLICK)) return;
+            setter.accept(!enabled);
+            updateFeature(slot, icon, title, description, permission, !enabled, setter);
+        }));
         updateState(slot, enabled);
     }
 

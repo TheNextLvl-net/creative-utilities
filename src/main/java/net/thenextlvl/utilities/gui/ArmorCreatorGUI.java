@@ -4,6 +4,7 @@ import core.paper.gui.GUI;
 import core.paper.item.ItemBuilder;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.DyedItemColor;
+import net.kyori.adventure.text.Component;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -31,7 +32,7 @@ public class ArmorCreatorGUI extends GUI<UtilitiesPlugin> {
     private int blue = 10;
 
     public ArmorCreatorGUI(UtilitiesPlugin plugin, Player owner) {
-        super(plugin, owner, plugin.bundle().component(owner, "gui.title.armor-color-creator"), 6);
+        super(plugin, owner, plugin.bundle().component("gui.title.armor-color-creator", owner), 6);
         updateDices();
         updateSelector();
         updateArmor();
@@ -45,7 +46,7 @@ public class ArmorCreatorGUI extends GUI<UtilitiesPlugin> {
 
     private void updateDice(int slot, String head, String name, Runnable randomization) {
         setSlot(slot, ItemBuilder.of(Material.PLAYER_HEAD)
-                .itemName(plugin.bundle().component(owner, name))
+                .itemName(plugin.bundle().component(name, owner))
                 .profileValue(head)
                 .withAction((type, player) -> {
                     if (type.equals(ClickType.DOUBLE_CLICK)) return;
@@ -64,22 +65,24 @@ public class ArmorCreatorGUI extends GUI<UtilitiesPlugin> {
     private void updateSelector(int slot, int amount, Material fallback, String head, String name, Consumer<Integer> setter) {
         var item = amount == 0 ? ItemBuilder.of(fallback) : ItemBuilder.of(Material.PLAYER_HEAD)
                 .profileValue(head).amount(amount);
-        setSlot(slot, item
-                .itemName(plugin.bundle().component(owner, name))
-                .lore(plugin.bundle().components(owner, "gui.item.color.info"))
-                .withAction((type, player) -> {
-                    var newAmount = Math.clamp(amount + switch (type) {
-                        case LEFT -> 1;
-                        case RIGHT -> -1;
-                        case SHIFT_LEFT -> 5;
-                        case SHIFT_RIGHT -> -5;
-                        default -> 0;
-                    }, 0, 20);
-                    if (amount == newAmount) return;
-                    setter.accept(newAmount);
-                    updateSelector(slot, newAmount, fallback, head, name, setter);
-                    updateArmor();
-                }));
+        setSlot(slot, item.itemName(plugin.bundle().component(name, owner)).lore(
+                Component.empty(),
+                plugin.bundle().component("gui.item.color.left", owner),
+                plugin.bundle().component("gui.item.color.right", owner),
+                plugin.bundle().component("gui.item.color.shift", owner)
+        ).withAction((type, player) -> {
+            var newAmount = Math.clamp(amount + switch (type) {
+                case LEFT -> 1;
+                case RIGHT -> -1;
+                case SHIFT_LEFT -> 5;
+                case SHIFT_RIGHT -> -5;
+                default -> 0;
+            }, 0, 20);
+            if (amount == newAmount) return;
+            setter.accept(newAmount);
+            updateSelector(slot, newAmount, fallback, head, name, setter);
+            updateArmor();
+        }));
     }
 
     private void updateArmor() {

@@ -20,24 +20,24 @@ import java.util.stream.IntStream;
 public class PotteryDesignerGUI extends GUI<UtilitiesPlugin> {
 
     public PotteryDesignerGUI(UtilitiesPlugin plugin, Player owner, ItemStack pot) {
-        super(plugin, owner, plugin.bundle().component(owner, "gui.title.pottery"), 5);
+        super(plugin, owner, plugin.bundle().component("gui.title.pottery", owner), 5);
         setSlot(10, ItemBuilder.of(Material.PLAYER_HEAD)
-                .itemName(plugin.bundle().component(owner, "gui.item.randomize"))
+                .itemName(plugin.bundle().component("gui.item.randomize", owner))
                 .profileValue(BannerGUI.DICE)
                 .withAction(player -> {
                     pot.setData(DataComponentTypes.POT_DECORATIONS, SherdSelectorGUI.getRandom());
                     updatePot(pot);
                 }));
         setSlot(16, ItemBuilder.of(Material.BARRIER)
-                .itemName(plugin.bundle().component(owner, "gui.item.close"))
+                .itemName(plugin.bundle().component("gui.item.close", owner))
                 .withAction(player -> player.getScheduler().execute(plugin, player::closeInventory, null, 1)));
         updatePot(pot);
     }
 
     private void updatePot(ItemStack pot) {
         setSlot(22, ItemBuilder.of(pot)
-                .itemName(plugin.bundle().component(owner, "gui.item.pottery"))
-                .lore(plugin.bundle().components(owner, "gui.item.pottery.get"))
+                .itemName(plugin.bundle().component("gui.item.pottery", owner))
+                .lore(Component.empty(), plugin.bundle().component("gui.item.pottery.get", owner))
                 .withAction(player -> player.getInventory().addItem(pot)));
         var data = pot.getData(DataComponentTypes.POT_DECORATIONS);
         updateSlot(13, Side.BACK, pot, data);
@@ -49,9 +49,10 @@ public class PotteryDesignerGUI extends GUI<UtilitiesPlugin> {
     private void updateSlot(int slot, Side side, ItemStack pot, @Nullable PotDecorations data) {
         var item = getItem(side, data);
         setSlot(slot, ItemBuilder.of(item != null ? item : ItemStack.of(Material.BRICK))
-                .itemName(item == null ? plugin.bundle().component(owner, side.name)
+                .itemName(item == null ? plugin.bundle().component(side.name, owner)
                         : Component.translatable(item.translationKey(), NamedTextColor.GOLD))
-                .lore(plugin.bundle().components(owner, "gui.item.pottery.info"))
+                .lore(Component.empty(), plugin.bundle().component("gui.item.pottery.set", owner),
+                        plugin.bundle().component("gui.item.pottery.remove", owner))
                 .withAction((type, player) -> {
                     if (type.isLeftClick()) new SherdSelectorGUI(plugin, owner, pot, side).open();
                     else if (type.isRightClick() && data != null) {
