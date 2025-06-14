@@ -15,7 +15,7 @@ We aim to be always up-to-date and use new technology instead of hanging on to o
 - Brigadier commands
 - Improved configuration file
 - No legacy code or dependencies
-- Hangar auto deployment
+- Hangar and Modrinth auto deployment
 
 ## Links
 
