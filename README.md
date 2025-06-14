@@ -23,7 +23,7 @@ We aim to be always up-to-date and use new technology instead of hanging on to o
 
 ## Links
 
-* [Download](https://hangar.papermc.io/TheNextLvl/goPaintAdvanced)
+* [Download](https://modrinth.com/project/zAcZq5oV#download)
 * [Discord](https://thenextlvl.net/discord)
 * [Issues](https://github.com/TheNextLvl-net/creative-utilities/issues)
 
