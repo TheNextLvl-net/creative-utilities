@@ -51,6 +51,7 @@ paper {
     provides = listOf("Builders-Utilities")
     website = "https://thenextlvl.net"
     authors = listOf("Ktar5", "Arcaniax", "NonSwag")
+    load = BukkitPluginDescription.PluginLoadOrder.STARTUP
     foliaSupported = true
     serverDependencies {
         register("FastAsyncWorldEdit") {
