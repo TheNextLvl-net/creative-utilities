@@ -4,9 +4,10 @@ import net.minecrell.pluginyml.paper.PaperPluginDescription
 
 plugins {
     id("java")
-    id("com.gradleup.shadow") version "9.0.0-beta15"
+    id("com.gradleup.shadow") version "9.0.0-beta17"
     id("io.papermc.hangar-publish-plugin") version "0.1.3"
     id("de.eldoria.plugin-yml.paper") version "0.7.1"
+    id("com.modrinth.minotaur") version "2.+"
 }
 
 group = "net.thenextlvl.utilities"
@@ -28,7 +29,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.6-R0.1-SNAPSHOT")
 
     implementation("org.bstats:bstats-bukkit:3.1.0")
     implementation("net.thenextlvl.core:adapters:2.0.2")
@@ -50,6 +51,7 @@ paper {
     provides = listOf("Builders-Utilities")
     website = "https://thenextlvl.net"
     authors = listOf("Ktar5", "Arcaniax", "NonSwag")
+    load = BukkitPluginDescription.PluginLoadOrder.STARTUP
     foliaSupported = true
     serverDependencies {
         register("FastAsyncWorldEdit") {
@@ -84,6 +86,7 @@ hangarPublish { // docs - https://docs.papermc.io/misc/hangar-publishing
     publications.register("paper") {
         id.set("CreativeUtilities")
         version.set(versionString)
+        changelog = System.getenv("CHANGELOG")
         channel.set(if (isRelease) "Release" else "Snapshot")
         apiKey.set(System.getenv("HANGAR_API_TOKEN"))
         platforms.register(Platforms.PAPER) {
@@ -95,5 +98,20 @@ hangarPublish { // docs - https://docs.papermc.io/misc/hangar-publishing
                 }
             }
         }
+    }
+}
+
+modrinth {
+    token.set(System.getenv("MODRINTH_TOKEN"))
+    projectId.set("zAcZq5oV")
+    changelog = System.getenv("CHANGELOG")
+    versionType = if (isRelease) "release" else "beta"
+    uploadFile.set(tasks.shadowJar)
+    gameVersions.set(versions)
+    syncBodyFrom.set(rootProject.file("README.md").readText())
+    loaders.add("paper")
+    loaders.add("folia")
+    dependencies {
+        optional.project("fastasyncworldedit")
     }
 }
