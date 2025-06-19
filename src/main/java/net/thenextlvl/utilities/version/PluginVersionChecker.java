@@ -1,15 +1,15 @@
 package net.thenextlvl.utilities.version;
 
-import core.paper.version.PaperHangarVersionChecker;
+import core.paper.version.PaperModrinthVersionChecker;
 import core.version.SemanticVersion;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-public class PluginVersionChecker extends PaperHangarVersionChecker<SemanticVersion> {
+public class PluginVersionChecker extends PaperModrinthVersionChecker<SemanticVersion> {
     public PluginVersionChecker(Plugin plugin) {
-        super(plugin, "TheNextLvl", "CreativeUtilities");
+        super(plugin, "zAcZq5oV");
     }
 
     @Override
