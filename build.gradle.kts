@@ -7,6 +7,7 @@ plugins {
     id("com.gradleup.shadow") version "9.0.0-beta17"
     id("io.papermc.hangar-publish-plugin") version "0.1.3"
     id("de.eldoria.plugin-yml.paper") version "0.7.1"
+    id("com.modrinth.minotaur") version "2.+"
 }
 
 group = "net.thenextlvl.utilities"
@@ -96,5 +97,20 @@ hangarPublish { // docs - https://docs.papermc.io/misc/hangar-publishing
                 }
             }
         }
+    }
+}
+
+modrinth {
+    token.set(System.getenv("MODRINTH_TOKEN"))
+    projectId.set("zAcZq5oV")
+    changelog = System.getenv("CHANGELOG")
+    versionType = if (isRelease) "release" else "beta"
+    uploadFile.set(tasks.shadowJar)
+    gameVersions.set(versions)
+    syncBodyFrom.set(rootProject.file("README.md").readText())
+    loaders.add("paper")
+    loaders.add("folia")
+    dependencies {
+        optional.project("fastasyncworldedit")
     }
 }
