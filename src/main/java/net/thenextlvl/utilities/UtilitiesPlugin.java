@@ -105,7 +105,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
     }
 
     private void registerAliases(Commands commands) {
-        if (!getServer().getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) return;
+        if (getServer().getPluginManager().getPlugin("FastAsyncWorldEdit") == null) return;
         commands.register(ConvexSelectionAlias.create(this), List.of("/con"));
         commands.register(CuboidSelectionAlias.create(this), List.of("/cub"));
         commands.register(DeformRotateAlias.create(this));
