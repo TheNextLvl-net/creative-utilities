@@ -3,6 +3,8 @@ package net.thenextlvl.utilities.command.aliases;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import core.paper.command.argument.EnumArgumentType;
+import core.paper.command.argument.codec.EnumStringCodec;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import net.thenextlvl.utilities.UtilitiesPlugin;
@@ -14,7 +16,7 @@ public class DeformRotateAlias {
     public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
         return Commands.literal("/derot")
                 .requires(source -> source.getSender().hasPermission("worldedit.region.deform"))
-                .then(Commands.argument("axis", new AxisArgumentType())
+                .then(Commands.argument("axis", EnumArgumentType.of(Axis.class, EnumStringCodec.lowerHyphen()))
                         .then(Commands.argument("degrees", IntegerArgumentType.integer())
                                 .executes(context -> {
                                     var axis = context.getArgument("axis", Axis.class);
