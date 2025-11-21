@@ -1,11 +1,11 @@
 package net.thenextlvl.utilities;
 
 import core.file.format.GsonFile;
-import core.i18n.file.ComponentBundle;
 import core.io.IO;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.key.Key;
+import net.thenextlvl.i18n.ComponentBundle;
 import net.thenextlvl.utilities.command.AdvancedFlyCommand;
 import net.thenextlvl.utilities.command.BannerCommand;
 import net.thenextlvl.utilities.command.ColorCommand;
