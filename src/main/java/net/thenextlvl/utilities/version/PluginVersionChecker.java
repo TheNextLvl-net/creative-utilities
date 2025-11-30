@@ -1,7 +1,7 @@
 package net.thenextlvl.utilities.version;
 
-import core.paper.version.PaperModrinthVersionChecker;
-import core.version.SemanticVersion;
+import net.thenextlvl.version.SemanticVersion;
+import net.thenextlvl.version.modrinth.paper.PaperModrinthVersionChecker;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NullMarked;

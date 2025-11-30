@@ -1,7 +1,5 @@
 package net.thenextlvl.utilities;
 
-import core.file.format.GsonFile;
-import core.io.IO;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.key.Key;
@@ -29,6 +27,7 @@ import net.thenextlvl.utilities.listener.PlayerInteractListener;
 import net.thenextlvl.utilities.listener.SlimeListener;
 import net.thenextlvl.utilities.listener.TeleportListener;
 import net.thenextlvl.utilities.listener.WorldListener;
+import net.thenextlvl.utilities.model.GsonFile;
 import net.thenextlvl.utilities.model.NoClipManager;
 import net.thenextlvl.utilities.model.PluginConfig;
 import net.thenextlvl.utilities.version.PluginVersionChecker;
@@ -54,7 +53,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
     private final NoClipManager noClipManager = new NoClipManager(this);
 
     private final PluginConfig config = new GsonFile<>(
-            IO.of(getDataFolder(), "config.json"),
+            getDataPath().resolve("config.json"),
             new PluginConfig(true, true, false, true, true, true, true, true, true, false, true)
     ).validate().save().getRoot();
 
