@@ -3,6 +3,7 @@ import org.jspecify.annotations.NullMarked;
 @NullMarked
 module creative.utilities.main {
     requires com.google.gson;
+    requires core.files;
     requires core.paper;
     requires dev.faststats.bukkit;
     requires dev.faststats.core;
