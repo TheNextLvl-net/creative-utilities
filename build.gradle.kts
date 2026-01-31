@@ -75,6 +75,10 @@ paper {
 
         val notice = "backwards compatibility in favor of the new permission schema"
 
+        register("additions.command.no-clip") {
+            children = listOf("builders.util.no-clip")
+            description = notice
+        }
         register("builders.util.noclip") {
             children = listOf("builders.util.no-clip")
             description = notice

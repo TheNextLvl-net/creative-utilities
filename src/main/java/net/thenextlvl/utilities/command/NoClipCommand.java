@@ -12,7 +12,7 @@ import org.jspecify.annotations.NullMarked;
 public class NoClipCommand {
     public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
         return Commands.literal("noclip")
-                .requires(stack -> stack.getSender().hasPermission("additions.command.no-clip")
+                .requires(stack -> stack.getSender().hasPermission("builders.util.no-clip")
                                    && stack.getSender() instanceof Player)
                 .executes(context -> {
                     var player = (Player) context.getSource().getSender();
