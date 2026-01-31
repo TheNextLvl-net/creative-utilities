@@ -25,7 +25,7 @@ public final class NoClipCommand extends SimpleCommand {
     @Override
     public int run(final CommandContext<CommandSourceStack> context) {
         final var player = (Player) context.getSource().getSender();
-        final var message = plugin.settingsController().toggleNoClip(player)
+        final var message = Settings.set(player, Settings.NO_CLIP, true)
                 ? "command.no-clip.enabled"
                 : "command.no-clip.disabled";
         plugin.bundle().sendMessage(player, message);

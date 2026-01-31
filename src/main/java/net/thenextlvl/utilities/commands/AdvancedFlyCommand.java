@@ -25,7 +25,7 @@ public final class AdvancedFlyCommand extends SimpleCommand {
     @Override
     public int run(final CommandContext<CommandSourceStack> context) {
         final var player = (Player) context.getSource().getSender();
-        final var message = plugin.settingsController().toggleAdvancedFly(player)
+        final var message = Settings.set(player, Settings.ADVANCED_FLY, true)
                 ? "command.advanced-fly.enabled"
                 : "command.advanced-fly.disabled";
         plugin.bundle().sendMessage(player, message);

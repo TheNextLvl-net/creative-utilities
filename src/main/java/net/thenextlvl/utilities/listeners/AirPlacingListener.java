@@ -1,6 +1,6 @@
 package net.thenextlvl.utilities.listeners;
 
-import net.thenextlvl.utilities.UtilitiesPlugin;
+import net.thenextlvl.utilities.model.Settings;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -21,11 +21,6 @@ public final class AirPlacingListener implements Listener {
     private final BlockData blockData = Material.BARRIER.createBlockData();
     private final BlockData waterlogged = Material.BARRIER.createBlockData(data ->
             ((Waterlogged) data).setWaterlogged(true));
-    private final UtilitiesPlugin plugin;
-
-    public AirPlacingListener(final UtilitiesPlugin plugin) {
-        this.plugin = plugin;
-    }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerQuit(final PlayerQuitEvent event) {
@@ -36,7 +31,7 @@ public final class AirPlacingListener implements Listener {
     public void onPlayerMove(final PlayerMoveEvent event) {
         final var player = event.getPlayer();
 
-        if (!plugin.settingsController().isAirPlacing(player)) {
+        if (!Settings.get(player, Settings.AIR_PLACING)) {
             hideBlock(player);
             return;
         }

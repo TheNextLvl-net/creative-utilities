@@ -1,6 +1,7 @@
 package net.thenextlvl.utilities.listeners;
 
 import net.thenextlvl.utilities.UtilitiesPlugin;
+import net.thenextlvl.utilities.model.Settings;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -16,17 +17,12 @@ public final class AdvancedFlyListener implements Listener {
     static final Map<Player, Double> lastVelocity = new WeakHashMap<>();
     static final Set<Player> slower1 = Collections.newSetFromMap(new WeakHashMap<>());
     static final Set<Player> slower2 = Collections.newSetFromMap(new WeakHashMap<>());
-    private final UtilitiesPlugin plugin;
-
-    public AdvancedFlyListener(final UtilitiesPlugin plugin) {
-        this.plugin = plugin;
-    }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerMove(final PlayerMoveEvent event) {
         if (!event.getPlayer().isFlying()) return;
 
-        if (!plugin.settingsController().isAdvancedFly(event.getPlayer())) return;
+        if (!Settings.get(event.getPlayer(), Settings.ADVANCED_FLY)) return;
 
         if (Math.abs(event.getFrom().getYaw() - event.getTo().getYaw()) > 2.5) return;
         if (Math.abs(event.getFrom().getPitch() - event.getTo().getPitch()) > 2.5) return;

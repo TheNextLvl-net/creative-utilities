@@ -1,6 +1,7 @@
 package net.thenextlvl.utilities.listeners;
 
 import net.thenextlvl.utilities.UtilitiesPlugin;
+import net.thenextlvl.utilities.model.Settings;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.type.Slab;
@@ -14,15 +15,9 @@ import static org.bukkit.block.data.type.Slab.Type.BOTTOM;
 import static org.bukkit.block.data.type.Slab.Type.TOP;
 
 public final class BlockBreakListener implements Listener {
-    private final UtilitiesPlugin plugin;
-
-    public BlockBreakListener(final UtilitiesPlugin plugin) {
-        this.plugin = plugin;
-    }
-
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onSlabBreak(final BlockBreakEvent event) {
-        if (!plugin.settingsController().isSlabPartBreaking(event.getPlayer())) return;
+        if (!Settings.get(event.getPlayer(), Settings.SLAB_PART_BREAKING)) return;
         if (!(event.getBlock().getBlockData() instanceof final Slab slab)) return;
         if (!slab.getType().equals(Slab.Type.DOUBLE)) return;
         slab.setType(isTopHalf(event.getPlayer()) ? BOTTOM : TOP);

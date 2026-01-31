@@ -9,6 +9,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.tag.resolver.Formatter;
 import net.thenextlvl.utilities.UtilitiesPlugin;
+import net.thenextlvl.utilities.model.Settings;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -41,8 +42,8 @@ public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
                 "gui.item.iron-trapdoor-interaction",
                 "gui.item.iron-trapdoor-interaction.description",
                 "builders.util.trapdoor",
-                plugin.settingsController().isHandOpenable(owner),
-                state -> plugin.settingsController().setHandOpenable(owner, state)
+                Settings.get(owner, Settings.HAND_OPENABLE),
+                state -> Settings.set(owner, Settings.HAND_OPENABLE, state)
         );
     }
 
@@ -51,8 +52,8 @@ public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
                 "gui.item.custom-slab-breaking",
                 "gui.item.custom-slab-breaking.description",
                 "builders.util.slabs",
-                plugin.settingsController().isSlabPartBreaking(owner),
-                state -> plugin.settingsController().setSlabPartBreaking(owner, state)
+                Settings.get(owner, Settings.SLAB_PART_BREAKING),
+                state -> Settings.set(owner, Settings.SLAB_PART_BREAKING, state)
         );
     }
 
@@ -61,8 +62,8 @@ public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
                 "gui.item.air-placing",
                 "gui.item.air-placing.description",
                 "builders.util.air-placing",
-                plugin.settingsController().isAirPlacing(owner),
-                state -> plugin.settingsController().setAirPlacing(owner, state)
+                Settings.get(owner, Settings.AIR_PLACING),
+                state -> Settings.set(owner, Settings.AIR_PLACING, state)
         );
     }
 
@@ -83,8 +84,8 @@ public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
                 "gui.item.noclip",
                 "gui.item.noclip.description",
                 "builders.util.no-clip",
-                plugin.settingsController().isNoClip(owner),
-                state -> plugin.settingsController().setNoClip(owner, state)
+                Settings.get(owner, Settings.NO_CLIP),
+                state -> Settings.set(owner, Settings.NO_CLIP, state)
         );
     }
 
@@ -93,8 +94,8 @@ public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
                 "gui.item.advancedfly",
                 "gui.item.advancedfly.description",
                 "builders.util.advanced-fly",
-                plugin.settingsController().isAdvancedFly(owner),
-                state -> plugin.settingsController().setAdvancedFly(owner, state)
+                Settings.get(owner, Settings.ADVANCED_FLY),
+                state -> Settings.set(owner, Settings.ADVANCED_FLY, state)
         );
     }
 
