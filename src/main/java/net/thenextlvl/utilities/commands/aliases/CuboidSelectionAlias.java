@@ -5,7 +5,6 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
-import net.thenextlvl.utilities.model.Commands;
 
 public final class CuboidSelectionAlias extends SimpleCommand {
     private CuboidSelectionAlias(final UtilitiesPlugin plugin) {

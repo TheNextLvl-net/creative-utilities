@@ -7,7 +7,7 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.command.brigadier.argument.resolvers.ArgumentResolver;
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import net.thenextlvl.utilities.model.Commands.Command;
+import net.thenextlvl.utilities.utils.Commands.Command;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Optional;

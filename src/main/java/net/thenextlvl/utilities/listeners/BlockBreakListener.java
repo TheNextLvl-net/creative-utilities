@@ -1,7 +1,6 @@
 package net.thenextlvl.utilities.listeners;
 
-import net.thenextlvl.utilities.UtilitiesPlugin;
-import net.thenextlvl.utilities.model.Settings;
+import net.thenextlvl.utilities.utils.Settings;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.type.Slab;

@@ -1,4 +1,4 @@
-package net.thenextlvl.utilities.model;
+package net.thenextlvl.utilities.utils;
 
 import org.bukkit.entity.Player;
 

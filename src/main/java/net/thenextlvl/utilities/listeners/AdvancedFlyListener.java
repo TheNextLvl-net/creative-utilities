@@ -1,7 +1,6 @@
 package net.thenextlvl.utilities.listeners;
 
-import net.thenextlvl.utilities.UtilitiesPlugin;
-import net.thenextlvl.utilities.model.Settings;
+import net.thenextlvl.utilities.utils.Settings;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

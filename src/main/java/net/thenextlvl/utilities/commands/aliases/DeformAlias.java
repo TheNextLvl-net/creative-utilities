@@ -9,7 +9,7 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
-import net.thenextlvl.utilities.model.Commands.Command;
+import net.thenextlvl.utilities.utils.Commands.Command;
 import org.bukkit.Axis;
 
 abstract class DeformAlias extends SimpleCommand {
