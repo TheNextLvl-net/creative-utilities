@@ -9,7 +9,7 @@ import net.thenextlvl.utilities.model.Commands;
 
 public final class CuboidSelectionAlias extends SimpleCommand {
     private CuboidSelectionAlias(final UtilitiesPlugin plugin) {
-        super(plugin, Commands.INSTANCE.cuboid, "worldedit.analysis.sel");
+        super(plugin, plugin.commands().cuboid, "worldedit.analysis.sel");
     }
 
     public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {

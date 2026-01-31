@@ -54,6 +54,11 @@ public final class UtilitiesPlugin extends JavaPlugin {
             new PluginConfig(true, true, false, true, true, true, true, true, true, false, true)
     ).validate().save().getRoot();
 
+    private final Commands commands = new GsonFile<>(
+            getDataPath().resolve("commands.json"),
+            new Commands()
+    ).validate().save().getRoot();
+
     private final PluginVersionChecker versionChecker = new PluginVersionChecker(this);
 
     private final BukkitMetrics fastStats = BukkitMetrics.factory()
@@ -96,24 +101,24 @@ public final class UtilitiesPlugin extends JavaPlugin {
 
     private void registerCommands() {
         getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event -> {
-            event.registrar().register(AdvancedFlyCommand.create(this), Commands.INSTANCE.advancedFly.aliases());
-            event.registrar().register(BannerCommand.create(this), Commands.INSTANCE.banner.aliases());
-            event.registrar().register(ColorCommand.create(this), Commands.INSTANCE.color.aliases());
-            event.registrar().register(NightVisionCommand.create(this), Commands.INSTANCE.nightVision.aliases());
-            event.registrar().register(NoClipCommand.create(this), Commands.INSTANCE.noClip.aliases());
-            event.registrar().register(PotteryCommand.create(this), Commands.INSTANCE.pottery.aliases());
-            event.registrar().register(UtilsCommand.create(this), Commands.INSTANCE.utils.aliases());
+            event.registrar().register(AdvancedFlyCommand.create(this), commands.advancedFly.aliases());
+            event.registrar().register(BannerCommand.create(this), commands.banner.aliases());
+            event.registrar().register(ColorCommand.create(this), commands.color.aliases());
+            event.registrar().register(NightVisionCommand.create(this), commands.nightVision.aliases());
+            event.registrar().register(NoClipCommand.create(this), commands.noClip.aliases());
+            event.registrar().register(PotteryCommand.create(this), commands.pottery.aliases());
+            event.registrar().register(UtilsCommand.create(this), commands.utils.aliases());
             registerAliases(event.registrar());
         }));
     }
 
-    private void registerAliases(final io.papermc.paper.command.brigadier.Commands commands) {
+    private void registerAliases(final io.papermc.paper.command.brigadier.Commands registrar) {
         if (getServer().getPluginManager().getPlugin("FastAsyncWorldEdit") == null) return;
-        commands.register(ConvexSelectionAlias.create(this), Commands.INSTANCE.convex.aliases());
-        commands.register(CuboidSelectionAlias.create(this), Commands.INSTANCE.cuboid.aliases());
-        commands.register(DeformRotateAlias.create(this), Commands.INSTANCE.deformRotate.aliases());
-        commands.register(ScaleAlias.create(this), Commands.INSTANCE.scale.aliases());
-        commands.register(TwistAlias.create(this), Commands.INSTANCE.twist.aliases());
+        registrar.register(ConvexSelectionAlias.create(this), commands.convex.aliases());
+        registrar.register(CuboidSelectionAlias.create(this), commands.cuboid.aliases());
+        registrar.register(DeformRotateAlias.create(this), commands.deformRotate.aliases());
+        registrar.register(ScaleAlias.create(this), commands.scale.aliases());
+        registrar.register(TwistAlias.create(this), commands.twist.aliases());
     }
 
     public ComponentBundle bundle() {
@@ -122,5 +127,9 @@ public final class UtilitiesPlugin extends JavaPlugin {
 
     public PluginConfig config() {
         return config;
+    }
+    
+    public Commands commands() {
+        return commands;
     }
 }

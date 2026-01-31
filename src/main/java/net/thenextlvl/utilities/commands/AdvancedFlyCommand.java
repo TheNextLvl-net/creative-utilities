@@ -5,13 +5,12 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
-import net.thenextlvl.utilities.model.Commands;
 import net.thenextlvl.utilities.model.Settings;
 import org.bukkit.entity.Player;
 
 public final class AdvancedFlyCommand extends SimpleCommand {
     private AdvancedFlyCommand(final UtilitiesPlugin plugin) {
-        super(plugin, Commands.INSTANCE.advancedFly, "builders.util.advanced-fly");
+        super(plugin, plugin.commands().advancedFly, "builders.util.advanced-fly");
     }
 
     public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {

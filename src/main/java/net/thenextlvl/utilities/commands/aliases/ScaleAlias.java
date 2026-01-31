@@ -6,13 +6,12 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
-import net.thenextlvl.utilities.model.Commands;
 
 import static io.papermc.paper.command.brigadier.Commands.argument;
 
 public final class ScaleAlias extends SimpleCommand {
     private ScaleAlias(final UtilitiesPlugin plugin) {
-        super(plugin, Commands.INSTANCE.scale, "worldedit.region.deform");
+        super(plugin, plugin.commands().scale, "worldedit.region.deform");
     }
 
     public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {

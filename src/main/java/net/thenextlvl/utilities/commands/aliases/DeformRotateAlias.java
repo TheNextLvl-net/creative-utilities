@@ -3,12 +3,11 @@ package net.thenextlvl.utilities.commands.aliases;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import net.thenextlvl.utilities.model.Commands;
 import org.bukkit.Axis;
 
 public final class DeformRotateAlias extends DeformAlias {
     private DeformRotateAlias(final UtilitiesPlugin plugin) {
-        super(plugin, Commands.INSTANCE.deformRotate, "worldedit.region.deform");
+        super(plugin, plugin.commands().deformRotate, "worldedit.region.deform");
     }
 
     public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {
