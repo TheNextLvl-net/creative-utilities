@@ -13,11 +13,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 public final class AirPlacingListener implements Listener {
-    static final Map<Player, Location> targetBlocks = new WeakHashMap<>();
+    static final Map<Player, Location> targetBlocks = new HashMap<>();
     private final BlockData blockData = Material.BARRIER.createBlockData();
     private final BlockData waterlogged = Material.BARRIER.createBlockData(data ->
             ((Waterlogged) data).setWaterlogged(true));

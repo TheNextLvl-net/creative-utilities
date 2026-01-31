@@ -7,15 +7,15 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.WeakHashMap;
 
 public final class AdvancedFlyListener implements Listener {
-    static final Map<Player, Double> lastVelocity = new WeakHashMap<>();
-    static final Set<Player> slower1 = Collections.newSetFromMap(new WeakHashMap<>());
-    static final Set<Player> slower2 = Collections.newSetFromMap(new WeakHashMap<>());
+    static final Map<Player, Double> lastVelocity = new HashMap<>();
+    static final Set<Player> slower1 = new HashSet<>();
+    static final Set<Player> slower2 = new HashSet<>();
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerMove(final PlayerMoveEvent event) {
