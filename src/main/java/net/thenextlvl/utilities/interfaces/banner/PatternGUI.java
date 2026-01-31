@@ -1,4 +1,4 @@
-package net.thenextlvl.utilities.gui.banner;
+package net.thenextlvl.utilities.interfaces.banner;
 
 import core.paper.gui.PaginatedGUI;
 import core.paper.item.ActionItem;

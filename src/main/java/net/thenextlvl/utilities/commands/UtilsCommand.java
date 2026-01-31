@@ -5,7 +5,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import net.thenextlvl.utilities.gui.UtilitiesGUI;
+import net.thenextlvl.utilities.interfaces.UtilitiesGUI;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;
 

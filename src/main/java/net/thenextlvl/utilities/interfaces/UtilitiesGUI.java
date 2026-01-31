@@ -1,4 +1,4 @@
-package net.thenextlvl.utilities.gui;
+package net.thenextlvl.utilities.interfaces;
 
 import core.paper.gui.GUI;
 import core.paper.item.ItemBuilder;

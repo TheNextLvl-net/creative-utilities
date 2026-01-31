@@ -1,4 +1,4 @@
-package net.thenextlvl.utilities.gui.pottery;
+package net.thenextlvl.utilities.interfaces.pottery;
 
 import core.paper.gui.GUI;
 import core.paper.item.ItemBuilder;
@@ -7,7 +7,7 @@ import io.papermc.paper.datacomponent.item.PotDecorations;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import net.thenextlvl.utilities.gui.banner.BannerGUI;
+import net.thenextlvl.utilities.interfaces.banner.BannerGUI;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
