@@ -7,6 +7,7 @@ import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.key.Key;
 import net.thenextlvl.i18n.ComponentBundle;
 import net.thenextlvl.utilities.commands.AdvancedFlyCommand;
+import net.thenextlvl.utilities.commands.AirPlaceCommand;
 import net.thenextlvl.utilities.commands.BannerCommand;
 import net.thenextlvl.utilities.commands.ColorCommand;
 import net.thenextlvl.utilities.commands.NightVisionCommand;
@@ -102,6 +103,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
     private void registerCommands() {
         getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event -> {
             event.registrar().register(AdvancedFlyCommand.create(this), commands.advancedFly.aliases());
+            event.registrar().register(AirPlaceCommand.create(this), commands.airPlace.aliases());
             event.registrar().register(BannerCommand.create(this), commands.banner.aliases());
             event.registrar().register(ColorCommand.create(this), commands.color.aliases());
             event.registrar().register(NightVisionCommand.create(this), commands.nightVision.aliases());

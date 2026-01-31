@@ -4,6 +4,7 @@ import java.util.Set;
 
 public final class Commands {
     public final Command advancedFly = new Command("advanced-fly", "advancedfly", "advfly", "fly");
+    public final Command airPlace = new Command("air-place", "airplace", "ap");
     public final Command banner = new Command("banner", "bm");
     public final Command color = new Command("armor-color", "armorcolor", "color");
     public final Command nightVision = new Command("night-vision", "nightvision", "nv", "n");
