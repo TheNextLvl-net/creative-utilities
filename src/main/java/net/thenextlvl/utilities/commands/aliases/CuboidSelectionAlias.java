@@ -1,19 +1,24 @@
 package net.thenextlvl.utilities.commands.aliases;
 
-import com.mojang.brigadier.Command;
+import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
-import io.papermc.paper.command.brigadier.Commands;
 import net.thenextlvl.utilities.UtilitiesPlugin;
+import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
 
-public class CuboidSelectionAlias {
+public final class CuboidSelectionAlias extends SimpleCommand {
+    private CuboidSelectionAlias(final UtilitiesPlugin plugin) {
+        super(plugin, "/cuboid", "worldedit.analysis.sel");
+    }
+
     public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {
-        return Commands.literal("/cuboid")
-                .requires(source -> source.getSender().hasPermission("worldedit.analysis.sel"))
-                .executes(context -> {
-                    plugin.getServer().dispatchCommand(context.getSource().getSender(), "/sel cuboid");
-                    return Command.SINGLE_SUCCESS;
-                })
-                .build();
+        final var command = new CuboidSelectionAlias(plugin);
+        return command.create().executes(command).build();
+    }
+
+    @Override
+    public int run(final CommandContext<CommandSourceStack> context) {
+        plugin.getServer().dispatchCommand(context.getSource().getSender(), "/sel cuboid");
+        return SINGLE_SUCCESS;
     }
 }

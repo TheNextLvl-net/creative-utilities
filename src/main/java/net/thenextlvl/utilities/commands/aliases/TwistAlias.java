@@ -1,41 +1,25 @@
 package net.thenextlvl.utilities.commands.aliases;
 
-import com.mojang.brigadier.Command;
-import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.tree.LiteralCommandNode;
-import core.paper.brigadier.arguments.EnumArgumentType;
-import core.paper.brigadier.arguments.codecs.EnumStringCodec;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
-import io.papermc.paper.command.brigadier.Commands;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Axis;
 
-public class TwistAlias {
-    public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {
-        return Commands.literal("/twist")
-                .requires(source -> source.getSender().hasPermission("worldedit.region.deform"))
-                .then(Commands.argument("axis", EnumArgumentType.of(Axis.class, EnumStringCodec.lowerHyphen()))
-                        .then(Commands.argument("degrees", IntegerArgumentType.integer())
-                                .executes(context -> {
-                                    final var axis = context.getArgument("axis", Axis.class);
-                                    final var degrees = context.getArgument("degrees", int.class);
-                                    final var line = "/deform rotate(%s,%s*(%s+1))".formatted(switch (axis) {
-                                        case X -> "y,z";
-                                        case Y -> "x,z";
-                                        case Z -> "x,y";
-                                    }, degrees * 0.0174533f / 2, axis.name().toLowerCase());
-                                    plugin.getServer().dispatchCommand(context.getSource().getSender(), line);
-                                    return Command.SINGLE_SUCCESS;
-                                }))
-                        .executes(context -> {
-                            plugin.getServer().dispatchCommand(context.getSource().getSender(), "/deform");
-                            return Command.SINGLE_SUCCESS;
-                        }))
-                .executes(context -> {
-                    plugin.getServer().dispatchCommand(context.getSource().getSender(), "/deform");
-                    return Command.SINGLE_SUCCESS;
-                })
-                .build();
+public final class TwistAlias extends DeformAlias {
+    private TwistAlias(final UtilitiesPlugin plugin) {
+        super(plugin, "/twist", "worldedit.region.deform");
     }
 
+    public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {
+        return new TwistAlias(plugin).create().build();
+    }
+
+    @Override
+    protected String getCommand(final Axis axis, final int degrees) {
+        return "/deform rotate(%s,%s*(%s+1))".formatted(switch (axis) {
+            case X -> "y,z";
+            case Y -> "x,z";
+            case Z -> "x,y";
+        }, degrees * 0.0174533f / 2, axis.name().toLowerCase());
+    }
 }
