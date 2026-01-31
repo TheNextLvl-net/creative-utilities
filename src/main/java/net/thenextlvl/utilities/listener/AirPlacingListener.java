@@ -44,7 +44,7 @@ public class AirPlacingListener implements Listener {
         }
 
         if (player.getInventory().getItemInMainHand().isEmpty()
-            && player.getInventory().getItemInOffHand().isEmpty()) {
+                && player.getInventory().getItemInOffHand().isEmpty()) {
             hideBlock(player);
             return;
         }

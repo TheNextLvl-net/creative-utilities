@@ -21,7 +21,7 @@ public class NightVisionCommand {
     public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
         return Commands.literal("nightvision")
                 .requires(stack -> stack.getSender().hasPermission("builders.util.night-vision")
-                                   && stack.getSender() instanceof Player)
+                        && stack.getSender() instanceof Player)
                 .executes(context -> {
                     var player = (Player) context.getSource().getSender();
                     var message = toggleNightVision(player)

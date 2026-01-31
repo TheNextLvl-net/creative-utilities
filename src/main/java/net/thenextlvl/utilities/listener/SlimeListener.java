@@ -39,7 +39,7 @@ public class SlimeListener implements Listener {
             head.setType(TechnicalPiston.Type.STICKY);
             block.setBlockData(head, false);
         } else if (block.getType().equals(Material.PISTON) && block.getBlockData() instanceof Piston piston
-                   && !piston.isExtended()) block.setBlockData(Material.STICKY_PISTON.createBlockData(data -> {
+                && !piston.isExtended()) block.setBlockData(Material.STICKY_PISTON.createBlockData(data -> {
             if (data instanceof Directional directional) directional.setFacing(face.getFacing());
         }), true);
         else return;
@@ -64,7 +64,7 @@ public class SlimeListener implements Listener {
             head.setType(TechnicalPiston.Type.NORMAL);
             block.setBlockData(head, false);
         } else if (block.getType().equals(Material.STICKY_PISTON) && block.getBlockData() instanceof Piston piston
-                   && !piston.isExtended()) block.setBlockData(Material.PISTON.createBlockData(data -> {
+                && !piston.isExtended()) block.setBlockData(Material.PISTON.createBlockData(data -> {
             if (data instanceof Directional directional) directional.setFacing(piston.getFacing());
         }), true);
         else return;

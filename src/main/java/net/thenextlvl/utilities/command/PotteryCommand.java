@@ -16,7 +16,7 @@ public class PotteryCommand {
     public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
         return Commands.literal("pottery")
                 .requires(stack -> stack.getSender().hasPermission("builders.util.pottery-designer")
-                                   && stack.getSender() instanceof Player)
+                        && stack.getSender() instanceof Player)
                 .executes(context -> {
                     var player = (Player) context.getSource().getSender();
                     new PotteryDesignerGUI(plugin, player, ItemStack.of(Material.DECORATED_POT)).open();

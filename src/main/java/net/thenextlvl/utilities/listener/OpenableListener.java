@@ -30,7 +30,7 @@ public class OpenableListener implements Listener {
         if (event.getItem() != null && event.getItem().getType().equals(Material.DEBUG_STICK)) return;
         var block = event.getClickedBlock();
         if (block == null || (!block.getType().equals(Material.IRON_DOOR)
-                              && !block.getType().equals(Material.IRON_TRAPDOOR))) return;
+                && !block.getType().equals(Material.IRON_TRAPDOOR))) return;
         if (!(block.getBlockData() instanceof Openable openable)) return;
         block.getWorld().playSound(block.getLocation(), getSound(openable, block.getType()), 1F, 1F);
         event.setUseItemInHand(Event.Result.DENY);

@@ -13,7 +13,7 @@ public class AdvancedFlyCommand {
     public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
         return Commands.literal("advancedfly")
                 .requires(stack -> stack.getSender().hasPermission("builders.util.advanced-fly")
-                                   && stack.getSender() instanceof Player)
+                        && stack.getSender() instanceof Player)
                 .executes(context -> {
                     var player = (Player) context.getSource().getSender();
                     var message = plugin.settingsController().toggleAdvancedFly(player)

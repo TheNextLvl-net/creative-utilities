@@ -20,14 +20,14 @@ public class NoClipManager {
 
     public boolean checkSurrounding(Player player) {
         return player.getLocation().add(+0.4, 0, 0).getBlock().isCollidable()
-               || player.getLocation().add(-0.4, 0, 0).getBlock().isCollidable()
-               || player.getLocation().add(0, 0, +0.4).getBlock().isCollidable()
-               || player.getLocation().add(0, 0, -0.4).getBlock().isCollidable()
-               || player.getLocation().add(+0.4, 1, 0).getBlock().isCollidable()
-               || player.getLocation().add(-0.4, 1, 0).getBlock().isCollidable()
-               || player.getLocation().add(0, 1, +0.4).getBlock().isCollidable()
-               || player.getLocation().add(0, 1, -0.4).getBlock().isCollidable()
-               || player.getLocation().add(0, +1.9, 0).getBlock().isCollidable();
+                || player.getLocation().add(-0.4, 0, 0).getBlock().isCollidable()
+                || player.getLocation().add(0, 0, +0.4).getBlock().isCollidable()
+                || player.getLocation().add(0, 0, -0.4).getBlock().isCollidable()
+                || player.getLocation().add(+0.4, 1, 0).getBlock().isCollidable()
+                || player.getLocation().add(-0.4, 1, 0).getBlock().isCollidable()
+                || player.getLocation().add(0, 1, +0.4).getBlock().isCollidable()
+                || player.getLocation().add(0, 1, -0.4).getBlock().isCollidable()
+                || player.getLocation().add(0, +1.9, 0).getBlock().isCollidable();
     }
 
     public void updateNoClip(Player player) {
@@ -54,5 +54,4 @@ public class NoClipManager {
             if (!noClip) player.setGameMode(GameMode.CREATIVE);
         }
     }
-
 }

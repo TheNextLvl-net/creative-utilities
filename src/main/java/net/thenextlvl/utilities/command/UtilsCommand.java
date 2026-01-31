@@ -14,7 +14,7 @@ public class UtilsCommand {
     public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
         return Commands.literal("utils")
                 .requires(stack -> stack.getSender().hasPermission("builders.util.gui")
-                                   && stack.getSender() instanceof Player)
+                        && stack.getSender() instanceof Player)
                 .executes(context -> {
                     var player = (Player) context.getSource().getSender();
                     new UtilitiesGUI(plugin, player).open();

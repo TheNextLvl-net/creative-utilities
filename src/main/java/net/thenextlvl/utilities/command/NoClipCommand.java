@@ -13,7 +13,7 @@ public class NoClipCommand {
     public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
         return Commands.literal("noclip")
                 .requires(stack -> stack.getSender().hasPermission("builders.util.no-clip")
-                                   && stack.getSender() instanceof Player)
+                        && stack.getSender() instanceof Player)
                 .executes(context -> {
                     var player = (Player) context.getSource().getSender();
                     var message = plugin.settingsController().toggleNoClip(player)
