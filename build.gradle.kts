@@ -70,7 +70,7 @@ paper {
         register("builders.util.night-vision")
         register("builders.util.no-clip")
         register("builders.util.pottery-designer")
-        
+
         register("builders.util.slabs") { default = BukkitPluginDescription.Permission.Default.TRUE }
         register("builders.util.tpgm3") { default = BukkitPluginDescription.Permission.Default.TRUE }
         register("builders.util.trapdoor") { default = BukkitPluginDescription.Permission.Default.TRUE }
