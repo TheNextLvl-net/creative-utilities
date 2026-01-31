@@ -9,6 +9,7 @@ We aim to be always up-to-date and use new technology instead of hanging on to o
 ## Major Changes
 
 - **100%** customizable messages
+- **Configurable commands**
 - **Piston Sliming**
 - **Air Placing**
 - **Pottery Designer**
