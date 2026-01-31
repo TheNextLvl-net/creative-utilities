@@ -5,7 +5,6 @@ public final class Permissions {
     public static final String AIR_PLACING = "builders.util.air-placing";
     public static final String BANNER = "builders.util.banner";
     public static final String COLOR = "builders.util.color";
-    public static final String HAND_OPENABLE = "builders.util.hand-openable";
     public static final String NIGHT_VISION = "builders.util.night-vision";
     public static final String NO_CLIP = "builders.util.no-clip";
     public static final String POTTERY = "builders.util.pottery-designer";
