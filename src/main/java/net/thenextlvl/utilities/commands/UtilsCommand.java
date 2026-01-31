@@ -9,12 +9,12 @@ import net.thenextlvl.utilities.interfaces.UtilitiesGUI;
 import org.bukkit.entity.Player;
 
 public class UtilsCommand {
-    public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
+    public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {
         return Commands.literal("utils")
                 .requires(stack -> stack.getSender().hasPermission("builders.util.gui")
                         && stack.getSender() instanceof Player)
                 .executes(context -> {
-                    var player = (Player) context.getSource().getSender();
+                    final var player = (Player) context.getSource().getSender();
                     new UtilitiesGUI(plugin, player).open();
                     return Command.SINGLE_SUCCESS;
                 })

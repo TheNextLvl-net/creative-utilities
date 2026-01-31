@@ -16,13 +16,13 @@ public class NightVisionCommand {
             0, true, false
     );
 
-    public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
+    public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {
         return Commands.literal("nightvision")
                 .requires(stack -> stack.getSender().hasPermission("builders.util.night-vision")
                         && stack.getSender() instanceof Player)
                 .executes(context -> {
-                    var player = (Player) context.getSource().getSender();
-                    var message = toggleNightVision(player)
+                    final var player = (Player) context.getSource().getSender();
+                    final var message = toggleNightVision(player)
                             ? "command.night-vision.enabled"
                             : "command.night-vision.disabled";
                     plugin.bundle().sendMessage(player, message);
@@ -31,7 +31,7 @@ public class NightVisionCommand {
                 .build();
     }
 
-    private static boolean toggleNightVision(Player player) {
+    private static boolean toggleNightVision(final Player player) {
         if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
             player.removePotionEffect(PotionEffectType.NIGHT_VISION);
             return false;

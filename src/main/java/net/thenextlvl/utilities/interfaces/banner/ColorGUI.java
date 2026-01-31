@@ -36,14 +36,14 @@ public class ColorGUI extends GUI<UtilitiesPlugin> {
             new Item(41, Material.BLACK_DYE, DyeColor.BLACK, "gui.item.banner.color.black")
     );
 
-    public ColorGUI(UtilitiesPlugin plugin, Player owner, ItemStack banner) {
+    public ColorGUI(final UtilitiesPlugin plugin, final Player owner, final ItemStack banner) {
         super(plugin, owner, plugin.bundle().component("gui.title.banner.color", owner), 6);
         setSlot(1, ItemBuilder.of(Material.PLAYER_HEAD)
                 .itemName(plugin.bundle().component("gui.item.randomize", owner))
                 .profileValue(BannerGUI.DICE)
                 .withAction(player -> {
                     player.playSound(player, Sound.UI_LOOM_SELECT_PATTERN, SoundCategory.BLOCKS, 1, 1);
-                    var item = items.get(ThreadLocalRandom.current().nextInt(0, items.size()));
+                    final var item = items.get(ThreadLocalRandom.current().nextInt(0, items.size()));
                     new PatternGUI(plugin, player, banner, item.color()).open();
                 }));
         setSlot(4, ItemBuilder.of(banner.clone())
@@ -67,7 +67,7 @@ public class ColorGUI extends GUI<UtilitiesPlugin> {
 
     @Override
     protected void formatDefault() {
-        var placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).hideTooltip();
+        final var placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).hideTooltip();
         IntStream.range(0, getSize()).forEach(slot -> setSlotIfAbsent(slot, placeholder));
     }
 

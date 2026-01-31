@@ -10,12 +10,12 @@ import org.bukkit.event.block.BlockPhysicsEvent;
 public class BlockPhysicsListener implements Listener {
     private final UtilitiesPlugin plugin;
 
-    public BlockPhysicsListener(UtilitiesPlugin plugin) {
+    public BlockPhysicsListener(final UtilitiesPlugin plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void onPhysics(BlockPhysicsEvent event) {
+    public void onPhysics(final BlockPhysicsEvent event) {
         if (event.getSourceBlock().isEmpty() && event.getChangedType().isAir()) {
             if (event.getBlock().getRelative(BlockFace.DOWN).getType().equals(Material.GRASS_BLOCK)) {
                 return;

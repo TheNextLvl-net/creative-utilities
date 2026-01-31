@@ -6,12 +6,12 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
 
 public class PluginVersionChecker extends PaperModrinthVersionChecker<SemanticVersion> {
-    public PluginVersionChecker(Plugin plugin) {
+    public PluginVersionChecker(final Plugin plugin) {
         super(plugin, "zAcZq5oV");
     }
 
     @Override
-    public @Nullable SemanticVersion parseVersion(String version) {
+    public @Nullable SemanticVersion parseVersion(final String version) {
         return SemanticVersion.parse(version);
     }
 }

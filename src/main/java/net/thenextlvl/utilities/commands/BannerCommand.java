@@ -9,12 +9,12 @@ import net.thenextlvl.utilities.interfaces.banner.BannerGUI;
 import org.bukkit.entity.Player;
 
 public class BannerCommand {
-    public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
+    public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {
         return Commands.literal("banner")
                 .requires(stack -> stack.getSender().hasPermission("builders.util.banner")
                         && stack.getSender() instanceof Player)
                 .executes(context -> {
-                    var player = (Player) context.getSource().getSender();
+                    final var player = (Player) context.getSource().getSender();
                     new BannerGUI(plugin, player).open();
                     return Command.SINGLE_SUCCESS;
                 })

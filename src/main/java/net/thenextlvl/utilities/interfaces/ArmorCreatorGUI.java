@@ -29,7 +29,7 @@ public class ArmorCreatorGUI extends GUI<UtilitiesPlugin> {
     private int green = 10;
     private int blue = 10;
 
-    public ArmorCreatorGUI(UtilitiesPlugin plugin, Player owner) {
+    public ArmorCreatorGUI(final UtilitiesPlugin plugin, final Player owner) {
         super(plugin, owner, plugin.bundle().component("gui.title.armor-color-creator", owner), 6);
         updateDices();
         updateSelector();
@@ -42,7 +42,7 @@ public class ArmorCreatorGUI extends GUI<UtilitiesPlugin> {
         updateDice(24, DICE_BLUE, "gui.item.color.randomize.blue", () -> this.blue = random.nextInt(0, 21));
     }
 
-    private void updateDice(int slot, String head, String name, Runnable randomization) {
+    private void updateDice(final int slot, final String head, final String name, final Runnable randomization) {
         setSlot(slot, ItemBuilder.of(Material.PLAYER_HEAD)
                 .itemName(plugin.bundle().component(name, owner))
                 .profileValue(head)
@@ -60,8 +60,8 @@ public class ArmorCreatorGUI extends GUI<UtilitiesPlugin> {
         updateSelector(33, blue, Material.BLUE_STAINED_GLASS, SOLID_BLUE, "gui.item.color.blue", amount -> this.blue = amount);
     }
 
-    private void updateSelector(int slot, int amount, Material fallback, String head, String name, Consumer<Integer> setter) {
-        var item = amount == 0 ? ItemBuilder.of(fallback) : ItemBuilder.of(Material.PLAYER_HEAD)
+    private void updateSelector(final int slot, final int amount, final Material fallback, final String head, final String name, final Consumer<Integer> setter) {
+        final var item = amount == 0 ? ItemBuilder.of(fallback) : ItemBuilder.of(Material.PLAYER_HEAD)
                 .profileValue(head).amount(amount);
         setSlot(slot, item.itemName(plugin.bundle().component(name, owner)).lore(
                 Component.empty(),
@@ -69,7 +69,7 @@ public class ArmorCreatorGUI extends GUI<UtilitiesPlugin> {
                 plugin.bundle().component("gui.item.color.right", owner),
                 plugin.bundle().component("gui.item.color.shift", owner)
         ).withAction((type, player) -> {
-            var newAmount = Math.clamp(amount + switch (type) {
+            final var newAmount = Math.clamp(amount + switch (type) {
                 case LEFT -> 1;
                 case RIGHT -> -1;
                 case SHIFT_LEFT -> 5;
@@ -90,10 +90,10 @@ public class ArmorCreatorGUI extends GUI<UtilitiesPlugin> {
         updateArmor(37, Material.LEATHER_BOOTS);
     }
 
-    private void updateArmor(int slot, Material material) {
-        var builder = ItemBuilder.of(material);
-        var color = Color.fromRGB(red * 255 / 20, green * 255 / 20, blue * 255 / 20);
-        var dye = DyedItemColor.dyedItemColor().color(color).build();
+    private void updateArmor(final int slot, final Material material) {
+        final var builder = ItemBuilder.of(material);
+        final var color = Color.fromRGB(red * 255 / 20, green * 255 / 20, blue * 255 / 20);
+        final var dye = DyedItemColor.dyedItemColor().color(color).build();
         setSlot(slot, builder.data(DataComponentTypes.DYED_COLOR, dye)
                 .withAction(player -> player.getInventory().addItem(builder.item())));
     }

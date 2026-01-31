@@ -7,7 +7,7 @@ import io.papermc.paper.command.brigadier.Commands;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 
 public class ConvexSelectionAlias {
-    public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
+    public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {
         return Commands.literal("/convex")
                 .requires(source -> source.getSender().hasPermission("worldedit.analysis.sel"))
                 .executes(context -> {

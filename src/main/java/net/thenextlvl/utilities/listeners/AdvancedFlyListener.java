@@ -18,12 +18,12 @@ public class AdvancedFlyListener implements Listener {
     static final Set<Player> slower2 = Collections.newSetFromMap(new WeakHashMap<>());
     private final UtilitiesPlugin plugin;
 
-    public AdvancedFlyListener(UtilitiesPlugin plugin) {
+    public AdvancedFlyListener(final UtilitiesPlugin plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onPlayerMove(PlayerMoveEvent event) {
+    public void onPlayerMove(final PlayerMoveEvent event) {
         if (!event.getPlayer().isFlying()) return;
 
         if (!plugin.settingsController().isAdvancedFly(event.getPlayer())) return;
@@ -31,10 +31,10 @@ public class AdvancedFlyListener implements Listener {
         if (Math.abs(event.getFrom().getYaw() - event.getTo().getYaw()) > 2.5) return;
         if (Math.abs(event.getFrom().getPitch() - event.getTo().getPitch()) > 2.5) return;
 
-        var speed = event.getFrom().clone().add(0, -event.getFrom().getY(), 0)
+        final var speed = event.getFrom().clone().add(0, -event.getFrom().getY(), 0)
                 .distance(event.getTo().clone().add(0, -event.getTo().getY(), 0));
 
-        double lastSpeed = lastVelocity.getOrDefault(event.getPlayer(), 0d);
+        final double lastSpeed = lastVelocity.getOrDefault(event.getPlayer(), 0d);
 
         if (speed > lastSpeed) {
             lastVelocity.put(event.getPlayer(), speed);
@@ -48,7 +48,7 @@ public class AdvancedFlyListener implements Listener {
         if (!slower1.add(event.getPlayer())) return;
         if (!slower2.add(event.getPlayer())) return;
 
-        var vector = event.getPlayer().getVelocity().clone();
+        final var vector = event.getPlayer().getVelocity().clone();
         vector.setX(0);
         vector.setZ(0);
         event.getPlayer().setVelocity(vector);

@@ -33,7 +33,7 @@ public final class GsonFile<R> {
     private R root;
     private boolean loaded;
 
-    public GsonFile(Path file, R root) {
+    public GsonFile(final Path file, final R root) {
         this.defaultRoot = root;
         this.file = file;
         this.root = root;
@@ -47,67 +47,67 @@ public final class GsonFile<R> {
 
     private R load() {
         if (!Files.isRegularFile(file)) return getRoot();
-        try (var reader = new JsonReader(new InputStreamReader(
+        try (final var reader = new JsonReader(new InputStreamReader(
                 Files.newInputStream(file, READ),
                 StandardCharsets.UTF_8
         ))) {
-            R root = GSON.fromJson(reader, this.root.getClass());
+            final R root = GSON.fromJson(reader, this.root.getClass());
             return root != null ? root : defaultRoot;
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public GsonFile<R> setRoot(R root) {
+    public GsonFile<R> setRoot(final R root) {
         this.loaded = true;
         this.root = root;
         return this;
     }
 
-    public GsonFile<R> save(FileAttribute<?>... attributes) {
+    public GsonFile<R> save(final FileAttribute<?>... attributes) {
         try {
-            var root = getRoot();
+            final var root = getRoot();
             Files.createDirectories(file.getParent(), attributes);
-            try (var writer = new BufferedWriter(new OutputStreamWriter(
+            try (final var writer = new BufferedWriter(new OutputStreamWriter(
                     Files.newOutputStream(file, WRITE, CREATE, TRUNCATE_EXISTING),
                     StandardCharsets.UTF_8
             ))) {
                 GSON.toJson(root, root.getClass(), writer);
                 return this;
             }
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     public GsonFile<R> validate() {
         if (!Files.isRegularFile(file)) return this;
-        var defaultTree = GSON.toJsonTree(defaultRoot, root.getClass());
-        var currentTree = GSON.toJsonTree(getRoot(), root.getClass());
-        var validatedTree = validate(defaultTree, currentTree);
+        final var defaultTree = GSON.toJsonTree(defaultRoot, root.getClass());
+        final var currentTree = GSON.toJsonTree(getRoot(), root.getClass());
+        final var validatedTree = validate(defaultTree, currentTree);
         if (currentTree.equals(validatedTree)) return this;
         return setRoot(GSON.<R>fromJson(validatedTree, root.getClass()));
     }
 
-    private static JsonElement validate(JsonElement defaultTree, JsonElement currentTree) {
+    private static JsonElement validate(final JsonElement defaultTree, final JsonElement currentTree) {
         if (!defaultTree.isJsonObject() || !currentTree.isJsonObject()) return currentTree;
         return validate(defaultTree.getAsJsonObject(), currentTree.getAsJsonObject());
     }
 
-    private static JsonObject validate(JsonObject defaultTree, JsonObject currentTree) {
-        var currentCopy = currentTree.deepCopy();
+    private static JsonObject validate(final JsonObject defaultTree, final JsonObject currentTree) {
+        final var currentCopy = currentTree.deepCopy();
         filterUnused(defaultTree, currentCopy);
         fillMissing(defaultTree, currentCopy);
         return currentCopy;
     }
 
-    private static void fillMissing(JsonObject defaultTree, JsonObject currentCopy) {
+    private static void fillMissing(final JsonObject defaultTree, final JsonObject currentCopy) {
         defaultTree.entrySet().stream()
                 .filter(entry -> !currentCopy.has(entry.getKey()))
                 .forEach(entry -> currentCopy.add(entry.getKey(), entry.getValue()));
     }
 
-    private static void filterUnused(JsonObject defaultTree, JsonObject currentCopy) {
+    private static void filterUnused(final JsonObject defaultTree, final JsonObject currentCopy) {
         currentCopy.entrySet().removeIf(entry -> !defaultTree.has(entry.getKey()));
     }
 }

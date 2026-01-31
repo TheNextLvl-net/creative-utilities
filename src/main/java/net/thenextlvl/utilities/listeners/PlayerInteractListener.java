@@ -12,22 +12,22 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class PlayerInteractListener implements Listener {
     private final UtilitiesPlugin plugin;
 
-    public PlayerInteractListener(UtilitiesPlugin plugin) {
+    public PlayerInteractListener(final UtilitiesPlugin plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onDragonEggTeleport(BlockFromToEvent event) {
+    public void onDragonEggTeleport(final BlockFromToEvent event) {
         if (!plugin.config().preventDragonEggTeleport()) return;
         if (!event.getBlock().getType().equals(Material.DRAGON_EGG)) return;
         event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onPlayerInteract(PlayerInteractEvent event) {
+    public void onPlayerInteract(final PlayerInteractEvent event) {
         if (!plugin.config().disableSoilTrample()) return;
         if (!event.getAction().equals(Action.PHYSICAL)) return;
-        var block = event.getClickedBlock();
+        final var block = event.getClickedBlock();
         event.setCancelled(block != null && block.getType().equals(Material.FARMLAND));
     }
 }

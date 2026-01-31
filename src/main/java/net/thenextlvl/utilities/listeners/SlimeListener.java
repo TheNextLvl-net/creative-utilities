@@ -18,27 +18,27 @@ import org.bukkit.inventory.EquipmentSlot;
 public class SlimeListener implements Listener {
     private final UtilitiesPlugin plugin;
 
-    public SlimeListener(UtilitiesPlugin plugin) {
+    public SlimeListener(final UtilitiesPlugin plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onPlayerSlimePiston(PlayerInteractEvent event) {
+    public void onPlayerSlimePiston(final PlayerInteractEvent event) {
         if (!plugin.config().pistonSliming()) return;
         if (event.getPlayer().getGameMode().equals(GameMode.SPECTATOR)) return;
-        var block = event.getClickedBlock();
+        final var block = event.getClickedBlock();
         if (block == null || !event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) return;
         if (!event.getMaterial().equals(Material.SLIME_BALL) || !EquipmentSlot.HAND.equals(event.getHand())) return;
-        if (!(block.getBlockData() instanceof Directional face)) return;
+        if (!(block.getBlockData() instanceof final Directional face)) return;
         if (!face.getFacing().equals(event.getBlockFace())) return;
         if (block.getType().equals(Material.PISTON_HEAD)) {
-            var head = (PistonHead) block.getBlockData();
+            final var head = (PistonHead) block.getBlockData();
             if (head.getType().equals(TechnicalPiston.Type.STICKY)) return;
             head.setType(TechnicalPiston.Type.STICKY);
             block.setBlockData(head, false);
-        } else if (block.getType().equals(Material.PISTON) && block.getBlockData() instanceof Piston piston
+        } else if (block.getType().equals(Material.PISTON) && block.getBlockData() instanceof final Piston piston
                 && !piston.isExtended()) block.setBlockData(Material.STICKY_PISTON.createBlockData(data -> {
-            if (data instanceof Directional directional) directional.setFacing(face.getFacing());
+            if (data instanceof final Directional directional) directional.setFacing(face.getFacing());
         }), true);
         else return;
         event.getPlayer().swingMainHand();
@@ -48,22 +48,22 @@ public class SlimeListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onPlayerShearPiston(PlayerInteractEvent event) {
+    public void onPlayerShearPiston(final PlayerInteractEvent event) {
         if (!plugin.config().pistonSliming()) return;
         if (event.getPlayer().getGameMode().equals(GameMode.SPECTATOR)) return;
-        var block = event.getClickedBlock();
+        final var block = event.getClickedBlock();
         if (block == null || !event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) return;
         if (!event.getMaterial().equals(Material.SHEARS) || !EquipmentSlot.HAND.equals(event.getHand())) return;
-        if (!(block.getBlockData() instanceof Directional face)) return;
+        if (!(block.getBlockData() instanceof final Directional face)) return;
         if (!face.getFacing().equals(event.getBlockFace())) return;
         if (block.getType().equals(Material.PISTON_HEAD)) {
-            var head = (PistonHead) block.getBlockData();
+            final var head = (PistonHead) block.getBlockData();
             if (head.getType().equals(TechnicalPiston.Type.NORMAL)) return;
             head.setType(TechnicalPiston.Type.NORMAL);
             block.setBlockData(head, false);
-        } else if (block.getType().equals(Material.STICKY_PISTON) && block.getBlockData() instanceof Piston piston
+        } else if (block.getType().equals(Material.STICKY_PISTON) && block.getBlockData() instanceof final Piston piston
                 && !piston.isExtended()) block.setBlockData(Material.PISTON.createBlockData(data -> {
-            if (data instanceof Directional directional) directional.setFacing(piston.getFacing());
+            if (data instanceof final Directional directional) directional.setFacing(piston.getFacing());
         }), true);
         else return;
         event.getPlayer().swingMainHand();

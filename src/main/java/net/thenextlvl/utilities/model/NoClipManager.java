@@ -4,10 +4,10 @@ import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
-public class NoClipManager {
+public final class NoClipManager {
     private final UtilitiesPlugin plugin;
 
-    public NoClipManager(UtilitiesPlugin plugin) {
+    public NoClipManager(final UtilitiesPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -16,7 +16,7 @@ public class NoClipManager {
                 .getNoClip().forEach(this::updateNoClip), 1, 1);
     }
 
-    public boolean checkSurrounding(Player player) {
+    public boolean checkSurrounding(final Player player) {
         return player.getLocation().add(+0.4, 0, 0).getBlock().isCollidable()
                 || player.getLocation().add(-0.4, 0, 0).getBlock().isCollidable()
                 || player.getLocation().add(0, 0, +0.4).getBlock().isCollidable()
@@ -28,10 +28,10 @@ public class NoClipManager {
                 || player.getLocation().add(0, +1.9, 0).getBlock().isCollidable();
     }
 
-    public void updateNoClip(Player player) {
+    public void updateNoClip(final Player player) {
         if (!player.getGameMode().isInvulnerable()) return;
 
-        boolean noClip;
+        final boolean noClip;
 
         if (player.getGameMode().equals(GameMode.CREATIVE)) {
             if (player.getLocation().add(0, -0.1, 0).getBlock().isCollidable() && player.isSneaking()) {

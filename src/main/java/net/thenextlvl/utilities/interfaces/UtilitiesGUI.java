@@ -26,7 +26,7 @@ public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
             0, true, false
     );
 
-    public UtilitiesGUI(UtilitiesPlugin plugin, Player owner) {
+    public UtilitiesGUI(final UtilitiesPlugin plugin, final Player owner) {
         super(plugin, owner, plugin.bundle().component("gui.title.utilities", owner), 3);
         updateIronInteraction();
         updateCustomSlabBreaking();
@@ -98,8 +98,8 @@ public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
         );
     }
 
-    private void updateFeature(int slot, Material icon, String title, String description, String permission, boolean enabled, Consumer<Boolean> setter) {
-        var item = ItemBuilder.of(icon).itemName(plugin.bundle().component(title, owner));
+    private void updateFeature(final int slot, final Material icon, final String title, final String description, final String permission, final boolean enabled, final Consumer<Boolean> setter) {
+        final var item = ItemBuilder.of(icon).itemName(plugin.bundle().component(title, owner));
 
         if (!owner.hasPermission(permission)) {
             setSlot(slot, item.lore(plugin.bundle().component("gui.item.permission", owner)));
@@ -122,8 +122,8 @@ public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
         updateState(slot, enabled);
     }
 
-    private void updateState(int slot, @Nullable Boolean state) {
-        var item = ItemStack.of(state == null ? Material.ORANGE_STAINED_GLASS_PANE
+    private void updateState(final int slot, @Nullable final Boolean state) {
+        final var item = ItemStack.of(state == null ? Material.ORANGE_STAINED_GLASS_PANE
                 : state ? Material.GREEN_STAINED_GLASS_PANE : Material.RED_STAINED_GLASS_PANE);
         item.setData(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplay.tooltipDisplay().hideTooltip(true).build());
         setSlot(slot - 9, item);

@@ -16,23 +16,23 @@ import static org.bukkit.block.data.type.Slab.Type.TOP;
 public class BlockBreakListener implements Listener {
     private final UtilitiesPlugin plugin;
 
-    public BlockBreakListener(UtilitiesPlugin plugin) {
+    public BlockBreakListener(final UtilitiesPlugin plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onSlabBreak(BlockBreakEvent event) {
+    public void onSlabBreak(final BlockBreakEvent event) {
         if (!plugin.settingsController().isSlabPartBreaking(event.getPlayer())) return;
-        if (!(event.getBlock().getBlockData() instanceof Slab slab)) return;
+        if (!(event.getBlock().getBlockData() instanceof final Slab slab)) return;
         if (!slab.getType().equals(Slab.Type.DOUBLE)) return;
         slab.setType(isTopHalf(event.getPlayer()) ? BOTTOM : TOP);
         event.getBlock().setBlockData(slab, false);
         event.setCancelled(true);
     }
 
-    private boolean isTopHalf(Player player) {
-        var range = player.getAttribute(Attribute.BLOCK_INTERACTION_RANGE);
-        var result = player.rayTraceBlocks(range != null ? range.getValue() : 6);
+    private boolean isTopHalf(final Player player) {
+        final var range = player.getAttribute(Attribute.BLOCK_INTERACTION_RANGE);
+        final var result = player.rayTraceBlocks(range != null ? range.getValue() : 6);
         if (result == null || result.getHitBlockFace() == null) return false;
         if (result.getHitBlockFace().equals(BlockFace.DOWN)) return false;
         if (result.getHitBlockFace().equals(BlockFace.UP)) return true;

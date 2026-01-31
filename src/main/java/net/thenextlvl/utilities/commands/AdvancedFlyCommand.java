@@ -8,13 +8,13 @@ import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.entity.Player;
 
 public class AdvancedFlyCommand {
-    public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
+    public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {
         return Commands.literal("advancedfly")
                 .requires(stack -> stack.getSender().hasPermission("builders.util.advanced-fly")
                         && stack.getSender() instanceof Player)
                 .executes(context -> {
-                    var player = (Player) context.getSource().getSender();
-                    var message = plugin.settingsController().toggleAdvancedFly(player)
+                    final var player = (Player) context.getSource().getSender();
+                    final var message = plugin.settingsController().toggleAdvancedFly(player)
                             ? "command.advanced-fly.enabled"
                             : "command.advanced-fly.disabled";
                     plugin.bundle().sendMessage(player, message);

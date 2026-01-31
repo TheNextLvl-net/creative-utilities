@@ -23,18 +23,18 @@ public class AirPlacingListener implements Listener {
             ((Waterlogged) data).setWaterlogged(true));
     private final UtilitiesPlugin plugin;
 
-    public AirPlacingListener(UtilitiesPlugin plugin) {
+    public AirPlacingListener(final UtilitiesPlugin plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onPlayerQuit(PlayerQuitEvent event) {
+    public void onPlayerQuit(final PlayerQuitEvent event) {
         targetBlocks.remove(event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onPlayerMove(PlayerMoveEvent event) {
-        var player = event.getPlayer();
+    public void onPlayerMove(final PlayerMoveEvent event) {
+        final var player = event.getPlayer();
 
         if (!plugin.settingsController().isAirPlacing(player)) {
             hideBlock(player);
@@ -47,18 +47,18 @@ public class AirPlacingListener implements Listener {
             return;
         }
 
-        var range = player.getAttribute(Attribute.BLOCK_INTERACTION_RANGE);
+        final var range = player.getAttribute(Attribute.BLOCK_INTERACTION_RANGE);
         if (range == null || player.getTargetBlockExact((int) range.getValue()) != null) {
             hideBlock(player);
             return;
         }
 
-        var eyeLocation = player.getEyeLocation();
-        var targetBlock = eyeLocation.add(eyeLocation.getDirection().multiply(range.getValue()));
+        final var eyeLocation = player.getEyeLocation();
+        final var targetBlock = eyeLocation.add(eyeLocation.getDirection().multiply(range.getValue()));
 
-        var lastTarget = targetBlocks.put(player, targetBlock);
+        final var lastTarget = targetBlocks.put(player, targetBlock);
 
-        var isWater = targetBlock.getBlock().getType().equals(Material.WATER);
+        final var isWater = targetBlock.getBlock().getType().equals(Material.WATER);
         if ((!isWater && !targetBlock.getBlock().isEmpty()) || targetBlock.equals(lastTarget)) return;
 
         if (lastTarget != null) player.sendBlockChange(lastTarget, lastTarget.getBlock().getBlockData());
@@ -68,7 +68,7 @@ public class AirPlacingListener implements Listener {
         player.sendBlockChange(targetBlock, isWater ? waterlogged : blockData);
     }
 
-    private void hideBlock(Player player) {
+    private void hideBlock(final Player player) {
         targetBlocks.computeIfPresent(player, (entry, location) -> {
             entry.sendBlockChange(location, location.getBlock().getBlockData());
             return null;

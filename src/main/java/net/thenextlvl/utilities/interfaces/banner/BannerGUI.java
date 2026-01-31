@@ -34,13 +34,13 @@ public class BannerGUI extends GUI<UtilitiesPlugin> {
             new Item(41, Material.BLACK_BANNER, "gui.item.banner.color.black")
     );
 
-    public BannerGUI(UtilitiesPlugin plugin, Player owner) {
+    public BannerGUI(final UtilitiesPlugin plugin, final Player owner) {
         super(plugin, owner, plugin.bundle().component("gui.title.banner.base", owner), 6);
         setSlot(1, ItemBuilder.of(Material.PLAYER_HEAD)
                 .itemName(plugin.bundle().component("gui.item.randomize", owner))
                 .profileValue(DICE)
                 .withAction(player -> {
-                    var item = items.get(ThreadLocalRandom.current().nextInt(0, items.size()));
+                    final var item = items.get(ThreadLocalRandom.current().nextInt(0, items.size()));
                     new ColorGUI(plugin, player, ItemStack.of(item.type())).open();
                 }));
         setSlot(4, ItemBuilder.of(Material.WHITE_BANNER)
@@ -56,7 +56,7 @@ public class BannerGUI extends GUI<UtilitiesPlugin> {
 
     @Override
     protected void formatDefault() {
-        var placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).hideTooltip();
+        final var placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).hideTooltip();
         IntStream.range(0, getSize()).forEach(slot -> setSlotIfAbsent(slot, placeholder));
     }
 

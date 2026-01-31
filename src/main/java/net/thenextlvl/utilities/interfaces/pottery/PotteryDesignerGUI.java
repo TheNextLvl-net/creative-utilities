@@ -17,7 +17,7 @@ import java.util.stream.IntStream;
 
 public class PotteryDesignerGUI extends GUI<UtilitiesPlugin> {
 
-    public PotteryDesignerGUI(UtilitiesPlugin plugin, Player owner, ItemStack pot) {
+    public PotteryDesignerGUI(final UtilitiesPlugin plugin, final Player owner, final ItemStack pot) {
         super(plugin, owner, plugin.bundle().component("gui.title.pottery", owner), 5);
         setSlot(10, ItemBuilder.of(Material.PLAYER_HEAD)
                 .itemName(plugin.bundle().component("gui.item.randomize", owner))
@@ -32,20 +32,20 @@ public class PotteryDesignerGUI extends GUI<UtilitiesPlugin> {
         updatePot(pot);
     }
 
-    private void updatePot(ItemStack pot) {
+    private void updatePot(final ItemStack pot) {
         setSlot(22, ItemBuilder.of(pot)
                 .itemName(plugin.bundle().component("gui.item.pottery", owner))
                 .lore(Component.empty(), plugin.bundle().component("gui.item.pottery.get", owner))
                 .withAction(player -> player.getInventory().addItem(pot)));
-        var data = pot.getData(DataComponentTypes.POT_DECORATIONS);
+        final var data = pot.getData(DataComponentTypes.POT_DECORATIONS);
         updateSlot(13, Side.BACK, pot, data);
         updateSlot(21, Side.LEFT, pot, data);
         updateSlot(23, Side.RIGHT, pot, data);
         updateSlot(31, Side.FRONT, pot, data);
     }
 
-    private void updateSlot(int slot, Side side, ItemStack pot, @Nullable PotDecorations data) {
-        var item = getItem(side, data);
+    private void updateSlot(final int slot, final Side side, final ItemStack pot, @Nullable final PotDecorations data) {
+        final var item = getItem(side, data);
         setSlot(slot, ItemBuilder.of(item != null ? item : ItemStack.of(Material.BRICK))
                 .itemName(item == null ? plugin.bundle().component(side.name, owner)
                         : Component.translatable(item.translationKey(), NamedTextColor.GOLD))
@@ -54,14 +54,14 @@ public class PotteryDesignerGUI extends GUI<UtilitiesPlugin> {
                 .withAction((type, player) -> {
                     if (type.isLeftClick()) new SherdSelectorGUI(plugin, owner, pot, side).open();
                     else if (type.isRightClick() && data != null) {
-                        var decoration = SherdSelectorGUI.decorate(side, data, null);
+                        final var decoration = SherdSelectorGUI.decorate(side, data, null);
                         pot.setData(DataComponentTypes.POT_DECORATIONS, decoration);
                         updatePot(pot);
                     }
                 }));
     }
 
-    private @Nullable ItemStack getItem(Side side, @Nullable PotDecorations data) {
+    private @Nullable ItemStack getItem(final Side side, @Nullable final PotDecorations data) {
         if (data == null) return null;
         return switch (side) {
             case LEFT -> data.left() != null ? data.left().createItemStack() : null;
@@ -73,7 +73,7 @@ public class PotteryDesignerGUI extends GUI<UtilitiesPlugin> {
 
     @Override
     protected void formatDefault() {
-        var placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).hideTooltip();
+        final var placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).hideTooltip();
         IntStream.range(0, getSize()).forEach(slot -> setSlotIfAbsent(slot, placeholder));
     }
 
@@ -85,7 +85,7 @@ public class PotteryDesignerGUI extends GUI<UtilitiesPlugin> {
 
         private final String name;
 
-        Side(String name) {
+        Side(final String name) {
             this.name = name;
         }
     }

@@ -50,9 +50,9 @@ public class SherdSelectorGUI extends PaginatedGUI<UtilitiesPlugin, Material> {
     private final ItemStack pot;
     private final PotteryDesignerGUI.Side side;
 
-    public SherdSelectorGUI(UtilitiesPlugin plugin, Player owner, ItemStack pot, PotteryDesignerGUI.Side side) {
+    public SherdSelectorGUI(final UtilitiesPlugin plugin, final Player owner, final ItemStack pot, final PotteryDesignerGUI.Side side) {
         super(plugin, owner, plugin.bundle().component("gui.title.pottery.sherd", owner), 5);
-        var slots = IntStream.of(19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34);
+        final var slots = IntStream.of(19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34);
         this.pagination = new Pagination(slots.toArray(), 3, 5);
         this.pot = pot;
         this.side = side;
@@ -65,7 +65,7 @@ public class SherdSelectorGUI extends PaginatedGUI<UtilitiesPlugin, Material> {
                 .itemName(plugin.bundle().component("gui.item.randomize", owner))
                 .profileValue(BannerGUI.DICE)
                 .withAction(player -> {
-                    var data = pot.getData(DataComponentTypes.POT_DECORATIONS);
+                    final var data = pot.getData(DataComponentTypes.POT_DECORATIONS);
                     if (data != null) pot.setData(
                             DataComponentTypes.POT_DECORATIONS,
                             decorate(side, data, getRandomSherd(sherds.size()))
@@ -83,11 +83,11 @@ public class SherdSelectorGUI extends PaginatedGUI<UtilitiesPlugin, Material> {
     }
 
     @Override
-    public ActionItem constructItem(Material sherd) {
+    public ActionItem constructItem(final Material sherd) {
         return ItemBuilder.of(sherd)
                 .itemName(Component.translatable(sherd.translationKey(), NamedTextColor.GOLD))
                 .withAction(player -> {
-                    var data = pot.getData(DataComponentTypes.POT_DECORATIONS);
+                    final var data = pot.getData(DataComponentTypes.POT_DECORATIONS);
                     if (data != null) pot.setData(
                             DataComponentTypes.POT_DECORATIONS,
                             decorate(side, data, sherd.asItemType())
@@ -96,7 +96,7 @@ public class SherdSelectorGUI extends PaginatedGUI<UtilitiesPlugin, Material> {
                 });
     }
 
-    static PotDecorations decorate(PotteryDesignerGUI.Side side, PotDecorations data, @Nullable ItemType sherd) {
+    static PotDecorations decorate(final PotteryDesignerGUI.Side side, final PotDecorations data, @Nullable final ItemType sherd) {
         return switch (side) {
             case BACK -> PotDecorations.potDecorations(sherd, data.left(), data.right(), data.front());
             case FRONT -> PotDecorations.potDecorations(data.back(), data.left(), data.right(), sherd);
@@ -107,13 +107,13 @@ public class SherdSelectorGUI extends PaginatedGUI<UtilitiesPlugin, Material> {
 
     @Override
     protected void formatDefault() {
-        var placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).hideTooltip();
+        final var placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).hideTooltip();
         IntStream.range(0, getSize()).forEach(slot -> setSlotIfAbsent(slot, placeholder));
     }
 
     @Override
-    public Component getPageFormat(int page) {
-        var message = getCurrentPage() < page ? "gui.page.next" : "gui.page.previous";
+    public Component getPageFormat(final int page) {
+        final var message = getCurrentPage() < page ? "gui.page.next" : "gui.page.previous";
         return plugin.bundle().component(message, owner);
     }
 
@@ -128,15 +128,15 @@ public class SherdSelectorGUI extends PaginatedGUI<UtilitiesPlugin, Material> {
     }
 
     static PotDecorations getRandom() {
-        var max = sherds.size() + 5;
+        final var max = sherds.size() + 5;
         return PotDecorations.potDecorations(
                 getRandomSherd(max), getRandomSherd(max),
                 getRandomSherd(max), getRandomSherd(max)
         );
     }
 
-    static @Nullable ItemType getRandomSherd(int max) {
-        var index = ThreadLocalRandom.current().nextInt(max);
+    static @Nullable ItemType getRandomSherd(final int max) {
+        final var index = ThreadLocalRandom.current().nextInt(max);
         return index >= sherds.size() ? null : sherds.get(index).asItemType();
     }
 }

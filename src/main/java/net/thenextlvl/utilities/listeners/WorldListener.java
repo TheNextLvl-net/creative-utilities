@@ -12,27 +12,27 @@ import org.bukkit.event.weather.WeatherChangeEvent;
 public class WorldListener implements Listener {
     private final UtilitiesPlugin plugin;
 
-    public WorldListener(UtilitiesPlugin plugin) {
+    public WorldListener(final UtilitiesPlugin plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onBlockFade(BlockFadeEvent event) {
+    public void onBlockFade(final BlockFadeEvent event) {
         event.setCancelled(plugin.config().disableFading());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onEntityExplode(EntityExplodeEvent event) {
+    public void onEntityExplode(final EntityExplodeEvent event) {
         event.setCancelled(plugin.config().disableExplosions());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onLeavesDecay(LeavesDecayEvent event) {
+    public void onLeavesDecay(final LeavesDecayEvent event) {
         event.setCancelled(plugin.config().disableLeavesDecay());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onWeatherChange(WeatherChangeEvent event) {
+    public void onWeatherChange(final WeatherChangeEvent event) {
         event.setCancelled(plugin.config().disableWeatherChanges());
     }
 }

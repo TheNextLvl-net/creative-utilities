@@ -11,15 +11,15 @@ import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Axis;
 
 public class TwistAlias {
-    public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
+    public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {
         return Commands.literal("/twist")
                 .requires(source -> source.getSender().hasPermission("worldedit.region.deform"))
                 .then(Commands.argument("axis", EnumArgumentType.of(Axis.class, EnumStringCodec.lowerHyphen()))
                         .then(Commands.argument("degrees", IntegerArgumentType.integer())
                                 .executes(context -> {
-                                    var axis = context.getArgument("axis", Axis.class);
-                                    var degrees = context.getArgument("degrees", int.class);
-                                    var line = "/deform rotate(%s,%s*(%s+1))".formatted(switch (axis) {
+                                    final var axis = context.getArgument("axis", Axis.class);
+                                    final var degrees = context.getArgument("degrees", int.class);
+                                    final var line = "/deform rotate(%s,%s*(%s+1))".formatted(switch (axis) {
                                         case X -> "y,z";
                                         case Y -> "x,z";
                                         case Z -> "x,y";

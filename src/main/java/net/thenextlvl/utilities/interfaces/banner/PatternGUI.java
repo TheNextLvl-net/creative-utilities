@@ -38,10 +38,10 @@ public class PatternGUI extends PaginatedGUI<UtilitiesPlugin, PatternType> {
     private final ItemStack banner;
     private final DyeColor color;
 
-    public PatternGUI(UtilitiesPlugin plugin, Player owner, ItemStack banner, DyeColor color) {
+    public PatternGUI(final UtilitiesPlugin plugin, final Player owner, final ItemStack banner, final DyeColor color) {
         super(plugin, owner, plugin.bundle().component("gui.title.banner.pattern", owner), 6);
 
-        var slots = IntStream.of(19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 43);
+        final var slots = IntStream.of(19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 43);
         this.pagination = new Pagination(slots.toArray(), 3, 5);
         this.banner = banner;
         this.color = color;
@@ -55,7 +55,7 @@ public class PatternGUI extends PaginatedGUI<UtilitiesPlugin, PatternType> {
                 .itemName(plugin.bundle().component("gui.item.randomize", owner))
                 .profileValue(BannerGUI.DICE)
                 .withAction(player -> player.getScheduler().execute(plugin, () -> {
-                    var pattern = patterns.get(ThreadLocalRandom.current().nextInt(0, patterns.size()));
+                    final var pattern = patterns.get(ThreadLocalRandom.current().nextInt(0, patterns.size()));
                     giveOrContinue(applyPattern(banner.clone(), pattern, color));
                 }, null, 1)));
         setSlot(4, ItemBuilder.of(banner.clone())
@@ -72,20 +72,20 @@ public class PatternGUI extends PaginatedGUI<UtilitiesPlugin, PatternType> {
     }
 
     @Override
-    public ActionItem constructItem(PatternType element) {
-        var key = RegistryAccess.registryAccess()
+    public ActionItem constructItem(final PatternType element) {
+        final var key = RegistryAccess.registryAccess()
                 .getRegistry(RegistryKey.BANNER_PATTERN)
                 .getKey(element);
-        var title = key != null ? "gui.item.banner.pattern." + key.value() : "gui.item.banner.pattern.unknown";
-        var item = applyPattern(banner.clone(), element, color);
+        final var title = key != null ? "gui.item.banner.pattern." + key.value() : "gui.item.banner.pattern.unknown";
+        final var item = applyPattern(banner.clone(), element, color);
         return ItemBuilder.of(item.clone())
                 .itemName(plugin.bundle().component(title, owner))
                 .lore(Component.empty(), plugin.bundle().component("gui.item.banner.color.click", owner))
                 .withAction(player -> player.getScheduler().execute(plugin, () -> giveOrContinue(item), null, 1));
     }
 
-    private void giveOrContinue(ItemStack banner) {
-        var data = banner.getData(DataComponentTypes.BANNER_PATTERNS);
+    private void giveOrContinue(final ItemStack banner) {
+        final var data = banner.getData(DataComponentTypes.BANNER_PATTERNS);
         if (data == null || data.patterns().size() >= MAX_PATTERN_AMOUNT) {
             plugin.bundle().sendMessage(owner, "banner.patterns.maximum");
             owner.playSound(owner, Sound.UI_LOOM_TAKE_RESULT, SoundCategory.BLOCKS, 1, 1);
@@ -97,10 +97,10 @@ public class PatternGUI extends PaginatedGUI<UtilitiesPlugin, PatternType> {
         }
     }
 
-    private ItemStack applyPattern(ItemStack banner, PatternType pattern, DyeColor color) {
-        var data = banner.getData(DataComponentTypes.BANNER_PATTERNS);
+    private ItemStack applyPattern(final ItemStack banner, final PatternType pattern, final DyeColor color) {
+        final var data = banner.getData(DataComponentTypes.BANNER_PATTERNS);
         if (data == null) return banner;
-        var patterns = BannerPatternLayers.bannerPatternLayers()
+        final var patterns = BannerPatternLayers.bannerPatternLayers()
                 .addAll(data.patterns())
                 .add(new Pattern(color, pattern))
                 .build();
@@ -110,13 +110,13 @@ public class PatternGUI extends PaginatedGUI<UtilitiesPlugin, PatternType> {
 
     @Override
     protected void formatDefault() {
-        var placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).hideTooltip();
+        final var placeholder = ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).hideTooltip();
         IntStream.range(0, getSize()).forEach(slot -> setSlotIfAbsent(slot, placeholder));
     }
 
     @Override
-    public Component getPageFormat(int page) {
-        var message = getCurrentPage() < page ? "gui.page.next" : "gui.page.previous";
+    public Component getPageFormat(final int page) {
+        final var message = getCurrentPage() < page ? "gui.page.next" : "gui.page.previous";
         return plugin.bundle().component(message, owner);
     }
 

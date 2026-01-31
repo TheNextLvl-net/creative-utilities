@@ -8,13 +8,13 @@ import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.entity.Player;
 
 public class NoClipCommand {
-    public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
+    public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {
         return Commands.literal("noclip")
                 .requires(stack -> stack.getSender().hasPermission("builders.util.no-clip")
                         && stack.getSender() instanceof Player)
                 .executes(context -> {
-                    var player = (Player) context.getSource().getSender();
-                    var message = plugin.settingsController().toggleNoClip(player)
+                    final var player = (Player) context.getSource().getSender();
+                    final var message = plugin.settingsController().toggleNoClip(player)
                             ? "command.no-clip.enabled"
                             : "command.no-clip.disabled";
                     plugin.bundle().sendMessage(player, message);

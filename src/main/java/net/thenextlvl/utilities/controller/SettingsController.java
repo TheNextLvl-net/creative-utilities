@@ -14,67 +14,67 @@ public class SettingsController {
     private final Set<Player> openable = Collections.newSetFromMap(new WeakHashMap<>());
     private final Set<Player> slabPartBreaking = Collections.newSetFromMap(new WeakHashMap<>());
 
-    public boolean setAdvancedFly(Player player, boolean enabled) {
+    public boolean setAdvancedFly(final Player player, final boolean enabled) {
         return enabled ? advancedFly.add(player) : advancedFly.remove(player);
     }
 
-    public boolean toggleAdvancedFly(Player player) {
+    public boolean toggleAdvancedFly(final Player player) {
         return !advancedFly.remove(player) && advancedFly.add(player);
     }
 
-    public boolean isAdvancedFly(Player player) {
+    public boolean isAdvancedFly(final Player player) {
         return advancedFly.contains(player);
     }
 
-    public boolean setAirPlacing(Player player, boolean enabled) {
+    public boolean setAirPlacing(final Player player, final boolean enabled) {
         return enabled ? airPlacing.add(player) : airPlacing.remove(player);
     }
 
-    public boolean toggleAirPlacing(Player player) {
+    public boolean toggleAirPlacing(final Player player) {
         return !airPlacing.remove(player) && airPlacing.add(player);
     }
 
-    public boolean isAirPlacing(Player player) {
+    public boolean isAirPlacing(final Player player) {
         return airPlacing.contains(player);
     }
 
-    public boolean setHandOpenable(Player player, boolean enabled) {
+    public boolean setHandOpenable(final Player player, final boolean enabled) {
         return enabled ? openable.add(player) : openable.remove(player);
     }
 
-    public boolean toggleHandOpenable(Player player) {
+    public boolean toggleHandOpenable(final Player player) {
         return !openable.remove(player) && openable.add(player);
     }
 
-    public boolean isHandOpenable(Player player) {
+    public boolean isHandOpenable(final Player player) {
         return openable.contains(player);
     }
 
-    public boolean setNoClip(Player player, boolean enabled) {
+    public boolean setNoClip(final Player player, final boolean enabled) {
         return enabled ? noClip.add(player) : noClip.remove(player);
     }
 
-    public boolean toggleNoClip(Player player) {
+    public boolean toggleNoClip(final Player player) {
         return !noClip.remove(player) && noClip.add(player);
     }
 
-    public boolean isNoClip(Player player) {
+    public boolean isNoClip(final Player player) {
         return noClip.contains(player);
     }
 
-    public boolean setSlabPartBreaking(Player player, boolean enabled) {
+    public boolean setSlabPartBreaking(final Player player, final boolean enabled) {
         return enabled ? slabPartBreaking.add(player) : slabPartBreaking.remove(player);
     }
 
-    public boolean toggleSlabPartBreaking(Player player) {
+    public boolean toggleSlabPartBreaking(final Player player) {
         return !slabPartBreaking.remove(player) && slabPartBreaking.add(player);
     }
 
-    public boolean isSlabPartBreaking(Player player) {
+    public boolean isSlabPartBreaking(final Player player) {
         return slabPartBreaking.contains(player);
     }
 
-    public void purge(Player player) {
+    public void purge(final Player player) {
         advancedFly.remove(player);
         airPlacing.remove(player);
         noClip.remove(player);
