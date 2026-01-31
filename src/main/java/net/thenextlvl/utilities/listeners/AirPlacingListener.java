@@ -11,7 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,11 +20,6 @@ public final class AirPlacingListener implements Listener {
     private final BlockData blockData = Material.BARRIER.createBlockData();
     private final BlockData waterlogged = Material.BARRIER.createBlockData(data ->
             ((Waterlogged) data).setWaterlogged(true));
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onPlayerQuit(final PlayerQuitEvent event) {
-        targetBlocks.remove(event.getPlayer());
-    }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerMove(final PlayerMoveEvent event) {
