@@ -1,23 +1,23 @@
-package net.thenextlvl.utilities.command;
+package net.thenextlvl.utilities.commands;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import net.thenextlvl.utilities.gui.banner.BannerGUI;
+import net.thenextlvl.utilities.gui.ArmorCreatorGUI;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-public class BannerCommand {
+public class ColorCommand {
     public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
-        return Commands.literal("banner")
-                .requires(stack -> stack.getSender().hasPermission("builders.util.banner")
+        return Commands.literal("armorcolor")
+                .requires(stack -> stack.getSender().hasPermission("builders.util.color")
                         && stack.getSender() instanceof Player)
                 .executes(context -> {
                     var player = (Player) context.getSource().getSender();
-                    new BannerGUI(plugin, player).open();
+                    new ArmorCreatorGUI(plugin, player).open();
                     return Command.SINGLE_SUCCESS;
                 })
                 .build();

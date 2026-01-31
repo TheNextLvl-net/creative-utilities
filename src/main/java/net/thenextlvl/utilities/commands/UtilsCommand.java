@@ -1,25 +1,23 @@
-package net.thenextlvl.utilities.command;
+package net.thenextlvl.utilities.commands;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import net.thenextlvl.utilities.gui.pottery.PotteryDesignerGUI;
-import org.bukkit.Material;
+import net.thenextlvl.utilities.gui.UtilitiesGUI;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-public class PotteryCommand {
+public class UtilsCommand {
     public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
-        return Commands.literal("pottery")
-                .requires(stack -> stack.getSender().hasPermission("builders.util.pottery-designer")
+        return Commands.literal("utils")
+                .requires(stack -> stack.getSender().hasPermission("builders.util.gui")
                         && stack.getSender() instanceof Player)
                 .executes(context -> {
                     var player = (Player) context.getSource().getSender();
-                    new PotteryDesignerGUI(plugin, player, ItemStack.of(Material.DECORATED_POT)).open();
+                    new UtilitiesGUI(plugin, player).open();
                     return Command.SINGLE_SUCCESS;
                 })
                 .build();

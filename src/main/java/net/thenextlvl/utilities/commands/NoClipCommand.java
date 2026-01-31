@@ -1,4 +1,4 @@
-package net.thenextlvl.utilities.command;
+package net.thenextlvl.utilities.commands;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.tree.LiteralCommandNode;

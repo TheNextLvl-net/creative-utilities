@@ -1,4 +1,4 @@
-package net.thenextlvl.utilities.command.aliases;
+package net.thenextlvl.utilities.commands.aliases;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
