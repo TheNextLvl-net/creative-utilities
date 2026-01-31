@@ -1,4 +1,4 @@
-package net.thenextlvl.utilities.listener;
+package net.thenextlvl.utilities.listeners;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

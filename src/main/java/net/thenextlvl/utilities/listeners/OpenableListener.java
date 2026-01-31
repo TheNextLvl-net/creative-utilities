@@ -1,4 +1,4 @@
-package net.thenextlvl.utilities.listener;
+package net.thenextlvl.utilities.listeners;
 
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Material;
