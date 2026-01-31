@@ -9,6 +9,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.tag.resolver.Formatter;
 import net.thenextlvl.utilities.UtilitiesPlugin;
+import net.thenextlvl.utilities.utils.Permissions;
 import net.thenextlvl.utilities.utils.Settings;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -41,7 +42,7 @@ public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
         updateFeature(10, Material.IRON_TRAPDOOR,
                 "gui.item.iron-trapdoor-interaction",
                 "gui.item.iron-trapdoor-interaction.description",
-                "builders.util.trapdoor",
+                Permissions.TRAPDOOR,
                 Settings.get(owner, Settings.HAND_OPENABLE),
                 state -> Settings.set(owner, Settings.HAND_OPENABLE, state)
         );
@@ -51,7 +52,7 @@ public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
         updateFeature(11, Material.STONE_SLAB,
                 "gui.item.custom-slab-breaking",
                 "gui.item.custom-slab-breaking.description",
-                "builders.util.slabs",
+                Permissions.SLABS,
                 Settings.get(owner, Settings.SLAB_PART_BREAKING),
                 state -> Settings.set(owner, Settings.SLAB_PART_BREAKING, state)
         );
@@ -61,7 +62,7 @@ public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
         updateFeature(12, Material.STRUCTURE_VOID,
                 "gui.item.air-placing",
                 "gui.item.air-placing.description",
-                "builders.util.air-placing",
+                Permissions.AIR_PLACING,
                 Settings.get(owner, Settings.AIR_PLACING),
                 state -> Settings.set(owner, Settings.AIR_PLACING, state)
         );
@@ -71,7 +72,7 @@ public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
         updateFeature(14, Material.ENDER_EYE,
                 "gui.item.nightvision",
                 "gui.item.nightvision.description",
-                "builders.util.night-vision",
+                Permissions.NIGHT_VISION,
                 owner.hasPotionEffect(PotionEffectType.NIGHT_VISION), state -> {
                     if (state) owner.addPotionEffect(nightVision);
                     else owner.removePotionEffect(PotionEffectType.NIGHT_VISION);
@@ -83,7 +84,7 @@ public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
         updateFeature(15, Material.COMPASS,
                 "gui.item.noclip",
                 "gui.item.noclip.description",
-                "builders.util.no-clip",
+                Permissions.NO_CLIP,
                 Settings.get(owner, Settings.NO_CLIP),
                 state -> Settings.set(owner, Settings.NO_CLIP, state)
         );
@@ -93,7 +94,7 @@ public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
         updateFeature(16, Material.FEATHER,
                 "gui.item.advancedfly",
                 "gui.item.advancedfly.description",
-                "builders.util.advanced-fly",
+                Permissions.ADVANCED_FLY,
                 Settings.get(owner, Settings.ADVANCED_FLY),
                 state -> Settings.set(owner, Settings.ADVANCED_FLY, state)
         );

@@ -6,11 +6,12 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
 import net.thenextlvl.utilities.interfaces.UtilitiesGUI;
+import net.thenextlvl.utilities.utils.Permissions;
 import org.bukkit.entity.Player;
 
 public final class UtilsCommand extends SimpleCommand {
     private UtilsCommand(final UtilitiesPlugin plugin) {
-        super(plugin, plugin.commands().utils, "builders.util.gui");
+        super(plugin, plugin.commands().utils, Permissions.UTILS);
     }
 
     public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {

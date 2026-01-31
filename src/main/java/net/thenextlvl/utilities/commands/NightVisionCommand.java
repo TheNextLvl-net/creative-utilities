@@ -5,6 +5,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
+import net.thenextlvl.utilities.utils.Permissions;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -17,7 +18,7 @@ public final class NightVisionCommand extends SimpleCommand {
     );
 
     private NightVisionCommand(final UtilitiesPlugin plugin) {
-        super(plugin, plugin.commands().nightVision, "builders.util.night-vision");
+        super(plugin, plugin.commands().nightVision, Permissions.NIGHT_VISION);
     }
 
     public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {
