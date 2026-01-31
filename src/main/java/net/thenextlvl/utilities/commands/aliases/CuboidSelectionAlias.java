@@ -5,10 +5,11 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
+import net.thenextlvl.utilities.model.Commands;
 
 public final class CuboidSelectionAlias extends SimpleCommand {
     private CuboidSelectionAlias(final UtilitiesPlugin plugin) {
-        super(plugin, "/cuboid", "worldedit.analysis.sel");
+        super(plugin, Commands.INSTANCE.cuboid, "worldedit.analysis.sel");
     }
 
     public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {

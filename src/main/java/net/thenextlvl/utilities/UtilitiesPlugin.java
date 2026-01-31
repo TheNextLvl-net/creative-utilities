@@ -3,7 +3,6 @@ package net.thenextlvl.utilities;
 import core.file.formats.GsonFile;
 import dev.faststats.bukkit.BukkitMetrics;
 import dev.faststats.core.ErrorTracker;
-import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.key.Key;
 import net.thenextlvl.i18n.ComponentBundle;
@@ -29,7 +28,7 @@ import net.thenextlvl.utilities.listeners.PlayerInteractListener;
 import net.thenextlvl.utilities.listeners.SlimeListener;
 import net.thenextlvl.utilities.listeners.TeleportListener;
 import net.thenextlvl.utilities.listeners.WorldListener;
-import net.thenextlvl.utilities.model.GsonFile;
+import net.thenextlvl.utilities.model.Commands;
 import net.thenextlvl.utilities.model.NoClipManager;
 import net.thenextlvl.utilities.model.PluginConfig;
 import net.thenextlvl.utilities.version.PluginVersionChecker;
@@ -37,7 +36,6 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Locale;
 
 public final class UtilitiesPlugin extends JavaPlugin {
@@ -84,12 +82,12 @@ public final class UtilitiesPlugin extends JavaPlugin {
     }
 
     private void registerListeners() {
-        getServer().getPluginManager().registerEvents(new AdvancedFlyListener(this), this);
-        getServer().getPluginManager().registerEvents(new AirPlacingListener(this), this);
-        getServer().getPluginManager().registerEvents(new BlockBreakListener(this), this);
+        getServer().getPluginManager().registerEvents(new AdvancedFlyListener(), this);
+        getServer().getPluginManager().registerEvents(new AirPlacingListener(), this);
+        getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
         getServer().getPluginManager().registerEvents(new BlockPhysicsListener(this), this);
         getServer().getPluginManager().registerEvents(new ConnectionListener(this), this);
-        getServer().getPluginManager().registerEvents(new OpenableListener(this), this);
+        getServer().getPluginManager().registerEvents(new OpenableListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerInteractListener(this), this);
         getServer().getPluginManager().registerEvents(new SlimeListener(this), this);
         getServer().getPluginManager().registerEvents(new TeleportListener(), this);
@@ -98,24 +96,24 @@ public final class UtilitiesPlugin extends JavaPlugin {
 
     private void registerCommands() {
         getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event -> {
-            event.registrar().register(AdvancedFlyCommand.create(this), List.of("advfly", "fly"));
-            event.registrar().register(BannerCommand.create(this), List.of("bm"));
-            event.registrar().register(ColorCommand.create(this), List.of("color"));
-            event.registrar().register(NightVisionCommand.create(this), List.of("nv", "n"));
-            event.registrar().register(NoClipCommand.create(this), List.of("nc"));
-            event.registrar().register(PotteryCommand.create(this));
-            event.registrar().register(UtilsCommand.create(this), List.of("butil", "bu"));
+            event.registrar().register(AdvancedFlyCommand.create(this), Commands.INSTANCE.advancedFly.aliases());
+            event.registrar().register(BannerCommand.create(this), Commands.INSTANCE.banner.aliases());
+            event.registrar().register(ColorCommand.create(this), Commands.INSTANCE.color.aliases());
+            event.registrar().register(NightVisionCommand.create(this), Commands.INSTANCE.nightVision.aliases());
+            event.registrar().register(NoClipCommand.create(this), Commands.INSTANCE.noClip.aliases());
+            event.registrar().register(PotteryCommand.create(this), Commands.INSTANCE.pottery.aliases());
+            event.registrar().register(UtilsCommand.create(this), Commands.INSTANCE.utils.aliases());
             registerAliases(event.registrar());
         }));
     }
 
-    private void registerAliases(Commands commands) {
+    private void registerAliases(final io.papermc.paper.command.brigadier.Commands commands) {
         if (getServer().getPluginManager().getPlugin("FastAsyncWorldEdit") == null) return;
-        commands.register(ConvexSelectionAlias.create(this), List.of("/con"));
-        commands.register(CuboidSelectionAlias.create(this), List.of("/cub"));
-        commands.register(DeformRotateAlias.create(this));
-        commands.register(ScaleAlias.create(this));
-        commands.register(TwistAlias.create(this));
+        commands.register(ConvexSelectionAlias.create(this), Commands.INSTANCE.convex.aliases());
+        commands.register(CuboidSelectionAlias.create(this), Commands.INSTANCE.cuboid.aliases());
+        commands.register(DeformRotateAlias.create(this), Commands.INSTANCE.deformRotate.aliases());
+        commands.register(ScaleAlias.create(this), Commands.INSTANCE.scale.aliases());
+        commands.register(TwistAlias.create(this), Commands.INSTANCE.twist.aliases());
     }
 
     public ComponentBundle bundle() {

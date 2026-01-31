@@ -4,18 +4,20 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
-import io.papermc.paper.command.brigadier.Commands;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
+import net.thenextlvl.utilities.model.Commands;
+
+import static io.papermc.paper.command.brigadier.Commands.argument;
 
 public final class ScaleAlias extends SimpleCommand {
     private ScaleAlias(final UtilitiesPlugin plugin) {
-        super(plugin, "/scale", "worldedit.region.deform");
+        super(plugin, Commands.INSTANCE.scale, "worldedit.region.deform");
     }
 
     public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {
         final var command = new ScaleAlias(plugin);
-        final var size = Commands.argument("size", IntegerArgumentType.integer());
+        final var size = argument("size", IntegerArgumentType.integer());
         return command.create().then(size.executes(command))
                 .executes(command::syntaxError)
                 .build();

@@ -5,11 +5,13 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
+import net.thenextlvl.utilities.model.Commands;
+import net.thenextlvl.utilities.model.Settings;
 import org.bukkit.entity.Player;
 
 public final class NoClipCommand extends SimpleCommand {
     private NoClipCommand(final UtilitiesPlugin plugin) {
-        super(plugin, "noclip", "builders.util.no-clip");
+        super(plugin, Commands.INSTANCE.noClip, "builders.util.no-clip");
     }
 
     public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {

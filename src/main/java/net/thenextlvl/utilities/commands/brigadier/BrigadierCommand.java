@@ -7,6 +7,7 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.command.brigadier.argument.resolvers.ArgumentResolver;
 import net.thenextlvl.utilities.UtilitiesPlugin;
+import net.thenextlvl.utilities.model.Commands.Command;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Optional;
@@ -17,10 +18,10 @@ public abstract class BrigadierCommand {
     private final @Nullable String permission;
     private final String name;
 
-    protected BrigadierCommand(final UtilitiesPlugin plugin, final String name, @Nullable final String permission) {
+    protected BrigadierCommand(final UtilitiesPlugin plugin, final Command command, @Nullable final String permission) {
         this.plugin = plugin;
         this.permission = permission;
-        this.name = name;
+        this.name = command.name();
     }
 
     protected LiteralArgumentBuilder<CommandSourceStack> create() {

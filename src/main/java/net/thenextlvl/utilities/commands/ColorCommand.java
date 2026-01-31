@@ -6,11 +6,12 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
 import net.thenextlvl.utilities.interfaces.ArmorCreatorGUI;
+import net.thenextlvl.utilities.model.Commands;
 import org.bukkit.entity.Player;
 
 public final class ColorCommand extends SimpleCommand {
     private ColorCommand(final UtilitiesPlugin plugin) {
-        super(plugin, "armorcolor", "builders.util.color");
+        super(plugin, Commands.INSTANCE.color, "builders.util.color");
     }
 
     public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {
