@@ -1,23 +1,32 @@
 package net.thenextlvl.utilities.commands;
 
-import com.mojang.brigadier.Command;
+import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
-import io.papermc.paper.command.brigadier.Commands;
 import net.thenextlvl.utilities.UtilitiesPlugin;
+import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
 import net.thenextlvl.utilities.interfaces.banner.BannerGUI;
 import org.bukkit.entity.Player;
 
-public class BannerCommand {
+public final class BannerCommand extends SimpleCommand {
+    private BannerCommand(final UtilitiesPlugin plugin) {
+        super(plugin, "banner", "builders.util.banner");
+    }
+
     public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {
-        return Commands.literal("banner")
-                .requires(stack -> stack.getSender().hasPermission("builders.util.banner")
-                        && stack.getSender() instanceof Player)
-                .executes(context -> {
-                    final var player = (Player) context.getSource().getSender();
-                    new BannerGUI(plugin, player).open();
-                    return Command.SINGLE_SUCCESS;
-                })
-                .build();
+        final var command = new BannerCommand(plugin);
+        return command.create().executes(command).build();
+    }
+
+    @Override
+    protected boolean canUse(final CommandSourceStack source) {
+        return super.canUse(source) && source.getSender() instanceof Player;
+    }
+
+    @Override
+    public int run(final CommandContext<CommandSourceStack> context) {
+        final var player = (Player) context.getSource().getSender();
+        new BannerGUI(plugin, player).open();
+        return SINGLE_SUCCESS;
     }
 }

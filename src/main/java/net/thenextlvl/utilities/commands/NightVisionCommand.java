@@ -1,34 +1,43 @@
 package net.thenextlvl.utilities.commands;
 
-import com.mojang.brigadier.Command;
+import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
-import io.papermc.paper.command.brigadier.Commands;
 import net.thenextlvl.utilities.UtilitiesPlugin;
+import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class NightVisionCommand {
+public final class NightVisionCommand extends SimpleCommand {
     private static final PotionEffect nightVision = new PotionEffect(
             PotionEffectType.NIGHT_VISION,
             PotionEffect.INFINITE_DURATION,
             0, true, false
     );
 
+    private NightVisionCommand(final UtilitiesPlugin plugin) {
+        super(plugin, "nightvision", "builders.util.night-vision");
+    }
+
     public static LiteralCommandNode<CommandSourceStack> create(final UtilitiesPlugin plugin) {
-        return Commands.literal("nightvision")
-                .requires(stack -> stack.getSender().hasPermission("builders.util.night-vision")
-                        && stack.getSender() instanceof Player)
-                .executes(context -> {
-                    final var player = (Player) context.getSource().getSender();
-                    final var message = toggleNightVision(player)
-                            ? "command.night-vision.enabled"
-                            : "command.night-vision.disabled";
-                    plugin.bundle().sendMessage(player, message);
-                    return Command.SINGLE_SUCCESS;
-                })
-                .build();
+        final var command = new NightVisionCommand(plugin);
+        return command.create().executes(command).build();
+    }
+
+    @Override
+    protected boolean canUse(final CommandSourceStack source) {
+        return super.canUse(source) && source.getSender() instanceof Player;
+    }
+
+    @Override
+    public int run(final CommandContext<CommandSourceStack> context) {
+        final var player = (Player) context.getSource().getSender();
+        final var message = toggleNightVision(player)
+                ? "command.night-vision.enabled"
+                : "command.night-vision.disabled";
+        plugin.bundle().sendMessage(player, message);
+        return SINGLE_SUCCESS;
     }
 
     private static boolean toggleNightVision(final Player player) {
