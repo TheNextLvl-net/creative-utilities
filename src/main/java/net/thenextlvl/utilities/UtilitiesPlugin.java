@@ -1,5 +1,7 @@
 package net.thenextlvl.utilities;
 
+import dev.faststats.bukkit.BukkitMetrics;
+import dev.faststats.core.ErrorTracker;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.key.Key;
@@ -41,6 +43,8 @@ import java.util.Locale;
 
 @NullMarked
 public final class UtilitiesPlugin extends JavaPlugin {
+    public static final ErrorTracker ERROR_TRACKER = ErrorTracker.contextAware();
+
     private final Key key = Key.key("utilities", "translations");
     private final Path translations = getDataPath().resolve("translations");
     private final ComponentBundle bundle = ComponentBundle.builder(key, translations)
@@ -58,6 +62,11 @@ public final class UtilitiesPlugin extends JavaPlugin {
     ).validate().save().getRoot();
 
     private final PluginVersionChecker versionChecker = new PluginVersionChecker(this);
+
+    private final BukkitMetrics fastStats = BukkitMetrics.factory()
+            .token("524c53930762784671a459e9f3b45aa4")
+            .errorTracker(ERROR_TRACKER)
+            .create(this);
     private final Metrics metrics = new Metrics(this, 22858);
 
     @Override
@@ -67,6 +76,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        fastStats.ready();
         noClipManager().start();
         registerListeners();
         registerCommands();
@@ -74,6 +84,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        fastStats.shutdown();
         metrics.shutdown();
     }
 
