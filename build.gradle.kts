@@ -95,6 +95,23 @@ paper {
     }
 }
 
+tasks.withType<JavaCompile>().configureEach {
+    options.compilerArgs.addAll(listOf("--add-reads", "creative.utilities.main=ALL-UNNAMED"))
+}
+
+tasks.withType<Test>().configureEach {
+    jvmArgs("--add-reads", "creative.utilities.main=ALL-UNNAMED")
+}
+
+tasks.withType<JavaExec>().configureEach {
+    jvmArgs("--add-reads", "creative.utilities.main=ALL-UNNAMED")
+}
+
+tasks.withType<Javadoc>().configureEach {
+    val options = options as StandardJavadocDocletOptions
+    options.addStringOption("-add-reads", "creative.utilities.main=ALL-UNNAMED")
+}
+
 val versionString: String = project.version as String
 val isRelease: Boolean = !versionString.contains("-pre")
 
