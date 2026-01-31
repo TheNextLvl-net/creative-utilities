@@ -84,7 +84,7 @@ public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
         updateFeature(15, Material.COMPASS,
                 "gui.item.noclip",
                 "gui.item.noclip.description",
-                "builders.util.noclip",
+                "builders.util.no-clip",
                 plugin.settingsController().isNoClip(owner),
                 state -> plugin.settingsController().setNoClip(owner, state)
         );

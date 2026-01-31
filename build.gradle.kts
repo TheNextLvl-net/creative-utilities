@@ -68,11 +68,17 @@ paper {
         register("builders.util.gui") { default = BukkitPluginDescription.Permission.Default.OP }
         register("builders.util.nightvision") { default = BukkitPluginDescription.Permission.Default.OP }
         register("builders.util.no-clip") { default = BukkitPluginDescription.Permission.Default.OP }
-        register("builders.util.noclip") { default = BukkitPluginDescription.Permission.Default.OP }
         register("builders.util.pottery-designer") { default = BukkitPluginDescription.Permission.Default.OP }
         register("builders.util.slabs") { default = BukkitPluginDescription.Permission.Default.TRUE }
         register("builders.util.tpgm3") { default = BukkitPluginDescription.Permission.Default.OP }
         register("builders.util.trapdoor") { default = BukkitPluginDescription.Permission.Default.TRUE }
+
+        val notice = "backwards compatibility in favor of the new permission schema"
+
+        register("builders.util.noclip") {
+            children = listOf("builders.util.no-clip")
+            description = notice
+        }
     }
 }
 
