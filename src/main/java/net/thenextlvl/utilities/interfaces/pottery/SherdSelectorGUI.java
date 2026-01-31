@@ -13,7 +13,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
-import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Collection;
@@ -21,7 +20,6 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
-@NullMarked
 public class SherdSelectorGUI extends PaginatedGUI<UtilitiesPlugin, Material> {
     private static final List<Material> sherds = List.of(
             Material.ANGLER_POTTERY_SHERD,

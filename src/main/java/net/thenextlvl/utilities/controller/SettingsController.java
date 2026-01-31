@@ -1,13 +1,11 @@
 package net.thenextlvl.utilities.controller;
 
 import org.bukkit.entity.Player;
-import org.jspecify.annotations.NullMarked;
 
 import java.util.Collections;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-@NullMarked
 @SuppressWarnings({"UnusedReturnValue", "BooleanMethodIsAlwaysInverted"})
 public class SettingsController {
     private final Set<Player> advancedFly = Collections.newSetFromMap(new WeakHashMap<>());

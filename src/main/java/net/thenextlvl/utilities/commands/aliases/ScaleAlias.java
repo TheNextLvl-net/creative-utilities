@@ -6,9 +6,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import org.jspecify.annotations.NullMarked;
 
-@NullMarked
 public class ScaleAlias {
     public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
         return Commands.literal("/scale")

@@ -8,9 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.jspecify.annotations.NullMarked;
 
-@NullMarked
 public class PlayerInteractListener implements Listener {
     private final UtilitiesPlugin plugin;
 

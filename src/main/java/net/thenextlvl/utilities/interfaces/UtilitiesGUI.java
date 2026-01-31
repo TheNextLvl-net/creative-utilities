@@ -15,12 +15,10 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
 import java.util.function.Consumer;
 
-@NullMarked
 public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
     private final PotionEffect nightVision = new PotionEffect(
             PotionEffectType.NIGHT_VISION,

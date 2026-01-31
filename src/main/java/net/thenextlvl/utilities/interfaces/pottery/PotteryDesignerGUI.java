@@ -11,12 +11,10 @@ import net.thenextlvl.utilities.interfaces.banner.BannerGUI;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
 import java.util.stream.IntStream;
 
-@NullMarked
 public class PotteryDesignerGUI extends GUI<UtilitiesPlugin> {
 
     public PotteryDesignerGUI(UtilitiesPlugin plugin, Player owner, ItemStack pot) {

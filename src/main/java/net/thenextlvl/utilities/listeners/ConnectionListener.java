@@ -7,11 +7,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.jspecify.annotations.NullMarked;
 
 import java.util.Optional;
 
-@NullMarked
 public class ConnectionListener implements Listener {
     private final UtilitiesPlugin plugin;
 

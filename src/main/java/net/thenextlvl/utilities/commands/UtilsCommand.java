@@ -7,9 +7,7 @@ import io.papermc.paper.command.brigadier.Commands;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.interfaces.UtilitiesGUI;
 import org.bukkit.entity.Player;
-import org.jspecify.annotations.NullMarked;
 
-@NullMarked
 public class UtilsCommand {
     public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
         return Commands.literal("utils")

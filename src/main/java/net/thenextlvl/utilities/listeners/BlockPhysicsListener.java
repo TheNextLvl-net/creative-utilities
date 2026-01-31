@@ -6,9 +6,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPhysicsEvent;
-import org.jspecify.annotations.NullMarked;
 
-@NullMarked
 public class BlockPhysicsListener implements Listener {
     private final UtilitiesPlugin plugin;
 

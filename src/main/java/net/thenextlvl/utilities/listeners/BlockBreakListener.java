@@ -9,12 +9,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.jspecify.annotations.NullMarked;
 
 import static org.bukkit.block.data.type.Slab.Type.BOTTOM;
 import static org.bukkit.block.data.type.Slab.Type.TOP;
 
-@NullMarked
 public class BlockBreakListener implements Listener {
     private final UtilitiesPlugin plugin;
 

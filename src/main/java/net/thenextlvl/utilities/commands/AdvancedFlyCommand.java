@@ -6,9 +6,7 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.entity.Player;
-import org.jspecify.annotations.NullMarked;
 
-@NullMarked
 public class AdvancedFlyCommand {
     public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
         return Commands.literal("advancedfly")

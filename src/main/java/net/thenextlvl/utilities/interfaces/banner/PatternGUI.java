@@ -17,14 +17,12 @@ import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.jspecify.annotations.NullMarked;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
-@NullMarked
 public class PatternGUI extends PaginatedGUI<UtilitiesPlugin, PatternType> {
     /**
      * Represents the maximum number of patterns that can be applied to a banner.

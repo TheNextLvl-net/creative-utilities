@@ -3,9 +3,7 @@ package net.thenextlvl.utilities.model;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
-import org.jspecify.annotations.NullMarked;
 
-@NullMarked
 public class NoClipManager {
     private final UtilitiesPlugin plugin;
 

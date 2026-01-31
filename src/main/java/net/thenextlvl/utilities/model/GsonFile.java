@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
-import org.jspecify.annotations.NullMarked;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -21,7 +20,6 @@ import static java.nio.file.StandardOpenOption.READ;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 import static java.nio.file.StandardOpenOption.WRITE;
 
-@NullMarked
 public final class GsonFile<R> {
     private static final Gson GSON = new GsonBuilder()
             .disableHtmlEscaping()

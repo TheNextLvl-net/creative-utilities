@@ -6,14 +6,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.jspecify.annotations.NullMarked;
 
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-@NullMarked
 public class AdvancedFlyListener implements Listener {
     static final Map<Player, Double> lastVelocity = new WeakHashMap<>();
     static final Set<Player> slower1 = Collections.newSetFromMap(new WeakHashMap<>());

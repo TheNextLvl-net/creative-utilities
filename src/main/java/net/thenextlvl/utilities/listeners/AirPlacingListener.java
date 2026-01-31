@@ -12,12 +12,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.jspecify.annotations.NullMarked;
 
 import java.util.Map;
 import java.util.WeakHashMap;
 
-@NullMarked
 public class AirPlacingListener implements Listener {
     static final Map<Player, Location> targetBlocks = new WeakHashMap<>();
     private final BlockData blockData = Material.BARRIER.createBlockData();

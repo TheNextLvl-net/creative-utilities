@@ -10,13 +10,11 @@ import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
-@NullMarked
 public class ColorGUI extends GUI<UtilitiesPlugin> {
 
     private static final List<Item> items = List.of(

@@ -35,13 +35,11 @@ import net.thenextlvl.utilities.model.PluginConfig;
 import net.thenextlvl.utilities.version.PluginVersionChecker;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jspecify.annotations.NullMarked;
 
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Locale;
 
-@NullMarked
 public final class UtilitiesPlugin extends JavaPlugin {
     public static final ErrorTracker ERROR_TRACKER = ErrorTracker.contextAware();
 

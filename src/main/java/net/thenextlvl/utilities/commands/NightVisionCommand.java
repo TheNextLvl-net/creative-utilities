@@ -8,9 +8,7 @@ import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.jspecify.annotations.NullMarked;
 
-@NullMarked
 public class NightVisionCommand {
     private static final PotionEffect nightVision = new PotionEffect(
             PotionEffectType.NIGHT_VISION,

@@ -9,9 +9,7 @@ import net.thenextlvl.utilities.interfaces.pottery.PotteryDesignerGUI;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.jspecify.annotations.NullMarked;
 
-@NullMarked
 public class PotteryCommand {
     public static LiteralCommandNode<CommandSourceStack> create(UtilitiesPlugin plugin) {
         return Commands.literal("pottery")
