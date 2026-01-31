@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPhysicsEvent;
 
-public class BlockPhysicsListener implements Listener {
+public final class BlockPhysicsListener implements Listener {
     private final UtilitiesPlugin plugin;
 
     public BlockPhysicsListener(final UtilitiesPlugin plugin) {

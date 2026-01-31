@@ -9,7 +9,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class PlayerInteractListener implements Listener {
+public final class PlayerInteractListener implements Listener {
     private final UtilitiesPlugin plugin;
 
     public PlayerInteractListener(final UtilitiesPlugin plugin) {

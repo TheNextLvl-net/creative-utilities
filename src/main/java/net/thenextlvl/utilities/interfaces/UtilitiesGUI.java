@@ -19,7 +19,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.function.Consumer;
 
-public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
+public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
     private final PotionEffect nightVision = new PotionEffect(
             PotionEffectType.NIGHT_VISION,
             PotionEffect.INFINITE_DURATION,

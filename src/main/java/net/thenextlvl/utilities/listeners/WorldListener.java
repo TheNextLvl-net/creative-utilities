@@ -9,7 +9,7 @@ import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
-public class WorldListener implements Listener {
+public final class WorldListener implements Listener {
     private final UtilitiesPlugin plugin;
 
     public WorldListener(final UtilitiesPlugin plugin) {

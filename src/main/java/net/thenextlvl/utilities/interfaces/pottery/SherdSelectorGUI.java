@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
-public class SherdSelectorGUI extends PaginatedGUI<UtilitiesPlugin, Material> {
+public final class SherdSelectorGUI extends PaginatedGUI<UtilitiesPlugin, Material> {
     private static final List<Material> sherds = List.of(
             Material.ANGLER_POTTERY_SHERD,
             Material.ARCHER_POTTERY_SHERD,

@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 @SuppressWarnings({"UnusedReturnValue", "BooleanMethodIsAlwaysInverted"})
-public class SettingsController {
+public final class SettingsController {
     private final Set<Player> advancedFly = Collections.newSetFromMap(new WeakHashMap<>());
     private final Set<Player> airPlacing = Collections.newSetFromMap(new WeakHashMap<>());
     private final Set<Player> noClip = Collections.newSetFromMap(new WeakHashMap<>());

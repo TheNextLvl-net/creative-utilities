@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-public class AdvancedFlyListener implements Listener {
+public final class AdvancedFlyListener implements Listener {
     static final Map<Player, Double> lastVelocity = new WeakHashMap<>();
     static final Set<Player> slower1 = Collections.newSetFromMap(new WeakHashMap<>());
     static final Set<Player> slower2 = Collections.newSetFromMap(new WeakHashMap<>());

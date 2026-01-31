@@ -15,7 +15,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.stream.IntStream;
 
-public class PotteryDesignerGUI extends GUI<UtilitiesPlugin> {
+public final class PotteryDesignerGUI extends GUI<UtilitiesPlugin> {
 
     public PotteryDesignerGUI(final UtilitiesPlugin plugin, final Player owner, final ItemStack pot) {
         super(plugin, owner, plugin.bundle().component("gui.title.pottery", owner), 5);

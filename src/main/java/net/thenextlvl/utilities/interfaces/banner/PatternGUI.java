@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
-public class PatternGUI extends PaginatedGUI<UtilitiesPlugin, PatternType> {
+public final class PatternGUI extends PaginatedGUI<UtilitiesPlugin, PatternType> {
     /**
      * Represents the maximum number of patterns that can be applied to a banner.
      * <a href="https://minecraft.wiki/w/Banner#Trivia">Wiki</a>

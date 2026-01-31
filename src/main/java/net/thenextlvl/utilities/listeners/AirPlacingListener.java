@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class AirPlacingListener implements Listener {
+public final class AirPlacingListener implements Listener {
     static final Map<Player, Location> targetBlocks = new WeakHashMap<>();
     private final BlockData blockData = Material.BARRIER.createBlockData();
     private final BlockData waterlogged = Material.BARRIER.createBlockData(data ->

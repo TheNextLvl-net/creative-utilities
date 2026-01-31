@@ -13,7 +13,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import static org.bukkit.block.data.type.Slab.Type.BOTTOM;
 import static org.bukkit.block.data.type.Slab.Type.TOP;
 
-public class BlockBreakListener implements Listener {
+public final class BlockBreakListener implements Listener {
     private final UtilitiesPlugin plugin;
 
     public BlockBreakListener(final UtilitiesPlugin plugin) {

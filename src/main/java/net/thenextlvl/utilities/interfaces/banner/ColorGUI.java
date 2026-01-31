@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
-public class ColorGUI extends GUI<UtilitiesPlugin> {
+public final class ColorGUI extends GUI<UtilitiesPlugin> {
 
     private static final List<Item> items = List.of(
             new Item(19, Material.WHITE_DYE, DyeColor.WHITE, "gui.item.banner.color.white"),

@@ -12,7 +12,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
-public class OpenableListener implements Listener {
+public final class OpenableListener implements Listener {
     private final UtilitiesPlugin plugin;
 
     public OpenableListener(final UtilitiesPlugin plugin) {
