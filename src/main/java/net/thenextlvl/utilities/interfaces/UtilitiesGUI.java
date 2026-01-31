@@ -43,8 +43,7 @@ public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
                 "gui.item.iron-trapdoor-interaction",
                 "gui.item.iron-trapdoor-interaction.description",
                 Permissions.TRAPDOOR,
-                Settings.get(owner, Settings.HAND_OPENABLE),
-                state -> Settings.set(owner, Settings.HAND_OPENABLE, state)
+                Settings.HAND_OPENABLE
         );
     }
 
@@ -53,8 +52,7 @@ public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
                 "gui.item.custom-slab-breaking",
                 "gui.item.custom-slab-breaking.description",
                 Permissions.SLABS,
-                Settings.get(owner, Settings.SLAB_PART_BREAKING),
-                state -> Settings.set(owner, Settings.SLAB_PART_BREAKING, state)
+                Settings.SLAB_PART_BREAKING
         );
     }
 
@@ -63,8 +61,7 @@ public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
                 "gui.item.air-placing",
                 "gui.item.air-placing.description",
                 Permissions.AIR_PLACING,
-                Settings.get(owner, Settings.AIR_PLACING),
-                state -> Settings.set(owner, Settings.AIR_PLACING, state)
+                Settings.AIR_PLACING
         );
     }
 
@@ -85,8 +82,7 @@ public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
                 "gui.item.noclip",
                 "gui.item.noclip.description",
                 Permissions.NO_CLIP,
-                Settings.get(owner, Settings.NO_CLIP),
-                state -> Settings.set(owner, Settings.NO_CLIP, state)
+                Settings.NO_CLIP
         );
     }
 
@@ -95,9 +91,12 @@ public final class UtilitiesGUI extends GUI<UtilitiesPlugin> {
                 "gui.item.advancedfly",
                 "gui.item.advancedfly.description",
                 Permissions.ADVANCED_FLY,
-                Settings.get(owner, Settings.ADVANCED_FLY),
-                state -> Settings.set(owner, Settings.ADVANCED_FLY, state)
+                Settings.ADVANCED_FLY
         );
+    }
+
+    private void updateFeature(final int slot, final Material icon, final String title, final String description, final String permission, final Settings setting) {
+        updateFeature(slot, icon, title, description, permission, Settings.get(owner, setting), state -> Settings.set(owner, setting, state));
     }
 
     private void updateFeature(final int slot, final Material icon, final String title, final String description, final String permission, final boolean enabled, final Consumer<Boolean> setter) {
