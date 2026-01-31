@@ -72,7 +72,7 @@ public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
         updateFeature(14, Material.ENDER_EYE,
                 "gui.item.nightvision",
                 "gui.item.nightvision.description",
-                "builders.util.nightvision",
+                "builders.util.night-vision",
                 owner.hasPotionEffect(PotionEffectType.NIGHT_VISION), state -> {
                     if (state) owner.addPotionEffect(nightVision);
                     else owner.removePotionEffect(PotionEffectType.NIGHT_VISION);
@@ -94,7 +94,7 @@ public class UtilitiesGUI extends GUI<UtilitiesPlugin> {
         updateFeature(16, Material.FEATHER,
                 "gui.item.advancedfly",
                 "gui.item.advancedfly.description",
-                "builders.util.advancedfly",
+                "builders.util.advanced-fly",
                 plugin.settingsController().isAdvancedFly(owner),
                 state -> plugin.settingsController().setAdvancedFly(owner, state)
         );
