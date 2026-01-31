@@ -19,14 +19,18 @@ public enum Settings {
         return 1 << ordinal();
     }
 
-    public static boolean set(final Player player, final Settings setting, final boolean enabled) {
-        if (get(player, setting) == enabled) return false;
+    public static boolean toggle(final Player player, final Settings setting) {
+        final var enabled = !get(player, setting);
+        set(player, setting, enabled);
+        return enabled;
+    }
+
+    public static void set(final Player player, final Settings setting, final boolean enabled) {
         final var mask = setting.mask();
         settings.compute(player, (p, v) -> {
             if (enabled) return (v == null ? 0 : v) | mask;
             else return v == null ? null : v & ~mask;
         });
-        return true;
     }
 
     public static boolean get(final Player player, final Settings setting) {
