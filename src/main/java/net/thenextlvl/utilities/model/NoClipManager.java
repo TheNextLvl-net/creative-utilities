@@ -5,18 +5,13 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 public final class NoClipManager {
-    private final UtilitiesPlugin plugin;
-
-    public NoClipManager(final UtilitiesPlugin plugin) {
-        this.plugin = plugin;
+    public static void start(final UtilitiesPlugin plugin) {
+        plugin.getServer().getGlobalRegionScheduler().runAtFixedRate(plugin, task -> {
+            Settings.getNoClip().forEach(NoClipManager::updateNoClip);
+        }, 1, 1);
     }
 
-    public void start() {
-        plugin.getServer().getGlobalRegionScheduler().runAtFixedRate(plugin, task -> plugin.settingsController()
-                .getNoClip().forEach(this::updateNoClip), 1, 1);
-    }
-
-    public boolean checkSurrounding(final Player player) {
+    private static boolean checkSurrounding(final Player player) {
         return player.getLocation().add(+0.4, 0, 0).getBlock().isCollidable()
                 || player.getLocation().add(-0.4, 0, 0).getBlock().isCollidable()
                 || player.getLocation().add(0, 0, +0.4).getBlock().isCollidable()
@@ -28,7 +23,7 @@ public final class NoClipManager {
                 || player.getLocation().add(0, +1.9, 0).getBlock().isCollidable();
     }
 
-    public void updateNoClip(final Player player) {
+    private static void updateNoClip(final Player player) {
         if (!player.getGameMode().isInvulnerable()) return;
 
         final boolean noClip;

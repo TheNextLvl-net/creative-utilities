@@ -19,7 +19,6 @@ import net.thenextlvl.utilities.commands.aliases.CuboidSelectionAlias;
 import net.thenextlvl.utilities.commands.aliases.DeformRotateAlias;
 import net.thenextlvl.utilities.commands.aliases.ScaleAlias;
 import net.thenextlvl.utilities.commands.aliases.TwistAlias;
-import net.thenextlvl.utilities.controller.SettingsController;
 import net.thenextlvl.utilities.listeners.AdvancedFlyListener;
 import net.thenextlvl.utilities.listeners.AirPlacingListener;
 import net.thenextlvl.utilities.listeners.BlockBreakListener;
@@ -52,9 +51,6 @@ public final class UtilitiesPlugin extends JavaPlugin {
             .resource("messages_german.properties", Locale.GERMANY)
             .build();
 
-    private final SettingsController settingsController = new SettingsController();
-    private final NoClipManager noClipManager = new NoClipManager(this);
-
     private final PluginConfig config = new GsonFile<>(
             getDataPath().resolve("config.json"),
             new PluginConfig(true, true, false, true, true, true, true, true, true, false, true)
@@ -76,7 +72,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         fastStats.ready();
-        noClipManager().start();
+        NoClipManager.start(this);
         registerListeners();
         registerCommands();
     }
@@ -124,14 +120,6 @@ public final class UtilitiesPlugin extends JavaPlugin {
 
     public ComponentBundle bundle() {
         return bundle;
-    }
-
-    public SettingsController settingsController() {
-        return settingsController;
-    }
-
-    public NoClipManager noClipManager() {
-        return noClipManager;
     }
 
     public PluginConfig config() {
