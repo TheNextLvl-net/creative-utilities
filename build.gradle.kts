@@ -62,14 +62,14 @@ paper {
     }
     permissions {
         register("builders.util.advanced-fly")
+        register("builders.util.air-placing")
         register("builders.util.banner")
         register("builders.util.color")
         register("builders.util.gui")
         register("builders.util.night-vision")
         register("builders.util.no-clip")
         register("builders.util.pottery-designer")
-
-        register("builders.util.air-placing") { default = BukkitPluginDescription.Permission.Default.TRUE }
+        
         register("builders.util.slabs") { default = BukkitPluginDescription.Permission.Default.TRUE }
         register("builders.util.tpgm3") { default = BukkitPluginDescription.Permission.Default.TRUE }
         register("builders.util.trapdoor") { default = BukkitPluginDescription.Permission.Default.TRUE }
