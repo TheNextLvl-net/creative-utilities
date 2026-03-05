@@ -9,7 +9,6 @@ We aim to be always up-to-date and use new technology instead of hanging on to o
 ## Major Changes
 
 - **100%** customizable messages
-- **Configurable commands**
 - **Piston Sliming**
 - **Air Placing**
 - **Pottery Designer**
@@ -33,3 +32,7 @@ project.
 
 Suggestions are welcome! We have a separate issue form for suggestions, which can be
 found [here](https://github.com/TheNextLvl-net/creative-utilities/issues/new?projects=&template=feature_request.yml).
+
+---
+
+[![Usage](https://faststats.dev/embed/a4782934-b0a7-4228-939b-104bd21dd880?w=1012)](https://faststats.dev/project/creative-utilities)
