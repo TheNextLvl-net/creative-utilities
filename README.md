@@ -35,4 +35,4 @@ found [here](https://github.com/TheNextLvl-net/creative-utilities/issues/new?pro
 
 ---
 
-[![Usage](https://faststats.dev/embed/a4782934-b0a7-4228-939b-104bd21dd880?w=1012)](https://faststats.dev/project/creative-utilities)
+[![Usage](https://faststats.dev/embed/default:1eb4e910-6a1c-44e3-880b-ab704e753184:servers-and-players?w=1012)](https://faststats.dev/project/creative-utilities)
