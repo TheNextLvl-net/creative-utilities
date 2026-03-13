@@ -21,6 +21,7 @@ tasks.compileJava {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven("https://repo.thenextlvl.net/releases")
     maven("https://repo.thenextlvl.net/snapshots")
@@ -34,6 +35,7 @@ dependencies {
     implementation("net.thenextlvl.core:paper:3.0.0-pre1")
     implementation("net.thenextlvl.version-checker:modrinth-paper:1.0.1")
     implementation("net.thenextlvl:i18n:1.2.0")
+    implementation("net.thenextlvl:interfaces:0.3.0")
 
     implementation("dev.faststats.metrics:bukkit:0.18.1")
     implementation("org.bstats:bstats-bukkit:3.2.1")

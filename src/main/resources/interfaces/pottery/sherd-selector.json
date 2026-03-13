@@ -1,0 +1,200 @@
+{
+  "title": "gui.title.pottery.sherd",
+  "pattern": [
+    " r <p> b ",
+    "         ",
+    " ABCDEFG ",
+    " HIJKLMN ",
+    "    x    "
+  ],
+  " ": {
+    "item": "minecraft:gray_stained_glass_pane",
+    "hide_tooltip": true
+  },
+  "r": {
+    "item": "minecraft:player_head",
+    "name": "gui.item.randomize",
+    "profile": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzk3OTU1NDYyZTRlNTc2NjY0NDk5YWM0YTFjNTcyZjYxNDNmMTlhZDJkNjE5NDc3NjE5OGY4ZDEzNmZkYjIifX19",
+    "click_actions": [
+      {
+        "randomize": {}
+      }
+    ]
+  },
+  "p": {
+    "item": "minecraft:decorated_pot",
+    "name": "gui.item.pottery",
+    "lore": [
+      "",
+      "gui.item.pottery.get"
+    ],
+    "use_pot_data": {},
+    "click_actions": [
+      {
+        "get_pot": {}
+      }
+    ]
+  },
+  "b": {
+    "item": "minecraft:barrier",
+    "name": "gui.item.close",
+    "click_actions": [
+      {
+        "open_interface": "pottery-designer"
+      }
+    ]
+  },
+  "<": {
+    "item": "minecraft:arrow",
+    "name": "gui.item.page.previous",
+    "click_actions": [
+      {
+        "previous_page": {}
+      }
+    ]
+  },
+  ">": {
+    "item": "minecraft:arrow",
+    "name": "gui.item.page.next",
+    "click_actions": [
+      {
+        "next_page": {}
+      }
+    ]
+  },
+  "A": {
+    "item": "minecraft:angler_pottery_sherd",
+    "name": "gui.item.pottery.sherd.angler",
+    "click_actions": [
+      {
+        "apply_decoration": "angler"
+      }
+    ]
+  },
+  "B": {
+    "item": "minecraft:archer_pottery_sherd",
+    "name": "gui.item.pottery.sherd.archer",
+    "click_actions": [
+      {
+        "apply_decoration": "archer"
+      }
+    ]
+  },
+  "C": {
+    "item": "minecraft:arms_up_pottery_sherd",
+    "name": "gui.item.pottery.sherd.arms_up",
+    "click_actions": [
+      {
+        "apply_decoration": "arms_up"
+      }
+    ]
+  },
+  "D": {
+    "item": "minecraft:blade_pottery_sherd",
+    "name": "gui.item.pottery.sherd.blade",
+    "click_actions": [
+      {
+        "apply_decoration": "blade"
+      }
+    ]
+  },
+  "E": {
+    "item": "minecraft:brewer_pottery_sherd",
+    "name": "gui.item.pottery.sherd.brewer",
+    "click_actions": [
+      {
+        "apply_decoration": "brewer"
+      }
+    ]
+  },
+  "F": {
+    "item": "minecraft:burn_pottery_sherd",
+    "name": "gui.item.pottery.sherd.burn",
+    "click_actions": [
+      {
+        "apply_decoration": "burn"
+      }
+    ]
+  },
+  "G": {
+    "item": "minecraft:danger_pottery_sherd",
+    "name": "gui.item.pottery.sherd.danger",
+    "click_actions": [
+      {
+        "apply_decoration": "danger"
+      }
+    ]
+  },
+  "H": {
+    "item": "minecraft:explorer_pottery_sherd",
+    "name": "gui.item.pottery.sherd.explorer",
+    "click_actions": [
+      {
+        "apply_decoration": "explorer"
+      }
+    ]
+  },
+  "I": {
+    "item": "minecraft:flow_pottery_sherd",
+    "name": "gui.item.pottery.sherd.flow",
+    "click_actions": [
+      {
+        "apply_decoration": "flow"
+      }
+    ]
+  },
+  "J": {
+    "item": "minecraft:friend_pottery_sherd",
+    "name": "gui.item.pottery.sherd.friend",
+    "click_actions": [
+      {
+        "apply_decoration": "friend"
+      }
+    ]
+  },
+  "K": {
+    "item": "minecraft:guster_pottery_sherd",
+    "name": "gui.item.pottery.sherd.guster",
+    "click_actions": [
+      {
+        "apply_decoration": "guster"
+      }
+    ]
+  },
+  "L": {
+    "item": "minecraft:heart_pottery_sherd",
+    "name": "gui.item.pottery.sherd.heart",
+    "click_actions": [
+      {
+        "apply_decoration": "heart"
+      }
+    ]
+  },
+  "M": {
+    "item": "minecraft:heartbreak_pottery_sherd",
+    "name": "gui.item.pottery.sherd.heartbreak",
+    "click_actions": [
+      {
+        "apply_decoration": "heartbreak"
+      }
+    ]
+  },
+  "N": {
+    "item": "minecraft:howl_pottery_sherd",
+    "name": "gui.item.pottery.sherd.howl",
+    "click_actions": [
+      {
+        "apply_decoration": "howl"
+      }
+    ]
+  },
+  "x": {
+    "item": "minecraft:paper",
+    "name": "gui.item.pottery.sherd.none",
+    "click_actions": [
+      {
+        "apply_decoration": "none"
+      }
+    ]
+  }
+}

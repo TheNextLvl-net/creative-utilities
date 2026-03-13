@@ -11,10 +11,12 @@ module creative.utilities.main {
     requires net.kyori.adventure.text.minimessage;
     requires net.kyori.adventure;
     requires net.thenextlvl.i18n;
+    requires net.thenextlvl.interfaces;
     requires net.thenextlvl.version.modrinth.paper;
     requires net.thenextlvl.version;
     requires org.bukkit;
 
     requires static org.jetbrains.annotations;
     requires static org.jspecify;
+    requires com.google.common;
 }
