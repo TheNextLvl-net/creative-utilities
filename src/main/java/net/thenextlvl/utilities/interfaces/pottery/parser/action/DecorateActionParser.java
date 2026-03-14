@@ -44,7 +44,6 @@ public final class DecorateActionParser implements ActionParser<JsonPrimitive> {
         sherds.put("shelter", Material.SHELTER_POTTERY_SHERD);
         sherds.put("skull", Material.SKULL_POTTERY_SHERD);
         sherds.put("snort", Material.SNORT_POTTERY_SHERD);
-        sherds.put("none", null);
     }
 
     private final PotteryDesignerGUI.Side side;
@@ -64,7 +63,7 @@ public final class DecorateActionParser implements ActionParser<JsonPrimitive> {
         };
     }
 
-    static PotDecorations decorate(final PotteryDesignerGUI.Side side, final @Nullable PotDecorations data, @Nullable final ItemType sherd) {
+    public static PotDecorations decorate(final PotteryDesignerGUI.Side side, final @Nullable PotDecorations data, @Nullable final ItemType sherd) {
         final var decoration = PotDecorations.potDecorations();
         if (data != null) {
             decoration.back(data.back());
