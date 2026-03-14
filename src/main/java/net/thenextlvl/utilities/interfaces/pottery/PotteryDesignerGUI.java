@@ -9,6 +9,7 @@ import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.interfaces.pottery.parser.action.GetPotActionParser;
 import net.thenextlvl.utilities.interfaces.pottery.parser.action.OpenSherdEditorActionParser;
 import net.thenextlvl.utilities.interfaces.pottery.parser.action.RandomizeActionParser;
+import net.thenextlvl.utilities.interfaces.pottery.parser.action.UndecorateActionParser;
 import net.thenextlvl.utilities.interfaces.pottery.parser.item.SideParser;
 import net.thenextlvl.utilities.interfaces.pottery.parser.item.UsePotDataParser;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,12 +24,14 @@ public final class PotteryDesignerGUI {
             final var plugin = JavaPlugin.getPlugin(UtilitiesPlugin.class);
             INSTANCE = InterfaceReader.reader()
                     .textRenderer(plugin.bundle()::component)
+                    .registerActionParser("remove_decoration", JsonPrimitive.class, new UndecorateActionParser())
                     .registerActionParser("get_pot", JsonObject.class, new GetPotActionParser())
                     .registerActionParser("open_sherd_editor", JsonPrimitive.class, new OpenSherdEditorActionParser())
                     .registerActionParser("randomize", JsonObject.class, new RandomizeActionParser(null))
                     .registerDynamicItemParser("side", JsonPrimitive.class, new SideParser())
                     .registerDynamicItemParser("use_pot_data", JsonObject.class, new UsePotDataParser())
-                    .readResource("interfaces/pottery/pottery-designer.json");
+                    .readResource("interfaces/pottery/pottery-designer.json")
+                    .build();
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }
