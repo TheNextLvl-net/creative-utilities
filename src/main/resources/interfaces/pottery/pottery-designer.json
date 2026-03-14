@@ -32,7 +32,12 @@
     "side": "back",
     "click_actions": [
       {
+        "click_type": "any_left",
         "open_sherd_editor": "back"
+      },
+      {
+        "click_type": "any_right",
+        "remove_decoration": "back"
       }
     ]
   },
@@ -56,7 +61,12 @@
     ],
     "click_actions": [
       {
+        "click_type": "any_left",
         "open_sherd_editor": "left"
+      },
+      {
+        "click_type": "any_right",
+        "remove_decoration": "left"
       }
     ]
   },
@@ -85,7 +95,12 @@
     ],
     "click_actions": [
       {
+        "click_type": "any_left",
         "open_sherd_editor": "right"
+      },
+      {
+        "click_type": "any_right",
+        "remove_decoration": "right"
       }
     ]
   },
@@ -100,7 +115,12 @@
     ],
     "click_actions": [
       {
+        "click_type": "any_left",
         "open_sherd_editor": "front"
+      },
+      {
+        "click_type": "any_right",
+        "remove_decoration": "front"
       }
     ]
   }
