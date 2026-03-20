@@ -17,7 +17,7 @@ public final class SideParser implements DynamicItemParser<JsonPrimitive> {
     public BiFunction<ItemStack, RenderContext, ItemStack> parse(final JsonPrimitive element, final ParserContext context) throws ParserException {
         final var side = PotteryDesignerGUI.Side.fromName(element.getAsString());
         return (itemStack, renderContext) -> {
-            return renderContext.state("pot_data", PotDecorations.class).map(data -> {
+            return renderContext.getState("pot_data", PotDecorations.class).map(data -> {
                 final var itemType = switch (side) {
                     case BACK -> data.back();
                     case FRONT -> data.front();
@@ -25,7 +25,7 @@ public final class SideParser implements DynamicItemParser<JsonPrimitive> {
                     case RIGHT -> data.right();
                 };
                 if (itemType == null) return itemStack;
-                var stack = itemType.createItemStack();
+                final var stack = itemType.createItemStack();
                 stack.copyDataFrom(itemStack, type -> !type.equals(DataComponentTypes.ITEM_MODEL));
                 return stack;
             }).orElse(itemStack);

@@ -72,9 +72,9 @@ public final class SherdSelectorGUI {
                     .transformer(material -> new ActionItem(context -> {
                         return ItemStack.of(material);
                     }, context -> {
-                        var potData = context.state("pot_data", PotDecorations.class).orElse(null);
+                        final var potData = context.getState("pot_data", PotDecorations.class, null);
                         final var data = DecorateActionParser.decorate(side, potData, material.asItemType());
-                        context.state("pot_data", data);
+                        context.setState("pot_data", data);
                         PotteryDesignerGUI.INSTANCE.open(context.player(), context);
                     }))
                     .build();

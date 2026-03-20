@@ -17,7 +17,7 @@ public final class UsePotDataParser implements DynamicItemParser<JsonObject> {
     public BiFunction<ItemStack, RenderContext, ItemStack> parse(final JsonObject element, final ParserContext context) throws ParserException {
         ParserConditions.checkState(element.isEmpty(), "Use pot data parser takes no arguments");
         return (itemStack, renderContext) -> {
-            renderContext.state("pot_data", PotDecorations.class).ifPresent(data ->
+            renderContext.getState("pot_data", PotDecorations.class).ifPresent(data ->
                     itemStack.setData(DataComponentTypes.POT_DECORATIONS, data));
             return itemStack;
         };

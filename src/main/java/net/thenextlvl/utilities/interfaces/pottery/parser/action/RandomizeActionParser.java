@@ -28,7 +28,7 @@ public final class RandomizeActionParser implements ActionParser<JsonObject> {
     public Consumer<InterfaceSession> parse(final JsonObject object, final ParserContext context) throws ParserException {
         ParserConditions.checkState(object.isEmpty(), "randomize does not take any arguments");
         return session -> {
-            if (side == null) session.state("pot_data", getRandom());
+            if (side == null) session.setState("pot_data", getRandom());
             else session.<PotDecorations>computeState("pot_data", (s, o) -> {
                 return decorate(side, o, getRandomSherd(SHERDS.size()));
             });

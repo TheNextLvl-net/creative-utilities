@@ -57,8 +57,8 @@ public final class DecorateActionParser implements ActionParser<JsonPrimitive> {
         ParserConditions.checkState(sherds.containsKey(element.getAsString()), "Invalid sherd: %s", element.getAsString());
         final var sherd = Optional.ofNullable(sherds.get(element.getAsString())).map(Material::asItemType).orElse(null);
         return session -> {
-            final var data = decorate(side, session.state("pot_data", PotDecorations.class).orElse(null), sherd);
-            session.state("pot_data", data);
+            final var data = decorate(side, session.getState("pot_data", PotDecorations.class, null), sherd);
+            session.setState("pot_data", data);
             PotteryDesignerGUI.INSTANCE.open(session.player(), session);
         };
     }

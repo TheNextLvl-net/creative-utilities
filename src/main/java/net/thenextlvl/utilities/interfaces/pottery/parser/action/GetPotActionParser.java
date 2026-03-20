@@ -19,7 +19,7 @@ public final class GetPotActionParser implements ActionParser<JsonObject> {
         ParserConditions.checkState(element.isEmpty(), "Get pot data action takes no arguments");
         return session -> {
             final var item = ItemStack.of(Material.DECORATED_POT);
-            session.state("pot_data", PotDecorations.class).ifPresent(data -> {
+            session.getState("pot_data", PotDecorations.class).ifPresent(data -> {
                 item.setData(DataComponentTypes.POT_DECORATIONS, data);
             });
             session.player().getInventory().addItem(item);
