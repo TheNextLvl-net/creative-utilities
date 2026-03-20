@@ -33,7 +33,7 @@ abstract class DeformAlias extends SimpleCommand {
         plugin.getServer().dispatchCommand(context.getSource().getSender(), "/deform");
         return SINGLE_SUCCESS;
     }
-    
+
     @Override
     public final int run(final CommandContext<CommandSourceStack> context) {
         final var axis = context.getArgument("axis", Axis.class);

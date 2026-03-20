@@ -130,7 +130,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
     public PluginConfig config() {
         return config;
     }
-    
+
     public Commands commands() {
         return commands;
     }
