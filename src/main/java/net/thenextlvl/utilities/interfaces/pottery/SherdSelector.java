@@ -8,12 +8,12 @@ import net.thenextlvl.interfaces.ActionItem;
 import net.thenextlvl.interfaces.PaginatedInterface;
 import net.thenextlvl.interfaces.reader.InterfaceReader;
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import net.thenextlvl.utilities.interfaces.pottery.parser.action.DecorateActionParser;
-import net.thenextlvl.utilities.interfaces.pottery.parser.action.GetPotActionParser;
-import net.thenextlvl.utilities.interfaces.pottery.parser.action.OpenInterfaceActionParser;
-import net.thenextlvl.utilities.interfaces.pottery.parser.action.RandomizeActionParser;
-import net.thenextlvl.utilities.interfaces.pottery.parser.action.UndecorateActionParser;
-import net.thenextlvl.utilities.interfaces.pottery.parser.item.UsePotDataParser;
+import net.thenextlvl.utilities.interfaces.pottery.action.DecorateActionParser;
+import net.thenextlvl.utilities.interfaces.pottery.action.GetPotActionParser;
+import net.thenextlvl.utilities.interfaces.pottery.action.OpenInterfaceActionParser;
+import net.thenextlvl.utilities.interfaces.pottery.action.RandomizeActionParser;
+import net.thenextlvl.utilities.interfaces.pottery.action.UndecorateActionParser;
+import net.thenextlvl.utilities.interfaces.pottery.item.UsePotDataParser;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public final class SherdSelectorGUI {
+public final class SherdSelector {
     public static final List<Material> SHERDS = List.of(
             Material.ANGLER_POTTERY_SHERD,
             Material.ARCHER_POTTERY_SHERD,
@@ -49,14 +49,14 @@ public final class SherdSelectorGUI {
             Material.SNORT_POTTERY_SHERD
     );
 
-    private static final Map<PotteryDesignerGUI.Side, PaginatedInterface<Material>> instances = Map.of(
-            PotteryDesignerGUI.Side.LEFT, create(PotteryDesignerGUI.Side.LEFT),
-            PotteryDesignerGUI.Side.RIGHT, create(PotteryDesignerGUI.Side.RIGHT),
-            PotteryDesignerGUI.Side.FRONT, create(PotteryDesignerGUI.Side.FRONT),
-            PotteryDesignerGUI.Side.BACK, create(PotteryDesignerGUI.Side.BACK)
+    private static final Map<PotteryDesigner.Side, PaginatedInterface<Material>> instances = Map.of(
+            PotteryDesigner.Side.LEFT, create(PotteryDesigner.Side.LEFT),
+            PotteryDesigner.Side.RIGHT, create(PotteryDesigner.Side.RIGHT),
+            PotteryDesigner.Side.FRONT, create(PotteryDesigner.Side.FRONT),
+            PotteryDesigner.Side.BACK, create(PotteryDesigner.Side.BACK)
     );
 
-    private static PaginatedInterface<Material> create(final PotteryDesignerGUI.Side side) {
+    private static PaginatedInterface<Material> create(final PotteryDesigner.Side side) {
         try {
             final var plugin = JavaPlugin.getPlugin(UtilitiesPlugin.class);
             return InterfaceReader.reader()
@@ -75,7 +75,7 @@ public final class SherdSelectorGUI {
                         final var potData = context.getState("pot_data", PotDecorations.class, null);
                         final var data = DecorateActionParser.decorate(side, potData, material.asItemType());
                         context.setState("pot_data", data);
-                        PotteryDesignerGUI.INSTANCE.open(context.player(), context);
+                        PotteryDesigner.INSTANCE.open(context.player(), context);
                     }))
                     .build();
         } catch (final IOException e) {
@@ -83,7 +83,7 @@ public final class SherdSelectorGUI {
         }
     }
 
-    public static PaginatedInterface<Material> instance(final PotteryDesignerGUI.Side side) {
+    public static PaginatedInterface<Material> instance(final PotteryDesigner.Side side) {
         final var interface_ = instances.get(side);
         Preconditions.checkState(interface_ != null, "No interface for side %s", side);
         return interface_;

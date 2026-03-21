@@ -6,7 +6,7 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
 import net.thenextlvl.utilities.utils.Permissions;
-import net.thenextlvl.utilities.utils.Settings;
+import net.thenextlvl.utilities.setting.Settings;
 import org.bukkit.entity.Player;
 
 public final class AirPlaceCommand extends SimpleCommand {
@@ -27,7 +27,7 @@ public final class AirPlaceCommand extends SimpleCommand {
     @Override
     public int run(final CommandContext<CommandSourceStack> context) {
         final var player = (Player) context.getSource().getSender();
-        final var message = Settings.toggle(player, Settings.AIR_PLACING)
+        final var message = Settings.AIR_PLACING.toggle(player)
                 ? "command.air-placing.enabled"
                 : "command.air-placing.disabled";
         plugin.bundle().sendMessage(player, message);

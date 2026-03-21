@@ -1,0 +1,152 @@
+{
+  "title": "gui.title.utilities",
+  "pattern": [
+    " 123 456 ",
+    " ABC DEF ",
+    " 123 456 "
+  ],
+  "1": {
+    "item": "minecraft:gray_stained_glass_pane",
+    "hide_tooltip": true,
+    "state_indicator": {
+      "permission": "builders.util.trapdoor",
+      "setting": "hand_openable"
+    }
+  },
+  "2": {
+    "item": "minecraft:gray_stained_glass_pane",
+    "hide_tooltip": true,
+    "state_indicator": {
+      "permission": "builders.util.slabs",
+      "setting": "slab_part_breaking"
+    }
+  },
+  "3": {
+    "item": "minecraft:gray_stained_glass_pane",
+    "hide_tooltip": true,
+    "state_indicator": {
+      "permission": "builders.util.air-placing",
+      "setting": "air_placing"
+    }
+  },
+  "4": {
+    "item": "minecraft:gray_stained_glass_pane",
+    "hide_tooltip": true,
+    "state_indicator": {
+      "permission": "builders.util.night-vision",
+      "setting": "night_vision"
+    }
+  },
+  "5": {
+    "item": "minecraft:gray_stained_glass_pane",
+    "hide_tooltip": true,
+    "state_indicator": {
+      "permission": "builders.util.no-clip",
+      "setting": "no_clip"
+    }
+  },
+  "6": {
+    "item": "minecraft:gray_stained_glass_pane",
+    "hide_tooltip": true,
+    "state_indicator": {
+      "permission": "builders.util.advanced-fly",
+      "setting": "advanced_fly"
+    }
+  },
+  "A": {
+    "item": "minecraft:iron_trapdoor",
+    "name": "gui.item.iron-trapdoor-interaction",
+    "feature_lore": {
+      "permission": "builders.util.trapdoor",
+      "description": "gui.item.iron-trapdoor-interaction.description",
+      "setting": "hand_openable"
+    },
+    "click_actions": [
+      {
+        "permission": "builders.util.trapdoor",
+        "click_type": "!double_click",
+        "toggle_setting": "hand_openable"
+      }
+    ]
+  },
+  "B": {
+    "item": "minecraft:stone_slab",
+    "name": "gui.item.custom-slab-breaking",
+    "feature_lore": {
+      "permission": "builders.util.slabs",
+      "description": "gui.item.custom-slab-breaking.description",
+      "setting": "slab_part_breaking"
+    },
+    "click_actions": [
+      {
+        "permission": "builders.util.slabs",
+        "click_type": "!double_click",
+        "toggle_setting": "slab_part_breaking"
+      }
+    ]
+  },
+  "C": {
+    "item": "minecraft:structure_void",
+    "name": "gui.item.air-placing",
+    "feature_lore": {
+      "permission": "builders.util.air-placing",
+      "description": "gui.item.air-placing.description",
+      "setting": "air_placing"
+    },
+    "click_actions": [
+      {
+        "permission": "builders.util.air-placing",
+        "click_type": "!double_click",
+        "toggle_setting": "air_placing"
+      }
+    ]
+  },
+  "D": {
+    "item": "minecraft:ender_eye",
+    "name": "gui.item.nightvision",
+    "feature_lore": {
+      "permission": "builders.util.night-vision",
+      "description": "gui.item.nightvision.description",
+      "setting": "night_vision"
+    },
+    "click_actions": [
+      {
+        "permission": "builders.util.night-vision",
+        "click_type": "!double_click",
+        "toggle_setting": "night_vision"
+      }
+    ]
+  },
+  "E": {
+    "item": "minecraft:compass",
+    "name": "gui.item.noclip",
+    "feature_lore": {
+      "permission": "builders.util.no-clip",
+      "description": "gui.item.noclip.description",
+      "setting": "no_clip"
+    },
+    "click_actions": [
+      {
+        "permission": "builders.util.no-clip",
+        "click_type": "!double_click",
+        "toggle_setting": "no_clip"
+      }
+    ]
+  },
+  "F": {
+    "item": "minecraft:feather",
+    "name": "gui.item.advancedfly",
+    "feature_lore": {
+      "permission": "builders.util.advanced-fly",
+      "description": "gui.item.advancedfly.description",
+      "setting": "advanced_fly"
+    },
+    "click_actions": [
+      {
+        "permission": "builders.util.advanced-fly",
+        "click_type": "!double_click",
+        "toggle_setting": "advanced_fly"
+      }
+    ]
+  }
+}

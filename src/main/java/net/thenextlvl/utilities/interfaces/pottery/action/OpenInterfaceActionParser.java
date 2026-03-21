@@ -1,4 +1,4 @@
-package net.thenextlvl.utilities.interfaces.pottery.parser.action;
+package net.thenextlvl.utilities.interfaces.pottery.action;
 
 import com.google.gson.JsonPrimitive;
 import net.thenextlvl.interfaces.Interface;
@@ -6,7 +6,7 @@ import net.thenextlvl.interfaces.InterfaceSession;
 import net.thenextlvl.interfaces.reader.ActionParser;
 import net.thenextlvl.interfaces.reader.ParserContext;
 import net.thenextlvl.interfaces.reader.ParserException;
-import net.thenextlvl.utilities.interfaces.pottery.PotteryDesignerGUI;
+import net.thenextlvl.utilities.interfaces.pottery.PotteryDesigner;
 
 import java.util.Map;
 import java.util.function.Consumer;
@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 
 public final class OpenInterfaceActionParser implements ActionParser<JsonPrimitive> {
     private final Map<String, Supplier<Interface>> interfaces = Map.ofEntries(
-            Map.entry("pottery-designer", () -> PotteryDesignerGUI.INSTANCE)
+            Map.entry("pottery-designer", () -> PotteryDesigner.INSTANCE)
     );
 
     @Override

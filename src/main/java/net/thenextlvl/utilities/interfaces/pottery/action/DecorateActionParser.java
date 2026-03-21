@@ -1,4 +1,4 @@
-package net.thenextlvl.utilities.interfaces.pottery.parser.action;
+package net.thenextlvl.utilities.interfaces.pottery.action;
 
 import com.google.gson.JsonPrimitive;
 import io.papermc.paper.datacomponent.item.PotDecorations;
@@ -7,7 +7,7 @@ import net.thenextlvl.interfaces.reader.ActionParser;
 import net.thenextlvl.interfaces.reader.ParserConditions;
 import net.thenextlvl.interfaces.reader.ParserContext;
 import net.thenextlvl.interfaces.reader.ParserException;
-import net.thenextlvl.utilities.interfaces.pottery.PotteryDesignerGUI;
+import net.thenextlvl.utilities.interfaces.pottery.PotteryDesigner;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemType;
 import org.jspecify.annotations.Nullable;
@@ -46,9 +46,9 @@ public final class DecorateActionParser implements ActionParser<JsonPrimitive> {
         sherds.put("snort", Material.SNORT_POTTERY_SHERD);
     }
 
-    private final PotteryDesignerGUI.Side side;
+    private final PotteryDesigner.Side side;
 
-    public DecorateActionParser(final PotteryDesignerGUI.Side side) {
+    public DecorateActionParser(final PotteryDesigner.Side side) {
         this.side = side;
     }
 
@@ -59,11 +59,11 @@ public final class DecorateActionParser implements ActionParser<JsonPrimitive> {
         return session -> {
             final var data = decorate(side, session.getState("pot_data", PotDecorations.class, null), sherd);
             session.setState("pot_data", data);
-            PotteryDesignerGUI.INSTANCE.open(session.player(), session);
+            PotteryDesigner.INSTANCE.open(session.player(), session);
         };
     }
 
-    public static PotDecorations decorate(final PotteryDesignerGUI.Side side, final @Nullable PotDecorations data, @Nullable final ItemType sherd) {
+    public static PotDecorations decorate(final PotteryDesigner.Side side, final @Nullable PotDecorations data, @Nullable final ItemType sherd) {
         final var decoration = PotDecorations.potDecorations();
         if (data != null) {
             decoration.back(data.back());

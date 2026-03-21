@@ -6,7 +6,7 @@ import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
 import net.thenextlvl.utilities.utils.Permissions;
-import net.thenextlvl.utilities.utils.Settings;
+import net.thenextlvl.utilities.setting.Settings;
 import org.bukkit.entity.Player;
 
 public final class AdvancedFlyCommand extends SimpleCommand {
@@ -27,7 +27,7 @@ public final class AdvancedFlyCommand extends SimpleCommand {
     @Override
     public int run(final CommandContext<CommandSourceStack> context) {
         final var player = (Player) context.getSource().getSender();
-        final var message = Settings.toggle(player, Settings.ADVANCED_FLY)
+        final var message = Settings.ADVANCED_FLY.toggle(player)
                 ? "command.advanced-fly.enabled"
                 : "command.advanced-fly.disabled";
         plugin.bundle().sendMessage(player, message);

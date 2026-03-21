@@ -1,4 +1,4 @@
-package net.thenextlvl.utilities.interfaces.pottery.parser.action;
+package net.thenextlvl.utilities.interfaces.pottery.action;
 
 import com.google.gson.JsonObject;
 import io.papermc.paper.datacomponent.DataComponentTypes;

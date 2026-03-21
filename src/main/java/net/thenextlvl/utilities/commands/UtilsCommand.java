@@ -5,7 +5,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
-import net.thenextlvl.utilities.interfaces.UtilitiesGUI;
+import net.thenextlvl.utilities.interfaces.utilities.Utilities;
 import net.thenextlvl.utilities.utils.Permissions;
 import org.bukkit.entity.Player;
 
@@ -27,7 +27,7 @@ public final class UtilsCommand extends SimpleCommand {
     @Override
     public int run(final CommandContext<CommandSourceStack> context) {
         final var player = (Player) context.getSource().getSender();
-        new UtilitiesGUI(plugin, player).open();
+        Utilities.INSTANCE.open(player);
         return SINGLE_SUCCESS;
     }
 }

@@ -1,6 +1,6 @@
 package net.thenextlvl.utilities.listeners;
 
-import net.thenextlvl.utilities.utils.Settings;
+import net.thenextlvl.utilities.setting.Settings;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,7 +21,7 @@ public final class AdvancedFlyListener implements Listener {
     public void onPlayerMove(final PlayerMoveEvent event) {
         if (!event.getPlayer().isFlying()) return;
 
-        if (!Settings.get(event.getPlayer(), Settings.ADVANCED_FLY)) return;
+        if (!Settings.ADVANCED_FLY.get(event.getPlayer())) return;
 
         if (Math.abs(event.getFrom().getYaw() - event.getTo().getYaw()) > 2.5) return;
         if (Math.abs(event.getFrom().getPitch() - event.getTo().getPitch()) > 2.5) return;

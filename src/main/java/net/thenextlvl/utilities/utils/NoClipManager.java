@@ -1,13 +1,14 @@
 package net.thenextlvl.utilities.utils;
 
 import net.thenextlvl.utilities.UtilitiesPlugin;
+import net.thenextlvl.utilities.setting.Settings;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 public final class NoClipManager {
     public static void start(final UtilitiesPlugin plugin) {
         plugin.getServer().getGlobalRegionScheduler().runAtFixedRate(plugin, task -> {
-            Settings.getNoClip().forEach(NoClipManager::updateNoClip);
+            Settings.NO_CLIP.forEachPlayer(NoClipManager::updateNoClip);
         }, 1, 1);
     }
 

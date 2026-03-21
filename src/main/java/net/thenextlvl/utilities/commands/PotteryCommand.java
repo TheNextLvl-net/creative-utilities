@@ -7,8 +7,8 @@ import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
-import net.thenextlvl.utilities.interfaces.pottery.PotteryDesignerGUI;
-import net.thenextlvl.utilities.interfaces.pottery.parser.action.RandomizeActionParser;
+import net.thenextlvl.utilities.interfaces.pottery.PotteryDesigner;
+import net.thenextlvl.utilities.interfaces.pottery.action.RandomizeActionParser;
 import net.thenextlvl.utilities.utils.Permissions;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -34,7 +34,7 @@ public final class PotteryCommand extends SimpleCommand {
     @Override
     public int run(final CommandContext<CommandSourceStack> context) {
         final var player = (Player) context.getSource().getSender();
-        PotteryDesignerGUI.INSTANCE.open(player);
+        PotteryDesigner.INSTANCE.open(player);
         return SINGLE_SUCCESS;
     }
 

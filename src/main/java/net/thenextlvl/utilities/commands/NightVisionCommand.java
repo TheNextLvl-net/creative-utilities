@@ -5,18 +5,11 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
+import net.thenextlvl.utilities.setting.Settings;
 import net.thenextlvl.utilities.utils.Permissions;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public final class NightVisionCommand extends SimpleCommand {
-    private static final PotionEffect nightVision = new PotionEffect(
-            PotionEffectType.NIGHT_VISION,
-            PotionEffect.INFINITE_DURATION,
-            0, true, false
-    );
-
     private NightVisionCommand(final UtilitiesPlugin plugin) {
         super(plugin, plugin.commands().nightVision, Permissions.NIGHT_VISION);
     }
@@ -34,20 +27,10 @@ public final class NightVisionCommand extends SimpleCommand {
     @Override
     public int run(final CommandContext<CommandSourceStack> context) {
         final var player = (Player) context.getSource().getSender();
-        final var message = toggleNightVision(player)
+        final var message = Settings.NIGHT_VISION.toggle(player)
                 ? "command.night-vision.enabled"
                 : "command.night-vision.disabled";
         plugin.bundle().sendMessage(player, message);
         return SINGLE_SUCCESS;
-    }
-
-    private static boolean toggleNightVision(final Player player) {
-        if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
-            player.removePotionEffect(PotionEffectType.NIGHT_VISION);
-            return false;
-        } else {
-            player.addPotionEffect(nightVision);
-            return true;
-        }
     }
 }

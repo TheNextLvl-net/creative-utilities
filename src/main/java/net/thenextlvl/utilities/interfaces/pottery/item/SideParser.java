@@ -1,4 +1,4 @@
-package net.thenextlvl.utilities.interfaces.pottery.parser.item;
+package net.thenextlvl.utilities.interfaces.pottery.item;
 
 import com.google.gson.JsonPrimitive;
 import io.papermc.paper.datacomponent.DataComponentTypes;
@@ -7,7 +7,7 @@ import net.thenextlvl.interfaces.RenderContext;
 import net.thenextlvl.interfaces.reader.DynamicItemParser;
 import net.thenextlvl.interfaces.reader.ParserContext;
 import net.thenextlvl.interfaces.reader.ParserException;
-import net.thenextlvl.utilities.interfaces.pottery.PotteryDesignerGUI;
+import net.thenextlvl.utilities.interfaces.pottery.PotteryDesigner;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.function.BiFunction;
@@ -15,7 +15,7 @@ import java.util.function.BiFunction;
 public final class SideParser implements DynamicItemParser<JsonPrimitive> {
     @Override
     public BiFunction<ItemStack, RenderContext, ItemStack> parse(final JsonPrimitive element, final ParserContext context) throws ParserException {
-        final var side = PotteryDesignerGUI.Side.fromName(element.getAsString());
+        final var side = PotteryDesigner.Side.fromName(element.getAsString());
         return (itemStack, renderContext) -> {
             return renderContext.getState("pot_data", PotDecorations.class).map(data -> {
                 final var itemType = switch (side) {

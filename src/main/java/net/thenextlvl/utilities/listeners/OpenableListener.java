@@ -1,6 +1,6 @@
 package net.thenextlvl.utilities.listeners;
 
-import net.thenextlvl.utilities.utils.Settings;
+import net.thenextlvl.utilities.setting.Settings;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.data.Openable;
@@ -15,7 +15,7 @@ import org.bukkit.inventory.EquipmentSlot;
 public final class OpenableListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerInteract(final PlayerInteractEvent event) {
-        if (!Settings.get(event.getPlayer(), Settings.HAND_OPENABLE)) return;
+        if (!Settings.HAND_OPENABLE.get(event.getPlayer())) return;
         if (!EquipmentSlot.HAND.equals(event.getHand())) return;
         if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) return;
         if (event.getItem() != null && event.getItem().getType().isBlock()) return;

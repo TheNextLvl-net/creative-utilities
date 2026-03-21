@@ -1,7 +1,7 @@
 package net.thenextlvl.utilities.listeners;
 
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import net.thenextlvl.utilities.utils.Settings;
+import net.thenextlvl.utilities.setting.Settings;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -20,8 +20,8 @@ public final class ConnectionListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerJoin(final PlayerJoinEvent event) {
-        Settings.set(event.getPlayer(), Settings.HAND_OPENABLE, true);
-        Settings.set(event.getPlayer(), Settings.SLAB_PART_BREAKING, true);
+        Settings.HAND_OPENABLE.set(event.getPlayer(), true);
+        Settings.SLAB_PART_BREAKING.set(event.getPlayer(), true);
         Optional.ofNullable(event.getPlayer().getAttribute(Attribute.ATTACK_SPEED)).ifPresent(attribute -> {
             final var value = plugin.config().fixAttackSpeed() ? 1024 : attribute.getDefaultValue();
             attribute.setBaseValue(value);

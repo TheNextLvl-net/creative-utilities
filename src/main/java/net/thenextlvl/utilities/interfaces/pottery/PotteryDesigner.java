@@ -6,17 +6,17 @@ import net.thenextlvl.interfaces.Interface;
 import net.thenextlvl.interfaces.reader.InterfaceReader;
 import net.thenextlvl.interfaces.reader.ParserException;
 import net.thenextlvl.utilities.UtilitiesPlugin;
-import net.thenextlvl.utilities.interfaces.pottery.parser.action.GetPotActionParser;
-import net.thenextlvl.utilities.interfaces.pottery.parser.action.OpenSherdEditorActionParser;
-import net.thenextlvl.utilities.interfaces.pottery.parser.action.RandomizeActionParser;
-import net.thenextlvl.utilities.interfaces.pottery.parser.action.UndecorateActionParser;
-import net.thenextlvl.utilities.interfaces.pottery.parser.item.SideParser;
-import net.thenextlvl.utilities.interfaces.pottery.parser.item.UsePotDataParser;
+import net.thenextlvl.utilities.interfaces.pottery.action.GetPotActionParser;
+import net.thenextlvl.utilities.interfaces.pottery.action.OpenSherdEditorActionParser;
+import net.thenextlvl.utilities.interfaces.pottery.action.RandomizeActionParser;
+import net.thenextlvl.utilities.interfaces.pottery.action.UndecorateActionParser;
+import net.thenextlvl.utilities.interfaces.pottery.item.SideParser;
+import net.thenextlvl.utilities.interfaces.pottery.item.UsePotDataParser;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 
-public final class PotteryDesignerGUI {
+public final class PotteryDesigner {
     public static final Interface INSTANCE;
 
     static {

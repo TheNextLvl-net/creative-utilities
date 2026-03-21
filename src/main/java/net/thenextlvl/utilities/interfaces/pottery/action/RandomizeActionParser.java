@@ -1,4 +1,4 @@
-package net.thenextlvl.utilities.interfaces.pottery.parser.action;
+package net.thenextlvl.utilities.interfaces.pottery.action;
 
 import com.google.gson.JsonObject;
 import io.papermc.paper.datacomponent.item.PotDecorations;
@@ -7,20 +7,20 @@ import net.thenextlvl.interfaces.reader.ActionParser;
 import net.thenextlvl.interfaces.reader.ParserConditions;
 import net.thenextlvl.interfaces.reader.ParserContext;
 import net.thenextlvl.interfaces.reader.ParserException;
-import net.thenextlvl.utilities.interfaces.pottery.PotteryDesignerGUI;
+import net.thenextlvl.utilities.interfaces.pottery.PotteryDesigner;
 import org.bukkit.inventory.ItemType;
 import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 
-import static net.thenextlvl.utilities.interfaces.pottery.SherdSelectorGUI.SHERDS;
-import static net.thenextlvl.utilities.interfaces.pottery.parser.action.DecorateActionParser.decorate;
+import static net.thenextlvl.utilities.interfaces.pottery.SherdSelector.SHERDS;
+import static net.thenextlvl.utilities.interfaces.pottery.action.DecorateActionParser.decorate;
 
 public final class RandomizeActionParser implements ActionParser<JsonObject> {
-    private final PotteryDesignerGUI.@Nullable Side side;
+    private final PotteryDesigner.@Nullable Side side;
 
-    public RandomizeActionParser(final PotteryDesignerGUI.@Nullable Side side) {
+    public RandomizeActionParser(final PotteryDesigner.@Nullable Side side) {
         this.side = side;
     }
 

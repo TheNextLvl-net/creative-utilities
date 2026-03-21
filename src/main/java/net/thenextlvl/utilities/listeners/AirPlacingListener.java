@@ -1,6 +1,6 @@
 package net.thenextlvl.utilities.listeners;
 
-import net.thenextlvl.utilities.utils.Settings;
+import net.thenextlvl.utilities.setting.Settings;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -25,7 +25,7 @@ public final class AirPlacingListener implements Listener {
     public void onPlayerMove(final PlayerMoveEvent event) {
         final var player = event.getPlayer();
 
-        if (!Settings.get(player, Settings.AIR_PLACING)) {
+        if (!Settings.AIR_PLACING.get(player)) {
             hideBlock(player);
             return;
         }
