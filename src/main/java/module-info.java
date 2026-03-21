@@ -2,6 +2,7 @@ import org.jspecify.annotations.NullMarked;
 
 @NullMarked
 module creative.utilities.main {
+    requires com.google.common;
     requires com.google.gson;
     requires core.files;
     requires core.paper;
@@ -18,5 +19,4 @@ module creative.utilities.main {
 
     requires static org.jetbrains.annotations;
     requires static org.jspecify;
-    requires com.google.common;
 }
