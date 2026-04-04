@@ -13,11 +13,11 @@ plugins {
 group = "net.thenextlvl.utilities"
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(25))
 }
 
 tasks.compileJava {
-    options.release.set(21)
+    options.release.set(25)
 }
 
 repositories {
@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:26.1.1.build.+")
 
     implementation("net.thenextlvl.core:files:4.0.0-pre1")
     implementation("net.thenextlvl.core:paper:3.0.0-pre1")
@@ -48,7 +48,7 @@ tasks.shadowJar {
 paper {
     name = "CreativeUtilities"
     main = "net.thenextlvl.utilities.UtilitiesPlugin"
-    apiVersion = "1.21.5"
+    apiVersion = "26.1"
     provides = listOf("Builders-Utilities")
     website = "https://thenextlvl.net"
     authors = listOf("Ktar5", "Arcaniax", "NonSwag")
