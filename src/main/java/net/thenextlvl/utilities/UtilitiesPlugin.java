@@ -1,8 +1,8 @@
 package net.thenextlvl.utilities;
 
 import core.file.formats.GsonFile;
-import dev.faststats.bukkit.BukkitMetrics;
-import dev.faststats.core.ErrorTracker;
+import dev.faststats.ErrorTracker;
+import dev.faststats.bukkit.BukkitContext;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.key.Key;
 import net.thenextlvl.i18n.ComponentBundle;
@@ -62,10 +62,10 @@ public final class UtilitiesPlugin extends JavaPlugin {
 
     private final PluginVersionChecker versionChecker = new PluginVersionChecker(this);
 
-    private final BukkitMetrics fastStats = BukkitMetrics.factory()
-            .token("524c53930762784671a459e9f3b45aa4")
-            .errorTracker(ERROR_TRACKER)
-            .create(this);
+    private final BukkitContext context = new BukkitContext.Factory(this, "524c53930762784671a459e9f3b45aa4")
+            .metrics(dev.faststats.Metrics.Factory::create)
+            .errorTrackerService(ERROR_TRACKER)
+            .create();
     private final Metrics metrics = new Metrics(this, 22858);
 
     @Override
@@ -75,7 +75,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        fastStats.ready();
+        context.ready();
         NoClipManager.start(this);
         registerListeners();
         registerCommands();
@@ -83,7 +83,7 @@ public final class UtilitiesPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        fastStats.shutdown();
+        context.shutdown();
         metrics.shutdown();
     }
 

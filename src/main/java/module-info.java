@@ -7,7 +7,7 @@ module creative.utilities.main {
     requires core.files;
     requires core.paper;
     requires dev.faststats.bukkit;
-    requires dev.faststats.core;
+    requires dev.faststats;
     requires net.kyori.adventure.key;
     requires net.kyori.adventure.text.minimessage;
     requires net.kyori.adventure;
