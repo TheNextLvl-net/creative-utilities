@@ -37,7 +37,7 @@ dependencies {
     implementation("net.thenextlvl:i18n:1.2.0")
     implementation("net.thenextlvl:interfaces:0.5.0")
 
-    implementation("dev.faststats.metrics:bukkit:0.25.2")
+    implementation("dev.faststats.metrics:bukkit:0.26.0")
     implementation("org.bstats:bstats-bukkit:3.2.1")
 }
 
