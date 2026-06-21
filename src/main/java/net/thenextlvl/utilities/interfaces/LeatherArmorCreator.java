@@ -11,6 +11,7 @@ import net.thenextlvl.utilities.UtilitiesPlugin;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ItemType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -19,6 +20,9 @@ public final class LeatherArmorCreator {
     private static final String DICE_BLUE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjMyOGYzNzhmMjhhOTg3MjIyNmY1Y2UwNGQ2ZTFkZmExMTE2MTg1ODdmNDhkZmExZmU4MmQwNDMyMTZhNWNmIn19fQ==";
     private static final String DICE_GREEN = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWMzY2VjNjg3NjlmZTljOTcxMjkxZWRiN2VmOTZhNGUzYjYwNDYyY2ZkNWZiNWJhYTFjYmIzYTcxNTEzZTdiIn19fQ==";
     private static final String DICE_RED = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTEzMWRlOGU5NTFmZGQ3YjlhM2QyMzlkN2NjM2FhM2U4NjU1YTMzNmI5OTliOWVkYmI0ZmIzMjljYmQ4NyJ9fX0=";
+    private static final String NO_BLUE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjg0Y2NmZjA5ZjgzYTJhZWQ5ZWJlMDhiNjgxN2VlYzY2N2ZiOTk2ZDEyOTg2Y2I5OGVkZTQxYWY1OGJiMWQifX19";
+    private static final String NO_GREEN = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2QxNWI1ZDc5YmVkYWRjMTQ1ZmExN2NjMzZhMmUwYzliMDg4YjRlZTc0Zjg2ZWE1ODhiZDFhZDhjZGJkMjIifX19";
+    private static final String NO_RED = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGU0YjhiOGQyMzYyYzg2NGUwNjIzMDE0ODdkOTRkMzI3MmE2YjU3MGFmYmY4MGMyYzViMTQ4Yzk1NDU3OWQ0NiJ9fX0=";
     private static final String SOLID_BLUE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjgzOWUzODFkOWZlZGFiNmY4YjU5Mzk2YTI3NjQyMzhkY2ViMmY3ZWVhODU2ZGM2ZmM0NDc2N2RhMzgyZjEifX19";
     private static final String SOLID_GREEN = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzZmNjlmN2I3NTM4YjQxZGMzNDM5ZjM2NThhYmJkNTlmYWNjYTM2NmYxOTBiY2YxZDZkMGEwMjZjOGY5NiJ9fX0=";
     private static final String SOLID_RED = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2Y0NmMzMWQ2ZWU2ZWE2MTlmNzJlNzg1MjMyY2IwNDhhYjI3MDQ2MmRiMGNiMTQ1NDUxNDQzNjI1MWMxYSJ9fX0=";
@@ -37,9 +41,9 @@ public final class LeatherArmorCreator {
                                 "         ")
                         .mask(' ', ItemBuilder.of(Material.GRAY_STAINED_GLASS_PANE).hideTooltip().build())
                         .build());
-        addChannel(builder, 'r', "red", Material.RED_STAINED_GLASS, SOLID_RED, "gui.item.color.red");
-        addChannel(builder, 'g', "green", Material.GREEN_STAINED_GLASS, SOLID_GREEN, "gui.item.color.green");
-        addChannel(builder, 'b', "blue", Material.BLUE_STAINED_GLASS, SOLID_BLUE, "gui.item.color.blue");
+        addChannel(builder, 'r', "red", SOLID_RED, NO_RED, "gui.item.color.red");
+        addChannel(builder, 'g', "green", SOLID_GREEN, NO_GREEN, "gui.item.color.green");
+        addChannel(builder, 'b', "blue", SOLID_BLUE, NO_BLUE, "gui.item.color.blue");
         addDice(builder, 'R', "red", DICE_RED, "gui.item.color.randomize.red");
         addDice(builder, 'G', "green", DICE_GREEN, "gui.item.color.randomize.green");
         addDice(builder, 'B', "blue", DICE_BLUE, "gui.item.color.randomize.blue");
@@ -66,8 +70,10 @@ public final class LeatherArmorCreator {
         }));
     }
 
-    private static void addDice(final Interface.Builder builder, final char key, final String state,
-                                final String texture, final String name) {
+    private static void addDice(
+            final Interface.Builder builder, final char key,
+            final String state, final String texture, final String name
+    ) {
         builder.slot(key, context -> ItemBuilder.of(Material.PLAYER_HEAD)
                 .profileValue(texture)
                 .itemName(plugin.bundle().component(name, context.player()))
@@ -79,18 +85,18 @@ public final class LeatherArmorCreator {
 
     private static void addChannel(
             final Interface.Builder builder, final char key, final String state,
-            final Material fallback, final String texture, final String name
+            final String texture, final String clearTexture, final String name
     ) {
         builder.slot(key, new ActionItem(context -> {
             final int amount = context.getState(state, int.class, 10);
-            final var item = amount == 0
-                    ? ItemBuilder.of(fallback)
-                    : ItemBuilder.of(Material.PLAYER_HEAD).profileValue(texture).amount(amount);
-            return item.itemName(plugin.bundle().component(name, context.player()))
+            return ItemBuilder.of(ItemType.PLAYER_HEAD)
+                    .profileValue(amount == 0 ? clearTexture : texture)
+                    .itemName(plugin.bundle().component(name, context.player()))
                     .lore(Component.empty(),
                             plugin.bundle().component("gui.item.color.left", context.player()),
                             plugin.bundle().component("gui.item.color.right", context.player()),
                             plugin.bundle().component("gui.item.color.shift", context.player()))
+                    .amount(Math.max(1, amount))
                     .build();
         }, context -> {
             context.<Integer>computeState(state, (s, i) -> {
