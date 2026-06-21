@@ -5,7 +5,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.thenextlvl.utilities.UtilitiesPlugin;
 import net.thenextlvl.utilities.commands.brigadier.SimpleCommand;
-import net.thenextlvl.utilities.interfaces.ArmorCreatorGUI;
+import net.thenextlvl.utilities.interfaces.LeatherArmorCreator;
 import net.thenextlvl.utilities.utils.Permissions;
 import org.bukkit.entity.Player;
 
@@ -27,7 +27,7 @@ public final class ColorCommand extends SimpleCommand {
     @Override
     public int run(final CommandContext<CommandSourceStack> context) {
         final var player = (Player) context.getSource().getSender();
-        new ArmorCreatorGUI(plugin, player).open();
+        LeatherArmorCreator.INSTANCE.open(player);
         return SINGLE_SUCCESS;
     }
 }
