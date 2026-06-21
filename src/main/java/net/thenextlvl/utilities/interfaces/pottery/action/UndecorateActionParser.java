@@ -15,7 +15,7 @@ public final class UndecorateActionParser implements ActionParser<JsonPrimitive>
     public Consumer<InterfaceSession> parse(final JsonPrimitive element, final ParserContext context) throws ParserException {
         final var side = PotteryDesigner.Side.fromName(element.getAsString());
         return session -> {
-            var potData = session.getState("pot_data", PotDecorations.class, null);
+            final var potData = session.getState("pot_data", PotDecorations.class, null);
             final var data = DecorateActionParser.decorate(side, potData, null);
             session.setState("pot_data", data);
             session.refresh();
