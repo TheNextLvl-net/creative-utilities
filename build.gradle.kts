@@ -13,15 +13,18 @@ plugins {
 group = "net.thenextlvl.utilities"
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(25))
 }
 
 tasks.compileJava {
     options.release.set(21)
 }
 
+configurations.compileClasspath {
+    attributes.attribute(TargetJvmVersion.TARGET_JVM_VERSION_ATTRIBUTE, 25)
+}
+
 repositories {
-    mavenLocal()
     mavenCentral()
     maven("https://repo.thenextlvl.net/releases")
     maven("https://repo.thenextlvl.net/snapshots")
@@ -29,13 +32,13 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:26.2.build.+")
 
     implementation("net.thenextlvl.core:files:4.0.0-pre1")
-    implementation("net.thenextlvl.core:paper:3.0.0-pre1")
+    implementation("net.thenextlvl.core:paper:3.0.0-pre5")
     implementation("net.thenextlvl.version-checker:modrinth-paper:1.0.1")
     implementation("net.thenextlvl:i18n:1.2.0")
-    implementation("net.thenextlvl:interfaces:0.5.0")
+    implementation("net.thenextlvl:interfaces:0.5.1")
 
     implementation("dev.faststats.metrics:bukkit:0.27.0")
     implementation("org.bstats:bstats-bukkit:3.2.1")

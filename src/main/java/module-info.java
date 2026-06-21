@@ -10,7 +10,6 @@ module creative.utilities.main {
     requires dev.faststats;
     requires net.kyori.adventure.key;
     requires net.kyori.adventure.text.minimessage;
-    requires net.kyori.adventure;
     requires net.thenextlvl.i18n;
     requires net.thenextlvl.interfaces;
     requires net.thenextlvl.version.modrinth.paper;
